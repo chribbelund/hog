@@ -4,18 +4,33 @@
  * and open the template in the editor.
  */
 package hog;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Christoffer
  */
 public class elevStart extends javax.swing.JFrame {
+    
+    private InfDB idb;
+    private validering val;
 
     /**
      * Creates new form elevStart
      */
     public elevStart() {
         initComponents();
+        
+        try {
+            idb = new InfDB("C:\\Users\\Christoffer\\Documents\\NetBeansProjects\\Realisering\\HOGDB.FDB");
+        }
+        catch(InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }
 
     /**
@@ -28,21 +43,28 @@ public class elevStart extends javax.swing.JFrame {
     private void initComponents() {
 
         btnElevhem = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnLarareDatum = new javax.swing.JButton();
         cboxElevhem = new javax.swing.JComboBox<>();
         txtElevhem = new javax.swing.JTextField();
         btnTillbaka = new javax.swing.JButton();
+        btnSokElev = new javax.swing.JButton();
+        btnPokal = new javax.swing.JButton();
+        btnPrefekt = new javax.swing.JButton();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        jTextField1 = new javax.swing.JTextField();
+        svar = new java.awt.TextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnElevhem.setText("Sök Elevhem");
+        btnElevhem.setText("Visa elever i");
         btnElevhem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnElevhemActionPerformed(evt);
             }
         });
 
-        jButton2.setText("jButton2");
+        btnLarareDatum.setText("Visa lärares kurser");
 
         cboxElevhem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slytherin", "Hufflepuff", "Gryffindor", "Ravenclaw" }));
         cboxElevhem.addActionListener(new java.awt.event.ActionListener() {
@@ -64,6 +86,19 @@ public class elevStart extends javax.swing.JFrame {
             }
         });
 
+        btnSokElev.setText("Sök elev");
+
+        btnPokal.setText("Elevhemspokalen");
+
+        btnPrefekt.setText("Visa prefekt i");
+        btnPrefekt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrefektActionPerformed(evt);
+            }
+        });
+
+        svar.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,30 +107,67 @@ public class elevStart extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnTillbaka)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPokal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnElevhem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnSokElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLarareDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPrefekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnTillbaka))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(svar, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtElevhem, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnElevhem)
-                            .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnElevhem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(btnTillbaka)
+                        .addComponent(btnPrefekt))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(cboxElevhem)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSokElev)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLarareDatum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPokal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnTillbaka))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                        .addComponent(jXDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(svar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -105,7 +177,6 @@ public class elevStart extends javax.swing.JFrame {
     private void btnElevhemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevhemActionPerformed
         String itemText = (String)cboxElevhem.getSelectedItem( );
         if(itemText.equals("Slytherin")) {
-            String fraga = ("SELECT ");
             txtElevhem.setText( "Råtta" );
         }
         if(itemText.equals("Hufflepuff")) {
@@ -117,7 +188,28 @@ public class elevStart extends javax.swing.JFrame {
         if(itemText.equals("Ravenclaw")) {
             txtElevhem.setText( "Fried Rice and Chicken" );
         }
-                                
+         
+        try {
+        
+            String fraga = "SELECT ELEV.FORNAMN FROM SOVSAL JOIN ELEV ON ELEV.SOVSAL = SOVSAL.SOVSAL_ID JOIN ELEVHEM ON ELEVHEM.ELEVHEM_ID = SOVSAL.ELEVHEM WHERE ELEVHEMSNAMN= '" + itemText + "'";
+            ArrayList<String> fornamn = idb.fetchColumn(fraga);
+            
+            fraga = "SELECT ELEV.EFTERNAMN FROM SOVSAL JOIN ELEV ON ELEV.SOVSAL = SOVSAL.SOVSAL_ID JOIN ELEVHEM ON ELEVHEM.ELEVHEM_ID = SOVSAL.ELEVHEM WHERE ELEVHEMSNAMN= '" + itemText + "'";
+            ArrayList<String> efternamn = idb.fetchColumn(fraga);
+            
+            String svaret = "";
+            
+            for (int i = 0; i < fornamn.size(); i++) {
+                svaret += fornamn.get(i) + " " + efternamn.get(i) + " " + "\n";
+                
+            }
+            svar.setText(svaret);
+            System.out.println(svaret);
+        }
+        catch(InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
         
     }//GEN-LAST:event_btnElevhemActionPerformed
 
@@ -134,12 +226,58 @@ public class elevStart extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    private void btnPrefektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrefektActionPerformed
+        String itemText = (String)cboxElevhem.getSelectedItem( );
+        if(itemText.equals("Slytherin")) {
+            txtElevhem.setText( "Råtta" );
+        }
+        if(itemText.equals("Hufflepuff")) {
+            txtElevhem.setText( "Fitthamtser" );
+        }
+        if(itemText.equals("Gryffindor")) {
+            txtElevhem.setText( "Lejonpung" );
+        }
+        if(itemText.equals("Ravenclaw")) {
+            txtElevhem.setText( "Fried Rice and Chicken" );
+        }
+         
+        try {
+        
+            String fraga = "SELECT ELEV.FORNAMN FROM ELEVHEM JOIN ELEV ON ELEV.ELEV_ID = ELEVHEM.PREFEKT WHERE ELEVHEM.ELEVHEMSNAMN= '" + itemText + "'";
+            ArrayList<String> fornamn = idb.fetchColumn(fraga);
+            
+            fraga = "SELECT ELEV.EFTERNAMN FROM ELEVHEM JOIN ELEV ON ELEV.ELEV_ID = ELEVHEM.PREFEKT WHERE ELEVHEM.ELEVHEMSNAMN= '" + itemText + "'";
+            ArrayList<String> efternamn = idb.fetchColumn(fraga);
+            
+            String svaret = "";
+            
+            for (int i = 0; i < fornamn.size(); i++) {
+                svaret += fornamn.get(i) + " " + efternamn.get(i) + " " + "\n";
+                
+            }
+            svar.setText(svaret);
+            System.out.println(svaret);
+        }
+        catch(InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+
+    }//GEN-LAST:event_btnPrefektActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnElevhem;
+    private javax.swing.JButton btnLarareDatum;
+    private javax.swing.JButton btnPokal;
+    private javax.swing.JButton btnPrefekt;
+    private javax.swing.JButton btnSokElev;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> cboxElevhem;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTextField jTextField1;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
+    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
+    private java.awt.TextArea svar;
     private javax.swing.JTextField txtElevhem;
     // End of variables declaration//GEN-END:variables
 }
