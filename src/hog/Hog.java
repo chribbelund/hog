@@ -14,6 +14,8 @@ public class Hog {
     /**
      * @param args the command line arguments
      */
+    
+    //Startar programmet genom att köra valElevLarare.java
     public static void main(String[] args) {
         new valElevLarare().setVisible(true);
     }
