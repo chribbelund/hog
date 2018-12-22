@@ -27,12 +27,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="txtElevhem" min="-2" pref="140" max="-2" attributes="0"/>
-                      <EmptySpace min="23" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -48,19 +44,18 @@
                               <Component id="jXDatePicker1" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jXDatePicker2" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cboxElevhem" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
+                                  <Component id="txtNamn" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="32" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="svar" min="-2" pref="281" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>
@@ -84,7 +79,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSokElev" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="txtNamn" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -92,9 +87,7 @@
                       <Component id="btnLarareDatum" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnPokal" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txtElevhem" min="-2" pref="70" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                       <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
@@ -144,11 +137,6 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtElevhem">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtElevhemActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="btnTillbaka">
       <Properties>
         <Property name="text" type="java.lang.String" value="G&#xe5; Tillbaka"/>
@@ -159,8 +147,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSokElev">
       <Properties>
-        <Property name="text" type="java.lang.String" value="S&#xf6;k elev"/>
+        <Property name="text" type="java.lang.String" value="S&#xf6;k elevbetyg"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSokElevActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnPokal">
       <Properties>
@@ -179,7 +170,7 @@
     </Component>
     <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker2">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtNamn">
     </Component>
     <Component class="java.awt.TextArea" name="svar">
       <Properties>
