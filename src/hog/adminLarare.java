@@ -153,7 +153,7 @@ public class adminLarare extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtInputActionPerformed
 
-}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBetygLarare;
@@ -168,3 +168,4 @@ public class adminLarare extends javax.swing.JFrame {
     private javax.swing.JTextArea txtSvar;
     // End of variables declaration//GEN-END:variables
 
+}
