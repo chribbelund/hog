@@ -9,12 +9,12 @@ package hog;
  *
  * @author Christoffer
  */
-public class larareStart extends javax.swing.JFrame {
+public class adminStart extends javax.swing.JFrame {
 
     /**
-     * Creates new form larareStart
+     * Creates new form adminStart
      */
-    public larareStart() {
+    public adminStart() {
         initComponents();
     }
 
@@ -27,7 +27,7 @@ public class larareStart extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnTillbaka = new javax.swing.JToggleButton();
+        btnTillbaka = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,7 +63,11 @@ public class larareStart extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnTillbaka;
+    private javax.swing.JButton btnTillbaka;
     // End of variables declaration//GEN-END:variables
 }

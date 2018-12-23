@@ -9,6 +9,7 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.util.Arrays;
 
 /**
  *
@@ -46,6 +47,35 @@ public class validering { //försöker importera databasen
         }
         
         return result;
+    }
+    public boolean isPasswordCorrect(JTextField txtUsername, char[] txtPassword) {
+        boolean passwordIsCorrect = true;
+        
+        try {
+            String username = txtUsername.getText();
+            String correctPassword = "SELEFT LARARE.LOSENORD FROM LARARE WHERE EFTERNAMN '" + username + "';";
+            String password = idb.fetchSingle(correctPassword);
+            char[] passwordArray = password.toCharArray();
+            
+            if (txtPassword.length != passwordArray.length) {
+                passwordIsCorrect = false;
+            }
+            else {
+                passwordIsCorrect = Arrays.equals(txtPassword, passwordArray);
+            }
+            Arrays.fill(passwordArray, '0');
+        
+        
+        if (!passwordIsCorrect) {
+                JOptionPane.showMessageDialog(null, "Fel lösen. Försök igen");
+                txtUsername.requestFocus();            
+        }
+        }
+        catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+        return passwordIsCorrect;
     }
 }
     

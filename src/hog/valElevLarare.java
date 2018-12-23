@@ -5,6 +5,8 @@
  */
 package hog;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Christoffer
@@ -33,7 +35,7 @@ public class valElevLarare extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnElev.setText("Elev");
+        btnElev.setText("Elever");
         btnElev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnElevActionPerformed(evt);
@@ -55,15 +57,14 @@ public class valElevLarare extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnElev, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)))
+                            .addComponent(btnElev, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(135, 135, 135))
+                    .addComponent(jLabel1))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -87,7 +88,7 @@ public class valElevLarare extends javax.swing.JFrame {
     }//GEN-LAST:event_btnElevActionPerformed
 
     private void btnLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareActionPerformed
-        new larareStart().setVisible(true);
+        new login().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLarareActionPerformed
 
