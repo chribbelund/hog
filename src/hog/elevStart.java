@@ -4,17 +4,21 @@
  * and open the template in the editor.
  */
 package hog;
+
 import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
  * @author Christoffer
  */
 public class elevStart extends javax.swing.JFrame {
-    
+
     private InfDB idb;
     private validering val;
 
@@ -23,11 +27,10 @@ public class elevStart extends javax.swing.JFrame {
      */
     public elevStart() {
         initComponents();
-        
+
         try {
             idb = new InfDB("C:\\Users\\Christoffer\\Documents\\NetBeansProjects\\Realisering\\HOGDB.FDB");
-        }
-        catch(InfException undantag) {
+        } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
@@ -49,8 +52,8 @@ public class elevStart extends javax.swing.JFrame {
         btnSokElev = new javax.swing.JButton();
         btnPokal = new javax.swing.JButton();
         btnPrefekt = new javax.swing.JButton();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        dateStart = new org.jdesktop.swingx.JXDatePicker();
+        dateEnd = new org.jdesktop.swingx.JXDatePicker();
         txtNamn = new javax.swing.JTextField();
         svar = new java.awt.TextArea();
 
@@ -64,6 +67,11 @@ public class elevStart extends javax.swing.JFrame {
         });
 
         btnLarareDatum.setText("Visa lärares kurser");
+        btnLarareDatum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLarareDatumActionPerformed(evt);
+            }
+        });
 
         cboxElevhem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slytherin", "Hufflepuff", "Gryffindor", "Ravenclaw" }));
         cboxElevhem.addActionListener(new java.awt.event.ActionListener() {
@@ -87,11 +95,28 @@ public class elevStart extends javax.swing.JFrame {
         });
 
         btnPokal.setText("Elevhemspokalen");
+        btnPokal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPokalActionPerformed(evt);
+            }
+        });
 
         btnPrefekt.setText("Visa prefekt i");
         btnPrefekt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrefektActionPerformed(evt);
+            }
+        });
+
+        dateStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateStartActionPerformed(evt);
+            }
+        });
+
+        dateEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateEndActionPerformed(evt);
             }
         });
 
@@ -117,9 +142,9 @@ public class elevStart extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,8 +179,8 @@ public class elevStart extends javax.swing.JFrame {
                         .addGap(125, 125, 125)
                         .addComponent(btnTillbaka))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                        .addComponent(jXDatePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(dateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                        .addComponent(dateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
@@ -167,29 +192,28 @@ public class elevStart extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnElevhemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevhemActionPerformed
-        String itemText = (String)cboxElevhem.getSelectedItem( ); //Tar det valda värdet ur comboxboxen och sätter det i en sträng  
+        String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng  
         try {
-        
+
             String fraga = "SELECT ELEV.FORNAMN FROM SOVSAL JOIN ELEV ON ELEV.SOVSAL = SOVSAL.SOVSAL_ID JOIN ELEVHEM ON ELEVHEM.ELEVHEM_ID = SOVSAL.ELEVHEM WHERE ELEVHEMSNAMN= '" + itemText + "'";
             ArrayList<String> fornamn = idb.fetchColumn(fraga);
-            
+
             fraga = "SELECT ELEV.EFTERNAMN FROM SOVSAL JOIN ELEV ON ELEV.SOVSAL = SOVSAL.SOVSAL_ID JOIN ELEVHEM ON ELEVHEM.ELEVHEM_ID = SOVSAL.ELEVHEM WHERE ELEVHEMSNAMN= '" + itemText + "'";
             ArrayList<String> efternamn = idb.fetchColumn(fraga);
-            
+
             String svaret = "";
-            
+
             for (int i = 0; i < fornamn.size(); i++) {
                 svaret += fornamn.get(i) + " " + efternamn.get(i) + " " + "\n";
-                
+
             }
             svar.setText(svaret);
             System.out.println(svaret);
-        }
-        catch(InfException e) {
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
-        
+
     }//GEN-LAST:event_btnElevhemActionPerformed
 
     private void cboxElevhemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxElevhemActionPerformed
@@ -202,25 +226,24 @@ public class elevStart extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnPrefektActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrefektActionPerformed
-        String itemText = (String)cboxElevhem.getSelectedItem( ); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+        String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
         try {
-        
+
             String fraga = "SELECT ELEV.FORNAMN FROM ELEVHEM JOIN ELEV ON ELEV.ELEV_ID = ELEVHEM.PREFEKT WHERE ELEVHEM.ELEVHEMSNAMN= '" + itemText + "'";
             ArrayList<String> fornamn = idb.fetchColumn(fraga);
-            
+
             fraga = "SELECT ELEV.EFTERNAMN FROM ELEVHEM JOIN ELEV ON ELEV.ELEV_ID = ELEVHEM.PREFEKT WHERE ELEVHEM.ELEVHEMSNAMN= '" + itemText + "'";
             ArrayList<String> efternamn = idb.fetchColumn(fraga);
-            
+
             String svaret = "";
-            
+
             for (int i = 0; i < fornamn.size(); i++) {
                 svaret += fornamn.get(i) + " " + efternamn.get(i) + " " + "\n";
-                
+
             }
             svar.setText(svaret);
             System.out.println(svaret);
-        }
-        catch(InfException e) {
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
@@ -229,32 +252,105 @@ public class elevStart extends javax.swing.JFrame {
 
     private void btnSokElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokElevActionPerformed
         try {
-        String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
-        String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-        String efternamn = namn.substring(namn.indexOf(" ")+1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
-        System.out.println(namn);//Internt test
-        System.out.println(fornamn);//Internt test
-        System.out.println(efternamn);//Internt test
-        //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka kurser som eleven läser
-        String fraga = "SELECT KURS.KURSNAMN FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
-        ArrayList<String> kurs = idb.fetchColumn(fraga);
-        //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka betyg som en elev har
-        fraga = "SELECT HAR_BETYG_I.KURSBETYG FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
-        ArrayList<String> betyg = idb.fetchColumn(fraga);
-        //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
-        String svaret = "";
-        
-        for(int i =0; i<betyg.size(); i++) {
-            svaret += betyg.get(i) + " i kursen " + kurs.get(i) + " " + "\n";
+            String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
+            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
+            System.out.println(namn);//Internt test
+            System.out.println(fornamn);//Internt test
+            System.out.println(efternamn);//Internt test
+            //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka kurser som eleven läser
+            String fraga = "SELECT KURS.KURSNAMN FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
+            ArrayList<String> kurs = idb.fetchColumn(fraga);
+            //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka betyg som en elev har
+            fraga = "SELECT HAR_BETYG_I.KURSBETYG FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
+            ArrayList<String> betyg = idb.fetchColumn(fraga);
+            //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
+            String svaret = "";
+
+            for (int i = 0; i < betyg.size(); i++) {
+                svaret += betyg.get(i) + " i kursen " + kurs.get(i) + " " + "\n";
             }
-        
-        svar.setText(svaret);
-        }
-        catch(InfException e) {
+
+            svar.setText(svaret);
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + e.getMessage());            
+            System.out.println("Internt felmeddelande" + e.getMessage());
         }
     }//GEN-LAST:event_btnSokElevActionPerformed
+
+    private void dateStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateStartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateStartActionPerformed
+
+    private void dateEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateEndActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateEndActionPerformed
+
+    private void btnLarareDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareDatumActionPerformed
+        DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd");
+        Date startDatum = dateStart.getDate();
+        Date slutDatum = dateEnd.getDate();
+        String formatStartDatum = formatDatum.format(startDatum);
+        String formatSlutDatum = formatDatum.format(slutDatum);
+        System.out.println(formatStartDatum + formatSlutDatum);
+        try {
+            //String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART BETWEEN '" + formatStartDatum + "' AND '" + formatSlutDatum + "'; ";
+            String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';"; 
+            System.out.println(fraga);
+            ArrayList<String> kursStart = idb.fetchColumn(fraga);
+            //fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSLUT BETWEEN '" + formatStartDatum + "' AND '" + formatSlutDatum + "'; ";
+            System.out.println(fraga);
+            fraga = "SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
+            ArrayList<String> kursLarareFornamn = idb.fetchColumn(fraga);
+            fraga = "SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
+            ArrayList<String> kursLarareEfternamn = idb.fetchColumn(fraga);            
+            String svaret = "";
+            for (int i = 0; i < kursStart.size(); i++) {
+                svaret += kursStart.get(i) + " hålls av ";
+                svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
+            }
+            //for(int i = 0; i < kursLarareFornamn.size(); i++) {
+            //    svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
+            //}
+
+            svar.setText(svaret);
+        }
+        catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnLarareDatumActionPerformed
+
+    private void btnPokalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokalActionPerformed
+        try {
+            String antalHem = "SELECT COUNT(HUSPOANG) FROM ELEVHEM;";
+            System.out.println(antalHem);
+            
+            String antalHemString = idb.fetchSingle(antalHem);
+            int antalHemInt = Integer.parseInt(antalHemString);
+            System.out.println(antalHemInt);
+            
+            String svaret = "";
+            ArrayList<String> husPoang = new ArrayList<String>();
+            ArrayList<String> husNamn = new ArrayList<String>();
+            for(int i = 1; i <= antalHemInt; i++) {
+                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEM_ID = '" + i + "';";
+                husPoang.add(idb.fetchSingle(fraga));
+                
+                fraga = "SELECT ELEVHEMSNAMN FROM ELEVHEM WHERE ELEVHEM_ID = '" + i + "';";
+                husNamn.add(idb.fetchSingle(fraga));
+                
+            }
+            for(int i = 0; i < husNamn.size(); i++) {
+                svaret += husNamn.get(i) + " har " + husPoang.get(i) + " antal poäng. \n";
+            }
+            svar.setText(svaret);
+        }
+        catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnPokalActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -265,8 +361,8 @@ public class elevStart extends javax.swing.JFrame {
     private javax.swing.JButton btnSokElev;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> cboxElevhem;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
+    private org.jdesktop.swingx.JXDatePicker dateEnd;
+    private org.jdesktop.swingx.JXDatePicker dateStart;
     private java.awt.TextArea svar;
     private javax.swing.JTextField txtNamn;
     // End of variables declaration//GEN-END:variables

@@ -41,9 +41,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jXDatePicker1" min="-2" pref="79" max="-2" attributes="0"/>
+                              <Component id="dateStart" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jXDatePicker2" min="-2" pref="79" max="-2" attributes="0"/>
+                              <Component id="dateEnd" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -91,8 +91,8 @@
                       <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jXDatePicker1" pref="32" max="32767" attributes="0"/>
-                      <Component id="jXDatePicker2" max="32767" attributes="0"/>
+                      <Component id="dateStart" pref="32" max="32767" attributes="0"/>
+                      <Component id="dateEnd" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -118,6 +118,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Visa l&#xe4;rares kurser"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLarareDatumActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cboxElevhem">
       <Properties>
@@ -157,6 +160,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Elevhemspokalen"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPokalActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnPrefekt">
       <Properties>
@@ -166,9 +172,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrefektActionPerformed"/>
       </Events>
     </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker1">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="dateStart">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateStartActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="org.jdesktop.swingx.JXDatePicker" name="jXDatePicker2">
+    <Component class="org.jdesktop.swingx.JXDatePicker" name="dateEnd">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dateEndActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNamn">
     </Component>
