@@ -124,6 +124,11 @@ public class elevStart extends javax.swing.JFrame {
         svar.setEditable(false);
 
         btnElevKurs.setText("Sök elevkurser");
+        btnElevKurs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnElevKursActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,10 +180,11 @@ public class elevStart extends javax.swing.JFrame {
                                 .addComponent(btnElevKurs))
                             .addComponent(txtNamn))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnLarareDatum)
-                            .addComponent(dateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateEnd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnLarareDatum)
+                                .addComponent(dateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPokal)
                         .addGap(87, 87, 87)
@@ -357,6 +363,36 @@ public class elevStart extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
     }//GEN-LAST:event_btnPokalActionPerformed
+
+    private void btnElevKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevKursActionPerformed
+        try {
+            String namn = txtNamn.getText(); // Lagrar det som skrivs i txtRutan i variabeln "namn".
+            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
+            System.out.println(namn);//Internt test
+            System.out.println(fornamn);//Internt test
+            System.out.println(efternamn);//Internt test
+            
+            String fraga = "Select KURS.KURSNAMN From ELEV Join REGISTRERAD_PA ON REGISTRERAD_PA.ELEV_ID = ELEV.ELEV_ID Join KURS ON KURS.KURS_ID = REGISTRERAD_PA.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' "; //SQL fråga som hämtar kursnamn för en elev med ett givet namn.
+            ArrayList<String> kurser = idb.fetchColumn(fraga);
+        
+            String svaret = ""; //Skapar en String variabel
+        
+            for(int i = 0; i < kurser.size(); i++) { //Lagrar kurserna på alla indexpositioner i variabeln "svaret".
+            svaret += kurser.get(i) + "\n";
+            }
+        
+            svar.setText(svaret); //Skriver ut kurserna för eleven i rutan.
+        } 
+        catch(InfException ettUndantag) { //Fångar eventuella fel
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + ettUndantag.getMessage());
+            
+        }
+
+            
+        
+    }//GEN-LAST:event_btnElevKursActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
