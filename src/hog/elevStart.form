@@ -191,6 +191,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#xf6;k elevkurser"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnElevKursActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
