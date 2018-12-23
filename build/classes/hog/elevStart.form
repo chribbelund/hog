@@ -26,10 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnPokal" alignment="0" max="32767" attributes="0"/>
@@ -44,18 +41,13 @@
                               <Component id="dateStart" min="-2" pref="79" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="dateEnd" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cboxElevhem" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                  <Component id="txtNamn" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="cboxElevhem" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                          <Component id="txtNamn" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="svar" min="-2" pref="281" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           </Group>

@@ -29,7 +29,7 @@ public class elevStart extends javax.swing.JFrame {
         initComponents();
 
         try {
-            idb = new InfDB("C:\\Users\\Christoffer\\Documents\\NetBeansProjects\\Realisering\\HOGDB.FDB");
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
@@ -324,15 +324,14 @@ public class elevStart extends javax.swing.JFrame {
     private void btnPokalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokalActionPerformed
         try {
             String antalHem = "SELECT COUNT(HUSPOANG) FROM ELEVHEM;"; //Kollar antal elevhem
-            System.out.println(antalHem); //Internt test
             
             String antalHemString = idb.fetchSingle(antalHem); //Tar antal hem och sätter det i en String
             int antalHemInt = Integer.parseInt(antalHemString); //Omvandlar antal hem till en int
             System.out.println(antalHemInt); //Internt test
             
             String svaret = ""; //Tom sträng som används senare
-            ArrayList<String> husPoang = new ArrayList<String>(); //Gör en ArrayList som ska lagra varje hus poäng
-            ArrayList<String> husNamn = new ArrayList<String>(); //Gör en ArrayList som ska lagra alla husnamn
+            ArrayList<String> husPoang = new ArrayList<>(); //Gör en ArrayList som ska lagra varje hus poäng
+            ArrayList<String> husNamn = new ArrayList<>(); //Gör en ArrayList som ska lagra alla husnamn
             //Loopar igenom antal hem och sätter in namn och antal poäng i de två ArrayList som gjordes innan
             for(int i = 1; i <= antalHemInt; i++) {
                 String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEM_ID = '" + i + "';";
