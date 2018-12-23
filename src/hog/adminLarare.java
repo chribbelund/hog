@@ -208,7 +208,25 @@ public class adminLarare extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGeAdminActionPerformed
 
     private void btnTaBortLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLarareActionPerformed
-        // TODO add your handling code here:
+        // TA BORT EN LÄRARE FRÅN DATABASEN
+        
+        try { 
+            String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
+            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
+            System.out.println(namn);//Internt test
+            System.out.println(fornamn);//Internt test
+            System.out.println(efternamn);//Internt test
+            
+            String fraga = "Delete from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
+            idb.update(fraga); //Uppdaterar databasen.
+            
+            
+        }
+        catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }//GEN-LAST:event_btnTaBortLarareActionPerformed
 
     private void btnLararInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLararInfoActionPerformed
