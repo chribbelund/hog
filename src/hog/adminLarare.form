@@ -107,6 +107,9 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGeAdminActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnLararInfo">
       <Properties>
@@ -114,6 +117,9 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLararInfoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnTaBortLarare">
       <Properties>
@@ -121,6 +127,9 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTaBortLarareActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnLarareForestandare">
       <Properties>
@@ -128,6 +137,9 @@
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLarareForestandareActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnBetygLarare">
       <Properties>

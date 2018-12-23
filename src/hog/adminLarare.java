@@ -5,11 +5,18 @@
  */
 package hog;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
  * @author Jamie
  */
 public class adminLarare extends javax.swing.JFrame {
+    
+      private InfDB idb;
 
     /**
      * Creates new form adminLarare
@@ -59,18 +66,38 @@ public class adminLarare extends javax.swing.JFrame {
         btnGeAdmin.setText("Registrera administratör");
         btnGeAdmin.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnGeAdmin.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnGeAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGeAdminActionPerformed(evt);
+            }
+        });
 
         btnLararInfo.setText("Ändra lärarinformation");
         btnLararInfo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLararInfo.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnLararInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLararInfoActionPerformed(evt);
+            }
+        });
 
         btnTaBortLarare.setText("Ta bort lärare");
         btnTaBortLarare.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnTaBortLarare.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnTaBortLarare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTaBortLarareActionPerformed(evt);
+            }
+        });
 
         btnLarareForestandare.setText("Ändra elevhemsföreståndare");
         btnLarareForestandare.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLarareForestandare.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnLarareForestandare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLarareForestandareActionPerformed(evt);
+            }
+        });
 
         btnBetygLarare.setText("Visa betyg från lärare (LÅG)");
         btnBetygLarare.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -152,6 +179,45 @@ public class adminLarare extends javax.swing.JFrame {
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtInputActionPerformed
+
+    private void btnGeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeAdminActionPerformed
+        // REGISTRERA NY ADMIN
+       try { 
+            String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
+            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
+            System.out.println(namn);//Internt test
+            System.out.println(fornamn);//Internt test
+            System.out.println(efternamn);//Internt test
+        
+            String fraga = "Select LARARE.LARAR_ID from LARARE where LARARE.FORNAMN = '" + fornamn + "' AND LARARE.EFTERNAMN = '" + efternamn + "';";
+            String lararID = idb.fetchSingle(fraga);
+            
+            //Skapa kontroll för att se om personen redan är admin?
+            
+            fraga = "Update Larare set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; ";
+            idb.update(fraga);
+            
+       } 
+       catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+           
+           
+    }//GEN-LAST:event_btnGeAdminActionPerformed
+
+    private void btnTaBortLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLarareActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTaBortLarareActionPerformed
+
+    private void btnLararInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLararInfoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLararInfoActionPerformed
+
+    private void btnLarareForestandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareForestandareActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLarareForestandareActionPerformed
 
 
 
