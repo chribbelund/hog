@@ -11,8 +11,7 @@ import oru.inf.InfDB;
  * @author Christoffer
  */
 public class login extends javax.swing.JFrame {
-    
-    private InfDB idb;
+    //Importerar validerinsklassen
     private validering val;
 
     /**
@@ -108,6 +107,7 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
+        //Stänger ner den här rutan och går tillbaka till startsidan
         new valElevLarare().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
@@ -115,21 +115,30 @@ public class login extends javax.swing.JFrame {
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         //Ska vara tomt
     }//GEN-LAST:event_txtUsernameActionPerformed
-
+    //Testknapp, ta bort ur systemet sen (används för att skippa inloggning
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        new adminStart().setVisible(true);
+        new lararStart().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
-
+    //Loggar in användaren i systemet om valideringen stämmer
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Kollar om användarnamnet finns i databasen
         if (val.isUsernameCorrect(txtUsername)) {
+            //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
             if(val.isAdminCorrect(txtUsername) && val.isPasswordCorrect(txtUsername, txtPassword.getPassword())) {
+                //Kör konstruktorn i adminStart och öppnar det fönstret
                 new adminStart().setVisible(true);
+                //Stänger ner login rutan
                 dispose();
             }
         }
+        //Om användaren inte är en admin så körs det här
+        //Här kollas det om användarnamnet stämmer överens med lösenordet
         else if (val.isPasswordCorrect(txtUsername, txtPassword.getPassword()) && val.isUsernameCorrect(txtUsername)) {
+            //Om det ovanstående returnerar true betyder det att användarens lösenord stämmer överens med använarnamnet i databasen
+            //Och då körs konstruktorn i lararStart och öppnar det fönstret
             new lararStart().setVisible(true);
+            //Stänger ner login rutan
             dispose();
     }
     }//GEN-LAST:event_jButton1ActionPerformed

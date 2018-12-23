@@ -294,26 +294,35 @@ public class elevStart extends javax.swing.JFrame {
     }//GEN-LAST:event_dateEndActionPerformed
 
     private void btnLarareDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareDatumActionPerformed
-        DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDatum = dateStart.getDate();
-        System.out.println(startDatum);
-        Date slutDatum = dateEnd.getDate();
-        System.out.println(slutDatum);
-        String formatStartDatum = formatDatum.format(startDatum);
-        String formatSlutDatum = formatDatum.format(slutDatum);
-        System.out.println(formatStartDatum + " " + formatSlutDatum);
+        //DateFormat används för att formattera datumet som skrivs in till ett format som kan användas i en sql fråga
+        DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd"); //Säger att jag senare vill formatera datumet till yyyy-MM-dd
+        Date startDatum = dateStart.getDate(); //Hämtar datumet som användaren fyllt i
+        System.out.println(startDatum); //Internt test
+        Date slutDatum = dateEnd.getDate(); //Hämtar datumet som användaren fyllt i
+        System.out.println(slutDatum); //Internt test
+        String formatStartDatum = formatDatum.format(startDatum); //Gör om datumet till en String med rätt format
+        String formatSlutDatum = formatDatum.format(slutDatum); //Gör om datumet till en String med rätt format
+        System.out.println(formatStartDatum + " " + formatSlutDatum); //Internt test
         try {
-            //String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART BETWEEN '" + formatStartDatum + "' AND '" + formatSlutDatum + "'; ";
-            String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';"; 
-            System.out.println(fraga);
+            //Skapar en sql fråga som hämtar alla kurser som pågår mellan två datum som användaren skrivit in
+            String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
+            System.out.println(fraga); //Internt test
             ArrayList<String> kursStart = idb.fetchColumn(fraga);
-            //fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSLUT BETWEEN '" + formatStartDatum + "' AND '" + formatSlutDatum + "'; ";
             System.out.println(fraga);
+           
+            
+
+            //Kom ihåg att ändra sql fråga så att kravspecen stämmer
+            
+            
+            
+            
             fraga = "SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
             ArrayList<String> kursLarareFornamn = idb.fetchColumn(fraga);
             fraga = "SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
             ArrayList<String> kursLarareEfternamn = idb.fetchColumn(fraga);            
-            String svaret = "";
+            String svaret = ""; //Skapar en tom String för senare utskrift
+            //Loopar igenom antalet kurser och lägger till kursnamn och vem som har kursen i svaret
             for (int i = 0; i < kursStart.size(); i++) {
                 svaret += kursStart.get(i) + " hålls av ";
                 svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
@@ -322,8 +331,9 @@ public class elevStart extends javax.swing.JFrame {
             //    svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
             //}
 
-            svar.setText(svaret);
+            svar.setText(svaret); //Skriver ut svaret i textrutan
         }
+        //Fångar upp felmeddelanden från databasen
         catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
