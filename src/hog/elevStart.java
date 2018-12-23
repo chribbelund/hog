@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 public class elevStart extends javax.swing.JFrame {
 
     private InfDB idb;
-    private validering val;
+    //private validering val;
 
     /**
      * Creates new form elevStart
@@ -49,13 +49,14 @@ public class elevStart extends javax.swing.JFrame {
         btnLarareDatum = new javax.swing.JButton();
         cboxElevhem = new javax.swing.JComboBox<>();
         btnTillbaka = new javax.swing.JButton();
-        btnSokElev = new javax.swing.JButton();
+        btnElevBetyg = new javax.swing.JButton();
         btnPokal = new javax.swing.JButton();
         btnPrefekt = new javax.swing.JButton();
         dateStart = new org.jdesktop.swingx.JXDatePicker();
         dateEnd = new org.jdesktop.swingx.JXDatePicker();
         txtNamn = new javax.swing.JTextField();
         svar = new java.awt.TextArea();
+        btnElevKurs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,10 +88,10 @@ public class elevStart extends javax.swing.JFrame {
             }
         });
 
-        btnSokElev.setText("Sök elevbetyg");
-        btnSokElev.addActionListener(new java.awt.event.ActionListener() {
+        btnElevBetyg.setText("Sök elevbetyg");
+        btnElevBetyg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSokElevActionPerformed(evt);
+                btnElevBetygActionPerformed(evt);
             }
         });
 
@@ -122,6 +123,8 @@ public class elevStart extends javax.swing.JFrame {
 
         svar.setEditable(false);
 
+        btnElevKurs.setText("Sök elevkurser");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,62 +132,60 @@ public class elevStart extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTillbaka)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnTillbaka)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnPokal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnElevhem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSokElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnLarareDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPrefekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnElevKurs, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnElevhem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnElevBetyg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnLarareDatum, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPrefekt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(dateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnPokal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(svar, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnElevhem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPrefekt))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(cboxElevhem)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSokElev)
-                    .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnLarareDatum)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnElevhem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPrefekt))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(cboxElevhem)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnElevBetyg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnElevKurs))
+                            .addComponent(txtNamn))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnLarareDatum)
+                            .addComponent(dateStart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPokal)
-                        .addGap(125, 125, 125)
+                        .addGap(87, 87, 87)
                         .addComponent(btnTillbaka))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(dateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                        .addComponent(dateEnd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(svar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(svar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -204,11 +205,11 @@ public class elevStart extends javax.swing.JFrame {
             String svaret = "";
 
             for (int i = 0; i < fornamn.size(); i++) {
-                svaret += fornamn.get(i) + " " + efternamn.get(i) + " " + "\n";
+                svaret += fornamn.get(i) + " " + efternamn.get(i) + "\n";
 
             }
-            svar.setText(svaret);
-            System.out.println(svaret);
+            svar.setText(svaret); //Skriver ut svaret i svarsrutan
+            System.out.println(svaret); //Internt test
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
@@ -238,7 +239,7 @@ public class elevStart extends javax.swing.JFrame {
             String svaret = "";
 
             for (int i = 0; i < fornamn.size(); i++) {
-                svaret += fornamn.get(i) + " " + efternamn.get(i) + " " + "\n";
+                svaret += fornamn.get(i) + " " + efternamn.get(i) + "\n";
 
             }
             svar.setText(svaret);
@@ -250,7 +251,7 @@ public class elevStart extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPrefektActionPerformed
 
-    private void btnSokElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSokElevActionPerformed
+    private void btnElevBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevBetygActionPerformed
         try {
             String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
             String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
@@ -268,7 +269,7 @@ public class elevStart extends javax.swing.JFrame {
             String svaret = "";
 
             for (int i = 0; i < betyg.size(); i++) {
-                svaret += betyg.get(i) + " i kursen " + kurs.get(i) + " " + "\n";
+                svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
             }
 
             svar.setText(svaret);
@@ -276,7 +277,7 @@ public class elevStart extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
-    }//GEN-LAST:event_btnSokElevActionPerformed
+    }//GEN-LAST:event_btnElevBetygActionPerformed
 
     private void dateStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateStartActionPerformed
         // TODO add your handling code here:
@@ -289,10 +290,12 @@ public class elevStart extends javax.swing.JFrame {
     private void btnLarareDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareDatumActionPerformed
         DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd");
         Date startDatum = dateStart.getDate();
+        System.out.println(startDatum);
         Date slutDatum = dateEnd.getDate();
+        System.out.println(slutDatum);
         String formatStartDatum = formatDatum.format(startDatum);
         String formatSlutDatum = formatDatum.format(slutDatum);
-        System.out.println(formatStartDatum + formatSlutDatum);
+        System.out.println(formatStartDatum + " " + formatSlutDatum);
         try {
             //String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART BETWEEN '" + formatStartDatum + "' AND '" + formatSlutDatum + "'; ";
             String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';"; 
@@ -357,11 +360,12 @@ public class elevStart extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnElevBetyg;
+    private javax.swing.JButton btnElevKurs;
     private javax.swing.JButton btnElevhem;
     private javax.swing.JButton btnLarareDatum;
     private javax.swing.JButton btnPokal;
     private javax.swing.JButton btnPrefekt;
-    private javax.swing.JButton btnSokElev;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> cboxElevhem;
     private org.jdesktop.swingx.JXDatePicker dateEnd;
