@@ -81,12 +81,10 @@
                           <Component id="txtNamn" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="dateEnd" alignment="1" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnLarareDatum" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dateStart" alignment="3" max="32767" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnLarareDatum" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dateStart" alignment="3" max="32767" attributes="0"/>
+                          <Component id="dateEnd" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnPokal" min="-2" max="-2" attributes="0"/>
