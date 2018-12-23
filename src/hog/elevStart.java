@@ -320,19 +320,20 @@ public class elevStart extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
     }//GEN-LAST:event_btnLarareDatumActionPerformed
-
+    
     private void btnPokalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokalActionPerformed
         try {
-            String antalHem = "SELECT COUNT(HUSPOANG) FROM ELEVHEM;";
-            System.out.println(antalHem);
+            String antalHem = "SELECT COUNT(HUSPOANG) FROM ELEVHEM;"; //Kollar antal elevhem
+            System.out.println(antalHem); //Internt test
             
-            String antalHemString = idb.fetchSingle(antalHem);
-            int antalHemInt = Integer.parseInt(antalHemString);
-            System.out.println(antalHemInt);
+            String antalHemString = idb.fetchSingle(antalHem); //Tar antal hem och sätter det i en String
+            int antalHemInt = Integer.parseInt(antalHemString); //Omvandlar antal hem till en int
+            System.out.println(antalHemInt); //Internt test
             
-            String svaret = "";
-            ArrayList<String> husPoang = new ArrayList<String>();
-            ArrayList<String> husNamn = new ArrayList<String>();
+            String svaret = ""; //Tom sträng som används senare
+            ArrayList<String> husPoang = new ArrayList<String>(); //Gör en ArrayList som ska lagra varje hus poäng
+            ArrayList<String> husNamn = new ArrayList<String>(); //Gör en ArrayList som ska lagra alla husnamn
+            //Loopar igenom antal hem och sätter in namn och antal poäng i de två ArrayList som gjordes innan
             for(int i = 1; i <= antalHemInt; i++) {
                 String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEM_ID = '" + i + "';";
                 husPoang.add(idb.fetchSingle(fraga));
@@ -341,11 +342,14 @@ public class elevStart extends javax.swing.JFrame {
                 husNamn.add(idb.fetchSingle(fraga));
                 
             }
+            //Uppdaterar svaret String som sedan blir en utskrift
             for(int i = 0; i < husNamn.size(); i++) {
                 svaret += husNamn.get(i) + " har " + husPoang.get(i) + " antal poäng. \n";
             }
+            //Gör en utskrift i programmet
             svar.setText(svaret);
         }
+        //Fångar eventuella felmeddelanden
         catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());

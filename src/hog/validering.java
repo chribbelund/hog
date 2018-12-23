@@ -30,6 +30,12 @@ public class validering { //försöker importera databasen
         //Validera textfält så det inte är tomt.
     }
     
+    //Tetsa om denna metod fungerar (istället för att skriva samma kod i varje annnan metod)
+    private void databasfel(InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());        
+    }    
+    
     public static boolean txtFieldEmpty(JTextField aktuelltFalt) {
         boolean result = true;
         
