@@ -6,9 +6,6 @@
 package hog;
 
 import oru.inf.InfDB;
-import oru.inf.InfException;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 /**
  *
  * @author Christoffer
@@ -16,18 +13,14 @@ import javax.swing.JOptionPane;
 public class login extends javax.swing.JFrame {
     
     private InfDB idb;
+    private validering val;
 
     /**
      * Creates new form larareStart
      */
     public login() {
         initComponents();
-        try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }        
+        val = new validering();
     }
 
     /**
@@ -43,6 +36,7 @@ public class login extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +60,13 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Login");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,6 +83,10 @@ public class login extends javax.swing.JFrame {
                             .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                             .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(105, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 184, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +97,9 @@ public class login extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnLogin)
-                .addGap(111, 111, 111)
+                .addGap(38, 38, 38)
+                .addComponent(jButton1)
+                .addGap(41, 41, 41)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -106,8 +113,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
-        String username = txtUsername.getText();
-        //password[] = txtPassword.getPassword();
+        //Ska vara tomt
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -115,9 +121,23 @@ public class login extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (val.isUsernameCorrect(txtUsername)) {
+            if(val.isAdminCorrect(txtUsername) && val.isPasswordCorrect(txtUsername, txtPassword.getPassword())) {
+                new adminStart().setVisible(true);
+                dispose();
+            }
+        }
+        else if (val.isPasswordCorrect(txtUsername, txtPassword.getPassword()) && val.isUsernameCorrect(txtUsername)) {
+            new lararStart().setVisible(true);
+            dispose();
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JToggleButton btnTillbaka;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

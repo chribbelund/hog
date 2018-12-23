@@ -10,7 +10,7 @@ import oru.inf.InfException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.util.Arrays;
-
+import java.util.ArrayList;
 /**
  *
  * @author Christoffer
@@ -48,12 +48,36 @@ public class validering { //försöker importera databasen
         
         return result;
     }
+    
+    public boolean isUsernameCorrect (JTextField txtUsername) {
+        boolean correctUsername = false;
+        try {
+            String name = "SELECT LARARE.EFTERNAMN FROM LARARE";
+            ArrayList<String> nameArray = idb.fetchColumn(name);
+            
+            for (String currentName:nameArray) {
+                if(currentName.equals(txtUsername.getText())) {
+                    correctUsername = true;
+                }
+            }
+            
+            if(!correctUsername) {
+                JOptionPane.showMessageDialog(null, "Fel användarnamn!");
+                txtUsername.requestFocus();            
+            }
+        }
+        catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }            
+        return correctUsername;
+    }
     public boolean isPasswordCorrect(JTextField txtUsername, char[] txtPassword) {
         boolean passwordIsCorrect = true;
         
         try {
             String username = txtUsername.getText();
-            String correctPassword = "SELEFT LARARE.LOSENORD FROM LARARE WHERE EFTERNAMN '" + username + "';";
+            String correctPassword = "SELECT LARARE.LOSENORD FROM LARARE WHERE EFTERNAMN = '" + username + "';";
             String password = idb.fetchSingle(correctPassword);
             char[] passwordArray = password.toCharArray();
             
@@ -76,6 +100,27 @@ public class validering { //försöker importera databasen
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
         return passwordIsCorrect;
+    }
+    public boolean isAdminCorrect(JTextField txtUsername) {
+        boolean isAdmin = false;
+        try {
+            String username = txtUsername.getText();
+            String fraga = "SELECT LARARE.ADMINISTRATOR FROM LARARE WHERE EFTERNAMN = '" + username + "';";
+            ArrayList<String> admin = idb.fetchColumn(fraga);
+            String svar = "";
+            
+            for (int i = 0; i < admin.size(); i++) {
+                svar += admin.get(i);
+            }
+            if (svar.equals("T")) {
+                isAdmin = true;
+            }
+        }
+        catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + e.getMessage());
+        }
+        return isAdmin;
     }
 }
     
