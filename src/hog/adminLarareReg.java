@@ -38,7 +38,7 @@ public class adminLarareReg extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
         btnSkapaAnvandare = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtLosenord = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,14 +58,41 @@ public class adminLarareReg extends javax.swing.JFrame {
         labelAdmin.setText("Administratör");
 
         checkBoxAdmin.setText("Kryssa i för adminstatus");
+        checkBoxAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAdminActionPerformed(evt);
+            }
+        });
+
+        txtFaltFornamn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFaltFornamnActionPerformed(evt);
+            }
+        });
+
+        txtFaltEfternamn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFaltEfternamnActionPerformed(evt);
+            }
+        });
 
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);
 
         btnSkapaAnvandare.setText("Skapa lärarkonto");
+        btnSkapaAnvandare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSkapaAnvandareActionPerformed(evt);
+            }
+        });
 
-        jPasswordField1.setText("jPasswordField1");
+        txtLosenord.setText("jPasswordField1");
+        txtLosenord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLosenordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,7 +109,7 @@ public class adminLarareReg extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkBoxAdmin)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                        .addComponent(txtLosenord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                         .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtFaltFornamn, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
@@ -108,15 +135,11 @@ public class adminLarareReg extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelEfternamn)
                             .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(labelLosenord)
-                                .addGap(21, 21, 21))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelLosenord)
+                            .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelAdmin)
                             .addComponent(checkBoxAdmin)))
@@ -136,6 +159,45 @@ public class adminLarareReg extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    private void txtFaltFornamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltFornamnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFaltFornamnActionPerformed
+
+    private void txtFaltEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltEfternamnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFaltEfternamnActionPerformed
+
+    private void checkBoxAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAdminActionPerformed
+        String checkBox = "";
+        
+        if(checkBoxAdmin.isSelected()) {
+            checkBox = "F";
+        } else {
+            checkBox = "T";
+        }
+        return checkBox;
+    }//GEN-LAST:event_checkBoxAdminActionPerformed
+
+    private void btnSkapaAnvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkapaAnvandareActionPerformed
+        try {
+            String fornamn = txtFaltFornamn.getText();
+            String efternamn = txtFaltEfternamn.getText();
+            String pw = txtLosenord.getPassword();
+        
+        if(!fornamn.isEmpty() && !efternamn.isEmpty() && !pw.isEmpty()) {
+            String fraga = "Insert into LARARE (LARAR_ID, FORNAMN, EFTERNAMN, LOSENORD, ADMINISTRATOR) VALUES (" + DEFAULT + ", " + fornamn + ", " + efternamn + ", " + pw + "  ";
+            }
+        }
+        
+        catch() {
+        
+        }
+    }//GEN-LAST:event_btnSkapaAnvandareActionPerformed
+
+    private void txtLosenordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLosenordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLosenordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -145,7 +207,6 @@ public class adminLarareReg extends javax.swing.JFrame {
     private javax.swing.JButton btnSkapaAnvandare;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JCheckBox checkBoxAdmin;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelAdmin;
     private javax.swing.JLabel labelEfternamn;
@@ -153,6 +214,7 @@ public class adminLarareReg extends javax.swing.JFrame {
     private javax.swing.JLabel labelLosenord;
     private javax.swing.JTextField txtFaltEfternamn;
     private javax.swing.JTextField txtFaltFornamn;
+    private javax.swing.JPasswordField txtLosenord;
     private javax.swing.JTextArea txtSvar;
     // End of variables declaration//GEN-END:variables
 }
