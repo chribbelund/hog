@@ -121,6 +121,12 @@ public class elevStart extends javax.swing.JFrame {
             }
         });
 
+        txtNamn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamnActionPerformed(evt);
+            }
+        });
+
         svar.setEditable(false);
 
         btnElevKurs.setText("Sök elevkurser");
@@ -402,6 +408,10 @@ public class elevStart extends javax.swing.JFrame {
             
         
     }//GEN-LAST:event_btnElevKursActionPerformed
+
+    private void txtNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

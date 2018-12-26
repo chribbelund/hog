@@ -173,7 +173,8 @@ public class adminLarare extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnNyLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyLarareActionPerformed
-        // TODO add your handling code here:
+        new adminLarareReg().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnNyLarareActionPerformed
 
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
@@ -207,6 +208,9 @@ public class adminLarare extends javax.swing.JFrame {
            
     }//GEN-LAST:event_btnGeAdminActionPerformed
 
+    
+    //DEN HÄR ÄR INTE KLAR. Lärarna har FKs till andra tabeller och kan därför inte tas bort.
+    //Måste kolla hur vi ska göra? Antar exempelvis att historik om att en lärare hållt en kurs ska sparas
     private void btnTaBortLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLarareActionPerformed
         // TA BORT EN LÄRARE FRÅN DATABASEN
         

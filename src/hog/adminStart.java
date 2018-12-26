@@ -121,5 +121,6 @@ public class adminStart extends javax.swing.JFrame {
     private javax.swing.JButton btnHanteraLarare;
     private javax.swing.JButton btnKurs;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JButton openAdminLarare;
     // End of variables declaration//GEN-END:variables
 }
