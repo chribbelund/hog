@@ -45,8 +45,6 @@ public class adminLarareReg extends javax.swing.JFrame {
         labelEfternamn = new javax.swing.JLabel();
         labelFornamn = new javax.swing.JLabel();
         labelLosenord = new javax.swing.JLabel();
-        labelAdmin = new javax.swing.JLabel();
-        checkBoxAdmin = new javax.swing.JCheckBox();
         txtFaltFornamn = new javax.swing.JTextField();
         txtFaltEfternamn = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,15 +66,6 @@ public class adminLarareReg extends javax.swing.JFrame {
         labelFornamn.setText("Förnamn");
 
         labelLosenord.setText("Lösenord");
-
-        labelAdmin.setText("Administratör");
-
-        checkBoxAdmin.setText("Kryssa i för adminstatus");
-        checkBoxAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxAdminActionPerformed(evt);
-            }
-        });
 
         txtFaltFornamn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,19 +104,16 @@ public class adminLarareReg extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelAdmin)
                     .addComponent(labelFornamn)
                     .addComponent(labelLosenord)
                     .addComponent(labelEfternamn))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxAdmin)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtLosenord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                        .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtFaltFornamn, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtLosenord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                    .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtFaltFornamn, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addGap(22, 22, 22))
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
@@ -152,13 +138,9 @@ public class adminLarareReg extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelLosenord)
-                            .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelAdmin)
-                            .addComponent(checkBoxAdmin)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                            .addComponent(txtLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(btnSkapaAnvandare)
                 .addGap(34, 34, 34)
                 .addComponent(btnTillbaka)
@@ -181,21 +163,11 @@ public class adminLarareReg extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFaltEfternamnActionPerformed
 
-    private void checkBoxAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAdminActionPerformed
-        String checkBox;
-        
-        if(checkBoxAdmin.isSelected()) {
-            checkBox = "F";
-        } else {
-            checkBox = "T";
-        }
-        checkBoxAdmin.setText(checkBox);
-    }//GEN-LAST:event_checkBoxAdminActionPerformed
-
     private void btnSkapaAnvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkapaAnvandareActionPerformed
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
+            //String pw = new String(txtLosenord.getPassword();   funkar detta?
             char pw[] = txtLosenord.getPassword();
             String pws = new String (pw);
             System.out.println(pws);
@@ -203,9 +175,11 @@ public class adminLarareReg extends javax.swing.JFrame {
         if(!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
             String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");
             System.out.println(increment);
-            String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'T');";
+            String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'F');";
             System.out.println(fraga);
             idb.insert(fraga);
+            
+            txtSvar.setText("En ny lärare har registrerats");
         }
         }
         
@@ -227,9 +201,7 @@ public class adminLarareReg extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSkapaAnvandare;
     private javax.swing.JButton btnTillbaka;
-    private javax.swing.JCheckBox checkBoxAdmin;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelAdmin;
     private javax.swing.JLabel labelEfternamn;
     private javax.swing.JLabel labelFornamn;
     private javax.swing.JLabel labelLosenord;
