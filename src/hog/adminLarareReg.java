@@ -5,17 +5,31 @@
  */
 package hog;
 
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
  * @author Jamie
  */
 public class adminLarareReg extends javax.swing.JFrame {
+    
+    private InfDB idb;
 
     /**
      * Creates new form adminLarareReg
      */
     public adminLarareReg() {
         initComponents();
+
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }
 
     /**
@@ -168,29 +182,36 @@ public class adminLarareReg extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFaltEfternamnActionPerformed
 
     private void checkBoxAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAdminActionPerformed
-        String checkBox = "";
+        String checkBox;
         
         if(checkBoxAdmin.isSelected()) {
             checkBox = "F";
         } else {
             checkBox = "T";
         }
-        return checkBox;
+        checkBoxAdmin.setText(checkBox);
     }//GEN-LAST:event_checkBoxAdminActionPerformed
 
     private void btnSkapaAnvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkapaAnvandareActionPerformed
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
-            String pw = txtLosenord.getPassword();
+            char pw[] = txtLosenord.getPassword();
+            String pws = new String (pw);
+            System.out.println(pws);
         
-        if(!fornamn.isEmpty() && !efternamn.isEmpty() && !pw.isEmpty()) {
-            String fraga = "Insert into LARARE (LARAR_ID, FORNAMN, EFTERNAMN, LOSENORD, ADMINISTRATOR) VALUES (" + DEFAULT + ", " + fornamn + ", " + efternamn + ", " + pw + "  ";
-            }
+        if(!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
+            String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");
+            System.out.println(increment);
+            String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'T');";
+            System.out.println(fraga);
+            idb.insert(fraga);
+        }
         }
         
-        catch() {
-        
+        catch(InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
     }//GEN-LAST:event_btnSkapaAnvandareActionPerformed
 
