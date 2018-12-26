@@ -28,6 +28,9 @@ public class adminStart extends javax.swing.JFrame {
     private void initComponents() {
 
         btnTillbaka = new javax.swing.JButton();
+        btnHanteraLarare = new javax.swing.JButton();
+        btnHanteraElev = new javax.swing.JButton();
+        btnKurs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -38,19 +41,50 @@ public class adminStart extends javax.swing.JFrame {
             }
         });
 
+        btnHanteraLarare.setText("Hantera Lärare");
+        btnHanteraLarare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHanteraLarareActionPerformed(evt);
+            }
+        });
+
+        btnHanteraElev.setText("Hantera Elev");
+        btnHanteraElev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHanteraElevActionPerformed(evt);
+            }
+        });
+
+        btnKurs.setText("Hantera Kurs");
+        btnKurs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKursActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnTillbaka)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTillbaka)
+                    .addComponent(btnHanteraLarare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHanteraElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnKurs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(262, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
+                .addComponent(btnHanteraLarare)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHanteraElev)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnKurs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -63,11 +97,29 @@ public class adminStart extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    private void btnHanteraLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHanteraLarareActionPerformed
+        new adminLarare().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnHanteraLarareActionPerformed
+
+    private void btnHanteraElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHanteraElevActionPerformed
+        new adminElev().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnHanteraElevActionPerformed
+
+    private void btnKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKursActionPerformed
+        new adminKurs().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnKursActionPerformed
+
     /**
      * @param args the command line arguments
      */
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnHanteraElev;
+    private javax.swing.JButton btnHanteraLarare;
+    private javax.swing.JButton btnKurs;
     private javax.swing.JButton btnTillbaka;
     // End of variables declaration//GEN-END:variables
 }

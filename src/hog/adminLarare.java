@@ -168,7 +168,7 @@ public class adminLarare extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
-        new valElevLarare().setVisible(true);
+        new adminStart().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
