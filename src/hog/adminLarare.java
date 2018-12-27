@@ -23,6 +23,12 @@ public class adminLarare extends javax.swing.JFrame {
      */
     public adminLarare() {
         initComponents();
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }
 
     /**
@@ -190,15 +196,26 @@ public class adminLarare extends javax.swing.JFrame {
             System.out.println(namn);//Internt test
             System.out.println(fornamn);//Internt test
             System.out.println(efternamn);//Internt test
-            //hiho
         
-            String fraga = "Select LARARE.LARAR_ID from LARARE where LARARE.FORNAMN = '" + fornamn + "' AND LARARE.EFTERNAMN = '" + efternamn + "';";
+            String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';";
             String lararID = idb.fetchSingle(fraga);
+            System.out.println(fraga);
             
-            //Skapa kontroll för att se om personen redan är admin?
+            //Kontroll för att se om läraren redan är admin
             
-            fraga = "Update Larare set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; ";
+            /*String kontrollFraga = "SELECT ADMINISTRATOR FROM LARARE WHERE LARAR_ID = '" + lararID + "'; ";
+            String kontroll = idb.fetchSingle(kontrollFraga);
+            System.out.println(kontroll);
+            
+            if(kontroll.equals("T")) {
+                txtSvar.setText("Läraren är redan admin");
+            */
+            
+            fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; ";
+            System.out.println(fraga);
             idb.update(fraga);
+            
+            txtSvar.setText("Läraren är nu tillagd som admin");
             
        } 
        catch (InfException undantag) {
@@ -235,7 +252,8 @@ public class adminLarare extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTaBortLarareActionPerformed
 
     private void btnLararInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLararInfoActionPerformed
-        // TODO add your handling code here:
+        new adminLarareInfo().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnLararInfoActionPerformed
 
     private void btnLarareForestandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareForestandareActionPerformed
