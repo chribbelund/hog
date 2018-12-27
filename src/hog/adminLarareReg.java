@@ -5,7 +5,6 @@
  */
 package hog;
 
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -167,9 +166,9 @@ public class adminLarareReg extends javax.swing.JFrame {
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
-            //String pw = new String(txtLosenord.getPassword();   funkar detta?
-            char pw[] = txtLosenord.getPassword();
-            String pws = new String (pw);
+            String pws = new String(txtLosenord.getPassword());   //funkar detta?
+            //char pw[] = txtLosenord.getPassword();
+            //String pws = new String (pw);
             System.out.println(pws);
         
         if(!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
