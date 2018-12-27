@@ -23,7 +23,15 @@ public class adminLarareEHF extends javax.swing.JFrame {
      */
     public adminLarareEHF() {
         initComponents();
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
