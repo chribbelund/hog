@@ -301,12 +301,8 @@ public class elevStart extends javax.swing.JFrame {
     private void btnLarareDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareDatumActionPerformed
         //DateFormat används för att formattera datumet som skrivs in till ett format som kan användas i en sql fråga
         DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd"); //Säger att jag senare vill formatera datumet till yyyy-MM-dd
-        Date startDatum = dateStart.getDate(); //Hämtar datumet som användaren fyllt i
-        System.out.println(startDatum); //Internt test
-        Date slutDatum = dateEnd.getDate(); //Hämtar datumet som användaren fyllt i
-        System.out.println(slutDatum); //Internt test
-        String formatStartDatum = formatDatum.format(startDatum); //Gör om datumet till en String med rätt format
-        String formatSlutDatum = formatDatum.format(slutDatum); //Gör om datumet till en String med rätt format
+        String formatStartDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
+        String formatSlutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
         System.out.println(formatStartDatum + " " + formatSlutDatum); //Internt test
         try {
             //Skapar en sql fråga som hämtar alla kurser som pågår mellan två datum som användaren skrivit in

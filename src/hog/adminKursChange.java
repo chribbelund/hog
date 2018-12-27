@@ -5,17 +5,29 @@
  */
 package hog;
 
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
- * @author Jamie
+ * @author Christoffer
  */
-public class adminKurs extends javax.swing.JFrame {
+public class adminKursChange extends javax.swing.JFrame {
 
     /**
-     * Creates new form adminKurs
+     * Creates new form adminKursChange
      */
-    public adminKurs() {
+    
+    private InfDB idb;
+    public adminKursChange() {
         initComponents();
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }        
     }
 
     /**
@@ -28,8 +40,6 @@ public class adminKurs extends javax.swing.JFrame {
     private void initComponents() {
 
         btnTillbaka = new javax.swing.JButton();
-        btnNyKurs = new javax.swing.JButton();
-        btnChangeKurs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,35 +50,19 @@ public class adminKurs extends javax.swing.JFrame {
             }
         });
 
-        btnNyKurs.setText("Lägg Till Kurs");
-        btnNyKurs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNyKursActionPerformed(evt);
-            }
-        });
-
-        btnChangeKurs.setText("Ändra Kurs");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnTillbaka)
-                    .addComponent(btnNyKurs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnChangeKurs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addComponent(btnTillbaka)
+                .addContainerGap(302, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNyKurs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnChangeKurs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addContainerGap(262, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -77,23 +71,11 @@ public class adminKurs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
-        new adminStart().setVisible(true);
+        new adminKurs().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
-    private void btnNyKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyKursActionPerformed
-        new adminKursAdd().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnNyKursActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChangeKurs;
-    private javax.swing.JButton btnNyKurs;
     private javax.swing.JButton btnTillbaka;
     // End of variables declaration//GEN-END:variables
 }
