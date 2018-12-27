@@ -5,17 +5,29 @@
  */
 package hog;
 
+import javax.swing.JOptionPane;
+import oru.inf.InfDB;
+import oru.inf.InfException;
+
 /**
  *
  * @author Christoffer
  */
 public class adminStart extends javax.swing.JFrame {
+    
+    private InfDB idb;
 
     /**
      * Creates new form adminStart
      */
     public adminStart() {
         initComponents();
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }        
     }
 
     /**
@@ -31,6 +43,11 @@ public class adminStart extends javax.swing.JFrame {
         btnHanteraLarare = new javax.swing.JButton();
         btnHanteraElev = new javax.swing.JButton();
         btnKurs = new javax.swing.JButton();
+        btnRemovePoints = new javax.swing.JButton();
+        btnAddPoints = new javax.swing.JButton();
+        cboxElevhem = new javax.swing.JComboBox<>();
+        txtPoang = new javax.swing.JTextField();
+        txtOutput = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +79,29 @@ public class adminStart extends javax.swing.JFrame {
             }
         });
 
+        btnRemovePoints.setText("Ta bort poäng");
+        btnRemovePoints.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovePointsActionPerformed(evt);
+            }
+        });
+
+        btnAddPoints.setText("Lägg till poäng");
+        btnAddPoints.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPointsActionPerformed(evt);
+            }
+        });
+
+        cboxElevhem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slytherin", "Hufflepuff", "Gryffindor", "Ravenclaw" }));
+        cboxElevhem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxElevhemActionPerformed(evt);
+            }
+        });
+
+        txtOutput.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,17 +113,36 @@ public class adminStart extends javax.swing.JFrame {
                     .addComponent(btnHanteraLarare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHanteraElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnKurs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cboxElevhem, 0, 105, Short.MAX_VALUE)
+                            .addComponent(txtPoang))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAddPoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRemovePoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtOutput))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(btnHanteraLarare)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHanteraLarare)
+                    .addComponent(btnRemovePoints)
+                    .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHanteraElev)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHanteraElev)
+                    .addComponent(btnAddPoints)
+                    .addComponent(txtPoang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnKurs)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnKurs)
+                    .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
@@ -112,15 +171,63 @@ public class adminStart extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnKursActionPerformed
 
+    private void cboxElevhemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxElevhemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxElevhemActionPerformed
+
+    private void btnRemovePointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePointsActionPerformed
+        try {
+            String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+            int poang = Integer.parseInt(txtPoang.getText());
+            String fraga ="SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
+            poang = (Integer.parseInt(idb.fetchSingle(fraga)) - poang);
+            System.out.println(poang);
+            fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+            System.out.println(fraga);
+            idb.update(fraga);
+            txtOutput.setText(itemText + " har nu " + poang + " poäng.");
+            
+        }
+        catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }        
+              
+        
+    }//GEN-LAST:event_btnRemovePointsActionPerformed
+
+    private void btnAddPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPointsActionPerformed
+try {
+            String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+            int poang = Integer.parseInt(txtPoang.getText());
+            String fraga ="SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
+            poang = (Integer.parseInt(idb.fetchSingle(fraga)) + poang);
+            System.out.println(poang);
+            fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+            System.out.println(fraga);
+            idb.update(fraga);
+            txtOutput.setText(itemText + " har nu " + poang + " poäng.");
+            
+        }   
+        catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+    }//GEN-LAST:event_btnAddPointsActionPerformed
+
     /**
      * @param args the command line arguments
      */
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddPoints;
     private javax.swing.JButton btnHanteraElev;
     private javax.swing.JButton btnHanteraLarare;
     private javax.swing.JButton btnKurs;
+    private javax.swing.JButton btnRemovePoints;
     private javax.swing.JButton btnTillbaka;
-    private javax.swing.JButton openAdminLarare;
+    private javax.swing.JComboBox<String> cboxElevhem;
+    private javax.swing.JTextField txtOutput;
+    private javax.swing.JTextField txtPoang;
     // End of variables declaration//GEN-END:variables
 }
