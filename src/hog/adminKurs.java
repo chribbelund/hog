@@ -48,6 +48,11 @@ public class adminKurs extends javax.swing.JFrame {
         });
 
         btnChangeKurs.setText("Ändra Kurs");
+        btnChangeKurs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeKursActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,6 +90,11 @@ public class adminKurs extends javax.swing.JFrame {
         new adminKursAdd().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnNyKursActionPerformed
+
+    private void btnChangeKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeKursActionPerformed
+        new adminKursChange().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnChangeKursActionPerformed
 
     /**
      * @param args the command line arguments
