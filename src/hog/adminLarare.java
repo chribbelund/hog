@@ -190,6 +190,7 @@ public class adminLarare extends javax.swing.JFrame {
             System.out.println(namn);//Internt test
             System.out.println(fornamn);//Internt test
             System.out.println(efternamn);//Internt test
+            //hiho
         
             String fraga = "Select LARARE.LARAR_ID from LARARE where LARARE.FORNAMN = '" + fornamn + "' AND LARARE.EFTERNAMN = '" + efternamn + "';";
             String lararID = idb.fetchSingle(fraga);
