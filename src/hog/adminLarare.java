@@ -238,7 +238,8 @@ public class adminLarare extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLararInfoActionPerformed
 
     private void btnLarareForestandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareForestandareActionPerformed
-        // TODO add your handling code here:
+        new adminLarareEHF().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnLarareForestandareActionPerformed
 
 
