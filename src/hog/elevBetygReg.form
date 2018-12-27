@@ -35,7 +35,7 @@
                           </Group>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="110" max="32767" attributes="0"/>
+                      <EmptySpace pref="125" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="255" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -46,7 +46,11 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="txtEfternamn" min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="btnUppdatera" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnNyttBetyg" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnUppdateraBetyg" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
@@ -105,7 +109,10 @@
                   <Component id="txtKursnamn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Component id="btnUppdatera" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnNyttBetyg" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnUppdateraBetyg" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
               <Component id="btnTillbaka" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -124,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Registrera kursbetyg f&#xf6;r elev"/>
+        <Property name="text" type="java.lang.String" value="Hantera kursbetyg f&#xf6;r elev"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -186,15 +193,23 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnUppdatera">
+    <Component class="javax.swing.JButton" name="btnNyttBetyg">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Skapa nytt"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUppdateraActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNyttBetygActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtKursnamn">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnUppdateraBetyg">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Uppdatera befintligt"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUppdateraBetygActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
