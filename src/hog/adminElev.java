@@ -259,7 +259,8 @@ public class adminElev extends javax.swing.JFrame {
             System.out.println(fraga);
             idb.update(fraga);
             txtSvar.setText("En ny prefekt har registrerats");
-        } catch (InfException undantag) {
+        }
+        catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
