@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 public class elevStart extends javax.swing.JFrame {
 
     private InfDB idb;
-    //private validering val;
+    private validering val;
 
     /**
      * Creates new form elevStart
