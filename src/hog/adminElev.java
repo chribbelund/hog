@@ -5,7 +5,6 @@
  */
 package hog;
 
-//test
 
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
