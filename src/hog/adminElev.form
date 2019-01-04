@@ -32,12 +32,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="btnChangeElev" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnAndraPrefekt" max="32767" attributes="0"/>
-                      <Component id="btnTillbaka" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnAddElev" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnDeleteElev" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="btnAndraPrefekt" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnTillbaka" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAddElev" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btnDeleteElev" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
