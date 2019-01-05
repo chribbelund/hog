@@ -5,6 +5,7 @@
  */
 package hog;
 
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -45,13 +46,21 @@ public class lararElev extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtFaltSovsal = new javax.swing.JTextField();
-        txtFaltFornamn = new javax.swing.JTextField();
-        txtFaltEfternamn = new javax.swing.JTextField();
+        txtFaltFornamnNy = new javax.swing.JTextField();
+        txtFaltEfternamnNy = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtOutput = new javax.swing.JTextArea();
         btnGeneratePW = new javax.swing.JButton();
         btnListaElever = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtFaltFornamnOld = new javax.swing.JTextField();
+        txtFaltEfternamnOld = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtFaltSovsalNew = new javax.swing.JTextField();
+        txtFaltSovsalOld = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +71,7 @@ public class lararElev extends javax.swing.JFrame {
             }
         });
 
-        btnAddElev.setText("Registrera Elev");
+        btnAddElev.setText("Registrera ny elev");
         btnAddElev.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAddElev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +79,7 @@ public class lararElev extends javax.swing.JFrame {
             }
         });
 
-        btnChangeElev.setText("Ändra Elevinfo");
+        btnChangeElev.setText("Ändra elevuppgifter");
         btnChangeElev.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnChangeElev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,21 +101,15 @@ public class lararElev extends javax.swing.JFrame {
 
         jLabel3.setText("Sovsal");
 
-        txtFaltSovsal.addActionListener(new java.awt.event.ActionListener() {
+        txtFaltFornamnNy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFaltSovsalActionPerformed(evt);
+                txtFaltFornamnNyActionPerformed(evt);
             }
         });
 
-        txtFaltFornamn.addActionListener(new java.awt.event.ActionListener() {
+        txtFaltEfternamnNy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFaltFornamnActionPerformed(evt);
-            }
-        });
-
-        txtFaltEfternamn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFaltEfternamnActionPerformed(evt);
+                txtFaltEfternamnNyActionPerformed(evt);
             }
         });
 
@@ -120,6 +123,21 @@ public class lararElev extends javax.swing.JFrame {
         btnListaElever.setText("Lista elever //LÅG");
         btnListaElever.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel4.setText("Nya uppg.");
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel5.setText("Gamla uppg.*");
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setText("Elevadministration");
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
+        jLabel7.setText("*Används bara vid uppdatering av befintlig elev.");
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel8.setText("Betysadministration");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,69 +146,96 @@ public class lararElev extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnChangeElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAddElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFaltFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnChangeElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnAddElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jLabel6))
+                                .addGap(85, 85, 85)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(txtFaltSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(26, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)))
+                            .addComponent(btnListaElever)
+                            .addComponent(btnGeneratePW))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(31, 31, 31))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtFaltSovsalNew, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtFaltFornamnNy, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                            .addComponent(txtFaltEfternamnNy))
+                                        .addComponent(jLabel4)))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addComponent(jLabel5))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtFaltFornamnOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtFaltEfternamnOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtFaltSovsalOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(51, 51, 51))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnHanteraBetyg)
-                            .addComponent(btnGeneratePW)
-                            .addComponent(btnListaElever))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel8)
+                            .addComponent(btnHanteraBetyg))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddElev)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFaltFornamnNy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFaltFornamnOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnChangeElev)
+                    .addComponent(jLabel2)
+                    .addComponent(txtFaltEfternamnNy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFaltEfternamnOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtFaltSovsalNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFaltSovsalOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddElev)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChangeElev))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFaltFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFaltSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHanteraBetyg)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGeneratePW)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnGeneratePW)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnListaElever)
-                        .addGap(76, 76, 76)
-                        .addComponent(btnTillbaka))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
-                .addContainerGap())
+                        .addGap(17, 17, 17)))
+                .addComponent(btnTillbaka)
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -203,9 +248,10 @@ public class lararElev extends javax.swing.JFrame {
 
     private void btnAddElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddElevActionPerformed
         try {
-            String fornamn = txtFaltFornamn.getText();
-            String efternamn = txtFaltEfternamn.getText();
-            String sovsal = txtFaltSovsal.getText();
+            String fornamn = txtFaltFornamnNy.getText();
+            String efternamn = txtFaltEfternamnNy.getText();
+            String sovsal = txtFaltSovsalNew.getText();
+            
 
             //Combobox för att välja sovsal?
             if (!fornamn.isEmpty() && !efternamn.isEmpty() && !sovsal.isEmpty()) {
@@ -216,6 +262,9 @@ public class lararElev extends javax.swing.JFrame {
                 idb.insert(fraga);
 
                 txtOutput.setText("En ny elev har registrerats");
+                txtFaltFornamnNy.setText(null);
+                txtFaltEfternamnNy.setText(null);
+                txtFaltSovsalNew.setText(null);
             }
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
             JOptionPane.showMessageDialog(null, "Något gick fel!");
@@ -224,21 +273,45 @@ public class lararElev extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddElevActionPerformed
 
     private void btnChangeElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeElevActionPerformed
-        //new lararElevInfo().setVisible(true);
-        //dispose();
+        String nyttFnamn = txtFaltFornamnNy.getText();
+        String nyttEnamn = txtFaltEfternamnNy.getText();
+        String newSovsal = txtFaltSovsalNew.getText();
+        String oldFnamn = txtFaltFornamnOld.getText();
+        String oldEnamn = txtFaltEfternamnOld.getText();
+        String oldSovsal = txtFaltSovsalOld.getText();
+        
+        try { 
+        String z = idb.fetchSingle("SELECT FORNAMN FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' ");
+        String x = idb.fetchSingle("SELECT EFTERNAMN FROM ELEV WHERE EFTERNAMN = '" + oldEnamn + "' ");
+        String y = idb.fetchSingle("SELECT SOVSAL FROM ELEV WHERE SOVSAL = '" + oldSovsal + "' ");
+        
+            if(!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) {
+                JOptionPane.showMessageDialog(null, "Du har angett fel värden.");
+            }
+            String temp = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' AND EFTERNAMN = '" + oldEnamn + "' AND SOVSAL = '" + oldSovsal + "' ");
+            idb.update("UPDATE ELEV SET FORNAMN = '" + nyttFnamn + "', EFTERNAMN = '" + nyttEnamn + "', SOVSAL = '" + newSovsal + "' WHERE ELEV_ID = '" + temp + "' ");
+            
+            txtOutput.setText("Elevens information har uppdateras");
+            txtFaltFornamnNy.setText(null);
+            txtFaltEfternamnNy.setText(null);
+            txtFaltSovsalNew.setText(null);
+             txtFaltFornamnOld.setText(null);
+            txtFaltEfternamnOld.setText(null);
+            txtFaltSovsalOld.setText(null);
+            
+        } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
+        JOptionPane.showMessageDialog(null, "Något gick fel!");
+        System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }//GEN-LAST:event_btnChangeElevActionPerformed
 
-    private void txtFaltSovsalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltSovsalActionPerformed
+    private void txtFaltFornamnNyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltFornamnNyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFaltSovsalActionPerformed
+    }//GEN-LAST:event_txtFaltFornamnNyActionPerformed
 
-    private void txtFaltFornamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltFornamnActionPerformed
+    private void txtFaltEfternamnNyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltEfternamnNyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFaltFornamnActionPerformed
-
-    private void txtFaltEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFaltEfternamnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFaltEfternamnActionPerformed
+    }//GEN-LAST:event_txtFaltEfternamnNyActionPerformed
 
     private void btnHanteraBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHanteraBetygActionPerformed
         new elevBetygReg().setVisible(true);
@@ -260,10 +333,18 @@ public class lararElev extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtFaltEfternamn;
-    private javax.swing.JTextField txtFaltFornamn;
-    private javax.swing.JTextField txtFaltSovsal;
+    private javax.swing.JTextField txtFaltEfternamnNy;
+    private javax.swing.JTextField txtFaltEfternamnOld;
+    private javax.swing.JTextField txtFaltFornamnNy;
+    private javax.swing.JTextField txtFaltFornamnOld;
+    private javax.swing.JTextField txtFaltSovsalNew;
+    private javax.swing.JTextField txtFaltSovsalOld;
     private javax.swing.JTextArea txtOutput;
     // End of variables declaration//GEN-END:variables
 }
