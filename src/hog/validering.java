@@ -122,6 +122,59 @@ public class validering { //försöker importera databasen
         }
         return isAdmin;
     }
+    
+    //Metoden kollar om en det som skrivits i fältet är en String.
+    public static boolean isString(JTextField aktuelltFalt) {
+        boolean isString = false;
+        
+        if(aktuelltFalt.getText().matches("[a-zA-Z]+")) {
+            isString = true;
+        }
+        return isString;
+    }
+    
+    //Metoden kollar om det som skrivits i fältet är en Integer
+    public static boolean isInt(JTextField aktuelltFalt) {
+        boolean searching = true;
+        
+        try{
+            String enString = aktuelltFalt.getText();
+            Integer.parseInt(enString);
+            aktuelltFalt.requestFocus();
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Ange ett heltal");
+            searching = false;
+        }
+        return searching;
+    }
+    
+    //Metoden kollar om värdet i fältet är positivt
+    public static boolean positivtTal(JTextField aktuelltFalt){
+        boolean searching = true;
+        if(aktuelltFalt.getText().substring(0).equals("-")){
+           searching = false;
+           aktuelltFalt.requestFocus();  
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Endast positiva värden");
+        }
+        return searching;
+    }
+    
+    //Metoden kollar om värdet i fältet är positivt
+    public static boolean negativtTal(JTextField aktuelltFalt){
+        boolean searching = true;
+        if(!aktuelltFalt.getText().substring(0).equals("-")){
+           searching = false;
+           aktuelltFalt.requestFocus();  
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Endast positiva värden");
+        }
+        return searching;
+    }
+        
 }
     
 
