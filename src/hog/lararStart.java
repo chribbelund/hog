@@ -5,6 +5,8 @@
  */
 package hog;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -16,12 +18,15 @@ import oru.inf.InfException;
 public class lararStart extends javax.swing.JFrame {
     
     private InfDB idb;
+     //Importerar validerinsklassen
+    private validering val;
 
     /**
      * Creates new form lararStart
      */
     public lararStart() {
         initComponents();
+        val = new validering();
           try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
@@ -42,7 +47,7 @@ public class lararStart extends javax.swing.JFrame {
         btnTillbaka = new javax.swing.JButton();
         btnChangePassword = new javax.swing.JButton();
         btnAddStudent = new javax.swing.JButton();
-        txtNewPassword = new javax.swing.JPasswordField();
+        txtOldPW = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         cboxElevhem = new javax.swing.JComboBox<>();
         btnRemovePoints = new javax.swing.JButton();
@@ -50,6 +55,14 @@ public class lararStart extends javax.swing.JFrame {
         txtPoang = new javax.swing.JTextField();
         txtOutput = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtNewPW2 = new javax.swing.JPasswordField();
+        jLabel5 = new javax.swing.JLabel();
+        txtNewPW1 = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +87,8 @@ public class lararStart extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nytt Lösenord");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setText("Ändra lösenord");
 
         cboxElevhem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slytherin", "Hufflepuff", "Gryffindor", "Ravenclaw" }));
         cboxElevhem.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +98,7 @@ public class lararStart extends javax.swing.JFrame {
         });
 
         btnRemovePoints.setText("Ta bort poäng");
+        btnRemovePoints.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnRemovePoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemovePointsActionPerformed(evt);
@@ -91,6 +106,7 @@ public class lararStart extends javax.swing.JFrame {
         });
 
         btnAddPoints.setText("Lägg till poäng");
+        btnAddPoints.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAddPoints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddPointsActionPerformed(evt);
@@ -99,54 +115,96 @@ public class lararStart extends javax.swing.JFrame {
 
         txtOutput.setEditable(false);
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Hantera huspoäng");
+
+        jLabel3.setText("Ange gammalt lösenord");
+
+        jLabel4.setText("Ange nytt lösenord");
+
+        jLabel5.setText("Ange nytt lösenord igen");
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel6.setText("Elevadministration");
+
+        jLabel7.setText("Ange användarnamn");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(btnTillbaka)
+                        .addContainerGap(524, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnTillbaka)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cboxElevhem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtPoang, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnAddPoints)
-                                    .addComponent(btnRemovePoints)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnChangePassword)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(jLabel1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAddStudent))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel2)))
-                .addContainerGap(260, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cboxElevhem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtPoang, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnAddPoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnRemovePoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btnChangePassword)
+                                    .addComponent(jLabel6)
+                                    .addComponent(btnAddStudent)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtUsername)
+                                                .addGap(24, 24, 24)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtOldPW, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(txtNewPW1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(txtNewPW2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel1)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnChangePassword)
-                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addComponent(txtOldPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNewPW2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNewPW1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(btnChangePassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddStudent)
-                .addGap(30, 30, 30)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -156,9 +214,9 @@ public class lararStart extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddPoints)
                     .addComponent(txtPoang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(14, 14, 14)
                 .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -172,7 +230,28 @@ public class lararStart extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        // TODO add your handling code here:
+        String username = txtUsername.getText();
+        String temp = new String(txtOldPW.getPassword());
+        char[] nuvarandeLosen = temp.toCharArray();
+        String nyttLosen = new String(txtNewPW1.getPassword());
+        String nyttLosenKontroll = new String(txtNewPW2.getPassword());
+        
+        
+        try {   
+            if(val.isUsernameCorrect(txtUsername)) {
+                if(val.isPasswordCorrect(txtUsername, nuvarandeLosen)) {
+                    if(!nyttLosen.equals(nyttLosenKontroll)) {
+                        JOptionPane.showMessageDialog(null, "Ditt nya lösenord stämmer ej överens.");
+                    }
+                idb.update("UPDATE LARARE SET LOSENORD = '" + nyttLosen + "' WHERE EFTERNAMN = '" + username + "' ");
+                txtOutput.setText("Ditt lösenord har ändrats");
+                }
+            }
+        }
+        catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
@@ -185,6 +264,7 @@ public class lararStart extends javax.swing.JFrame {
     }//GEN-LAST:event_cboxElevhemActionPerformed
 
     private void btnRemovePointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePointsActionPerformed
+        if(validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
         try {
             String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             int poang = Integer.parseInt(txtPoang.getText());
@@ -201,10 +281,12 @@ public class lararStart extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
+        }
 
     }//GEN-LAST:event_btnRemovePointsActionPerformed
 
     private void btnAddPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPointsActionPerformed
+        if(validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
         try {
             String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             int poang = Integer.parseInt(txtPoang.getText());
@@ -221,6 +303,7 @@ public class lararStart extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
+        }
     }//GEN-LAST:event_btnAddPointsActionPerformed
 
     /**
@@ -236,8 +319,16 @@ public class lararStart extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxElevhem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPasswordField txtNewPW1;
+    private javax.swing.JPasswordField txtNewPW2;
+    private javax.swing.JPasswordField txtOldPW;
     private javax.swing.JTextField txtOutput;
     private javax.swing.JTextField txtPoang;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
