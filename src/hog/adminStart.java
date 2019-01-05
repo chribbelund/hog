@@ -176,6 +176,7 @@ public class adminStart extends javax.swing.JFrame {
     }//GEN-LAST:event_cboxElevhemActionPerformed
 
     private void btnRemovePointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePointsActionPerformed
+        if(validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
         try {
             String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             int poang = Integer.parseInt(txtPoang.getText());
@@ -188,16 +189,16 @@ public class adminStart extends javax.swing.JFrame {
             txtOutput.setText(itemText + " har nu " + poang + " poäng.");
             
         }
-        catch (InfException undantag) {
+            catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }        
-              
-        
+            }  
+        }
     }//GEN-LAST:event_btnRemovePointsActionPerformed
 
     private void btnAddPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPointsActionPerformed
-try {
+        if(validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {    
+        try {
             String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             int poang = Integer.parseInt(txtPoang.getText());
             String fraga ="SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
@@ -209,9 +210,10 @@ try {
             txtOutput.setText(itemText + " har nu " + poang + " poäng.");
             
         }   
-        catch (InfException undantag) {
+            catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
+            }
         }
     }//GEN-LAST:event_btnAddPointsActionPerformed
 

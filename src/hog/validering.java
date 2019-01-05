@@ -163,6 +163,7 @@ public class validering { //försöker importera databasen
     }
     
     //Metoden kollar om värdet i fältet är positivt
+    //Funkar ej atm
     public static boolean negativtTal(JTextField aktuelltFalt){
         boolean searching = true;
         if(!aktuelltFalt.getText().substring(0).equals("-")){
@@ -170,7 +171,7 @@ public class validering { //försöker importera databasen
            aktuelltFalt.requestFocus();  
         }
         else{
-            JOptionPane.showMessageDialog(null, "Endast positiva värden");
+            JOptionPane.showMessageDialog(null, "Endast negativa värden");
         }
         return searching;
     }
