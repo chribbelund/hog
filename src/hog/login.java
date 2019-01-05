@@ -130,17 +130,14 @@ public class login extends javax.swing.JFrame {
                 new adminStart().setVisible(true);
                 //Stänger ner login rutan
                 dispose();
+                } else if (val.isPasswordCorrect(txtUsername, txtPassword.getPassword()) && val.isUsernameCorrect(txtUsername)) {
+                //Om det ovanstående returnerar true betyder det att användarens lösenord stämmer överens med använarnamnet i databasen
+                //Och då körs konstruktorn i lararStart och öppnar det fönstret
+                new lararStart().setVisible(true);
+                //Stänger ner login rutan
+                dispose();
             }
         }
-        //Om användaren inte är en admin så körs det här
-        //Här kollas det om användarnamnet stämmer överens med lösenordet
-        else if (val.isPasswordCorrect(txtUsername, txtPassword.getPassword()) && val.isUsernameCorrect(txtUsername)) {
-            //Om det ovanstående returnerar true betyder det att användarens lösenord stämmer överens med använarnamnet i databasen
-            //Och då körs konstruktorn i lararStart och öppnar det fönstret
-            new lararStart().setVisible(true);
-            //Stänger ner login rutan
-            dispose();
-    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
