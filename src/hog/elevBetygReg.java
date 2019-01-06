@@ -188,20 +188,15 @@ public class elevBetygReg extends javax.swing.JFrame {
         //Registrerar ett nytt betyg för en elev på en kurs. OTESTAD!
         //Den här metoden behöver något som auto incrementar HAR_BETYG_I
 
-        
         try {
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
             String kursnamn = txtKursnamn.getText();
             String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
             String betygKort = betyget.substring(0,1);
-            //System.out.println(betygKort);
-            
-            //test
-            String test = idb.getAutoIncrement("HAR_BETYG_I", "Row number");
-            System.out.println(test);
-            
-            
+            System.out.println(betygKort);
+
+           
             //Hitta elevens elev id basserat på namnet
             String elevID = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ");
             
@@ -212,17 +207,14 @@ public class elevBetygReg extends javax.swing.JFrame {
             String betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
             
             //Skapa kursbetyget om kursbetyg inte har ett värde
-            if(betygFraga != null) {
-                String increment = idb.getAutoIncrement("HAR_BETYG_I", "LARAR_ID");
-                System.out.println(increment);
+            //if(betygFraga != null) {
                 
-                
-                idb.update("UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ");
+                idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' "+elevID + "', '" +kursID+" ' , '" +betygKort + " ')");
                 txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
                 txtFornamn.setText(null);
                 txtEfternamn.setText(null);
                 txtKursnamn.setText(null);
-            } 
+            //} 
             
             JOptionPane.showMessageDialog(null, "Eleven har redan ett betyg i den kursen.");
 

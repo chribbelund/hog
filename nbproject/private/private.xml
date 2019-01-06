@@ -5,9 +5,12 @@
         <group>
             <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/lararStart.java</file>
             <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/lararElev.java</file>
+            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/adminLarareReg.java</file>
             <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/adminLarareInfo.java</file>
             <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/login.java</file>
             <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/validering.java</file>
+            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/valElevLarare.java</file>
+            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/elevBetygReg.java</file>
         </group>
     </open-files>
 </project-private>
