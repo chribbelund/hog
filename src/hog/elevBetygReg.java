@@ -186,8 +186,8 @@ public class elevBetygReg extends javax.swing.JFrame {
 
     private void btnNyttBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyttBetygActionPerformed
         //Registrerar ett nytt betyg för en elev på en kurs. OTESTAD!
-        //Måste ha en kontrollfunktion som kollar att ett betyg inte redan finns för eleven på den kursen.
-        
+        //Den här metoden behöver något som auto incrementar HAR_BETYG_I
+
         
         try {
             String fornamn = txtFornamn.getText();
@@ -195,24 +195,37 @@ public class elevBetygReg extends javax.swing.JFrame {
             String kursnamn = txtKursnamn.getText();
             String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
             String betygKort = betyget.substring(0,1);
-            System.out.println(betygKort);
-           
+            //System.out.println(betygKort);
+            
+            //test
+            String test = idb.getAutoIncrement("HAR_BETYG_I", "Row number");
+            System.out.println(test);
+            
             
             //Hitta elevens elev id basserat på namnet
-            String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
-            String elevID = idb.fetchSingle(fraga);
+            String elevID = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ");
             
             //Hitta kursens kursID baserat på kursnamn
-            String fraga2 = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ";
-            String kursID = idb.fetchSingle(fraga2);
+            String kursID = idb.fetchSingle("SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ");
             
-            //Uppdatera kursbetyget
-            String fraga3 = "UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ";
-            idb.update(fraga3);
+            //Kollar vad för betyg som finns för elev på viss kurs
+            String betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
             
-            txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
+            //Skapa kursbetyget om kursbetyg inte har ett värde
+            if(betygFraga != null) {
+                String increment = idb.getAutoIncrement("HAR_BETYG_I", "LARAR_ID");
+                System.out.println(increment);
+                
+                
+                idb.update("UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ");
+                txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
+                txtFornamn.setText(null);
+                txtEfternamn.setText(null);
+                txtKursnamn.setText(null);
+            } 
             
-        
+            JOptionPane.showMessageDialog(null, "Eleven har redan ett betyg i den kursen.");
+
         } catch(InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
