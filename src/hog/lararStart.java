@@ -16,9 +16,9 @@ import oru.inf.InfException;
  * @author Christoffer
  */
 public class lararStart extends javax.swing.JFrame {
-    
+
     private InfDB idb;
-     //Importerar validerinsklassen
+    //Importerar validerinsklassen
     private validering val;
 
     /**
@@ -27,12 +27,12 @@ public class lararStart extends javax.swing.JFrame {
     public lararStart() {
         initComponents();
         val = new validering();
-          try {
+        try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }    
+        }
     }
 
     /**
@@ -235,20 +235,18 @@ public class lararStart extends javax.swing.JFrame {
         char[] nuvarandeLosen = temp.toCharArray();
         String nyttLosen = new String(txtNewPW1.getPassword());
         String nyttLosenKontroll = new String(txtNewPW2.getPassword());
-        
-        
-        try {   
-            if(val.isUsernameCorrect(txtUsername)) {
-                if(val.isPasswordCorrect(txtUsername, nuvarandeLosen)) {
-                    if(!nyttLosen.equals(nyttLosenKontroll)) {
+
+        try {
+            if (val.isUsernameCorrect(txtUsername)) {
+                if (val.isPasswordCorrect(txtUsername, nuvarandeLosen)) {
+                    if (!nyttLosen.equals(nyttLosenKontroll)) {
                         JOptionPane.showMessageDialog(null, "Ditt nya lösenord stämmer ej överens.");
                     }
-                idb.update("UPDATE LARARE SET LOSENORD = '" + nyttLosen + "' WHERE EFTERNAMN = '" + username + "' ");
-                txtOutput.setText("Ditt lösenord har ändrats");
+                    idb.update("UPDATE LARARE SET LOSENORD = '" + nyttLosen + "' WHERE EFTERNAMN = '" + username + "' ");
+                    txtOutput.setText("Ditt lösenord har ändrats");
                 }
             }
-        }
-        catch (InfException undantag) {
+        } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
@@ -264,45 +262,43 @@ public class lararStart extends javax.swing.JFrame {
     }//GEN-LAST:event_cboxElevhemActionPerformed
 
     private void btnRemovePointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePointsActionPerformed
-        if(validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
-        try {
-            String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-            int poang = Integer.parseInt(txtPoang.getText());
-            String fraga ="SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
-            poang = (Integer.parseInt(idb.fetchSingle(fraga)) - poang);
-            System.out.println(poang);
-            fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
-            System.out.println(fraga);
-            idb.update(fraga);
-            txtOutput.setText(itemText + " har nu " + poang + " poäng.");
+        if (validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
+            try {
+                String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+                int poang = Integer.parseInt(txtPoang.getText());
+                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                poang = (Integer.parseInt(idb.fetchSingle(fraga)) - poang);
+                System.out.println(poang);
+                fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                System.out.println(fraga);
+                idb.update(fraga);
+                txtOutput.setText(itemText + " har nu " + poang + " poäng.");
 
-        }
-        catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+            } catch (InfException undantag) {
+                JOptionPane.showMessageDialog(null, "Något gick fel");
+                System.out.println("Internt felmeddelande" + undantag.getMessage());
+            }
         }
 
     }//GEN-LAST:event_btnRemovePointsActionPerformed
 
     private void btnAddPointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPointsActionPerformed
-        if(validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
-        try {
-            String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-            int poang = Integer.parseInt(txtPoang.getText());
-            String fraga ="SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
-            poang = (Integer.parseInt(idb.fetchSingle(fraga)) + poang);
-            System.out.println(poang);
-            fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
-            System.out.println(fraga);
-            idb.update(fraga);
-            txtOutput.setText(itemText + " har nu " + poang + " poäng.");
+        if (validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang)) {
+            try {
+                String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+                int poang = Integer.parseInt(txtPoang.getText());
+                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                poang = (Integer.parseInt(idb.fetchSingle(fraga)) + poang);
+                System.out.println(poang);
+                fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                System.out.println(fraga);
+                idb.update(fraga);
+                txtOutput.setText(itemText + " har nu " + poang + " poäng.");
 
-        }
-        catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+            } catch (InfException undantag) {
+                JOptionPane.showMessageDialog(null, "Något gick fel");
+                System.out.println("Internt felmeddelande" + undantag.getMessage());
+            }
         }
     }//GEN-LAST:event_btnAddPointsActionPerformed
 

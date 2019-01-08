@@ -192,14 +192,10 @@ public class adminLarare extends javax.swing.JFrame {
        try { 
             String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
             String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
-            System.out.println(namn);//Internt test
-            System.out.println(fornamn);//Internt test
-            System.out.println(efternamn);//Internt test
+            String efternamn = namn.split(" ")[1];
         
             String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';";
             String lararID = idb.fetchSingle(fraga);
-            System.out.println(fraga);
             
             //Kontroll för att se om läraren redan är admin
             

@@ -11,96 +11,87 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.util.Arrays;
 import java.util.ArrayList;
+
 /**
  *
  * @author Christoffer
  */
-
 public class validering { //försöker importera databasen
-    
-    private InfDB idb; 
-    
+
+    private InfDB idb;
+
     public validering() {
         try { //försöker importera databasen
-            idb = new InfDB("C:\\db\\hogdb.FDB"); 
-        }
-        catch(InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
+            idb = new InfDB("C:\\db\\hogdb.FDB");
+        } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
         //Validera textfält så det inte är tomt.
     }
-    
-    //Tetsa om denna metod fungerar (istället för att skriva samma kod i varje annnan metod)
-    private void databasfel(InfException e) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + e.getMessage());        
-    }    
-    
+
     public static boolean txtFieldEmpty(JTextField aktuelltFalt) {
         boolean result = true;
-        
-        if(aktuelltFalt.getText().isEmpty()) {
+
+        if (aktuelltFalt.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Rutan är tom");
             aktuelltFalt.requestFocus();
             result = false;
         }
-        
+
         return result;
     }
-    
-    public boolean isUsernameCorrect (JTextField txtUsername) {
+
+    public boolean isUsernameCorrect(JTextField txtUsername) {
         boolean correctUsername = false;
         try {
             String name = "SELECT LARARE.EFTERNAMN FROM LARARE";
             ArrayList<String> nameArray = idb.fetchColumn(name);
-            
-            for (String currentName:nameArray) {
-                if(currentName.equals(txtUsername.getText())) {
+
+            for (String currentName : nameArray) {
+                if (currentName.equals(txtUsername.getText())) {
                     correctUsername = true;
                 }
             }
-            
-            if(!correctUsername) {
+
+            if (!correctUsername) {
                 JOptionPane.showMessageDialog(null, "Fel användarnamn!");
-                txtUsername.requestFocus();            
+                txtUsername.requestFocus();
             }
-        }
-        catch (InfException e) {
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
-        }            
+        }
         return correctUsername;
     }
+
     public boolean isPasswordCorrect(JTextField txtUsername, char[] txtPassword) {
         boolean passwordIsCorrect = true;
-        
+
         try {
             String username = txtUsername.getText();
             String correctPassword = "SELECT LARARE.LOSENORD FROM LARARE WHERE EFTERNAMN = '" + username + "';";
             String password = idb.fetchSingle(correctPassword);
             char[] passwordArray = password.toCharArray();
-            
+
             if (txtPassword.length != passwordArray.length) {
                 passwordIsCorrect = false;
-            }
-            else {
+            } else {
                 passwordIsCorrect = Arrays.equals(txtPassword, passwordArray);
             }
             Arrays.fill(passwordArray, '0');
-        
-        
-        if (!passwordIsCorrect) {
+
+            if (!passwordIsCorrect) {
                 JOptionPane.showMessageDialog(null, "Fel lösen. Försök igen");
-                txtUsername.requestFocus();            
-        }
-        }
-        catch (InfException e) {
+                txtUsername.requestFocus();
+            }
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
         return passwordIsCorrect;
     }
+
     public boolean isAdminCorrect(JTextField txtUsername) {
         boolean isAdmin = false;
         try {
@@ -108,76 +99,96 @@ public class validering { //försöker importera databasen
             String fraga = "SELECT LARARE.ADMINISTRATOR FROM LARARE WHERE EFTERNAMN = '" + username + "';";
             ArrayList<String> admin = idb.fetchColumn(fraga);
             String svar = "";
-            
+
             for (int i = 0; i < admin.size(); i++) {
                 svar += admin.get(i);
             }
             if (svar.equals("T")) {
                 isAdmin = true;
             }
-        }
-        catch (InfException e) {
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
         return isAdmin;
     }
-    
+
     //Metoden kollar om en det som skrivits i fältet är en String.
-    public static boolean isString(JTextField aktuelltFalt) {
+    public static boolean isString(JTextField txtNamn) {
         boolean isString = false;
         
-        if(aktuelltFalt.getText().matches("[a-zA-Z]+")) {
+        if (txtNamn.getText().matches("[a-zA-Z]")) {
             isString = true;
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Ange endast bokstäver");
         }
         return isString;
     }
-    
+
     //Metoden kollar om det som skrivits i fältet är en Integer
     public static boolean isInt(JTextField aktuelltFalt) {
         boolean searching = true;
-        
-        try{
+
+        try {
             String enString = aktuelltFalt.getText();
             Integer.parseInt(enString);
             aktuelltFalt.requestFocus();
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Ange ett heltal");
+            System.out.println("Internt felmeddelande" + e.getMessage());
             searching = false;
         }
         return searching;
     }
-    
+
     //Metoden kollar om värdet i fältet är positivt
-    public static boolean positivtTal(JTextField aktuelltFalt){
+    public static boolean positivtTal(JTextField aktuelltFalt) {
         boolean searching = true;
-        if(aktuelltFalt.getText().substring(0).equals("-")){
-           searching = false;
-           aktuelltFalt.requestFocus();  
-        }
-        else{
+        if (aktuelltFalt.getText().substring(0).equals("-")) {
+            searching = false;
+            aktuelltFalt.requestFocus();
+        } else {
             JOptionPane.showMessageDialog(null, "Endast positiva värden");
         }
         return searching;
     }
-    
+
     //Metoden kollar om värdet i fältet är positivt
     //Funkar ej atm
-    public static boolean negativtTal(JTextField aktuelltFalt){
+    public static boolean negativtTal(JTextField aktuelltFalt) {
         boolean searching = true;
-        if(!aktuelltFalt.getText().substring(0).equals("-")){
-           searching = false;
-           aktuelltFalt.requestFocus();  
-        }
-        else{
+        if (!aktuelltFalt.getText().substring(0).equals("-")) {
+            searching = false;
+            aktuelltFalt.requestFocus();
+        } else {
             JOptionPane.showMessageDialog(null, "Endast negativa värden");
         }
         return searching;
     }
+
+    public boolean isNameCorrect(String fornamn, String efternamn) {
+        boolean ratt = false;
+        System.out.println("test1");
+        try {
+            String elevidFraga = "SELECT ELEV_ID FROM ELEV WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "';";
+            System.out.println(elevidFraga);
+            String id = idb.fetchSingle(elevidFraga);
+            System.out.println(id);
+            if (id != null) {
+                ratt = true;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Ange ett korrekt namn");
+            }
+
+        }
+        catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
+            JOptionPane.showMessageDialog(null, "Något gick fel!");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+        return ratt;
         
+    }
+
 }
-    
-
-    
-
