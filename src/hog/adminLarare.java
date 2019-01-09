@@ -221,8 +221,18 @@ public class adminLarare extends javax.swing.JFrame {
             String larare = (String) cboxLarare.getSelectedItem(); 
             String larareFornamn = larare.split(" ")[0];
             String larareEfternamn = larare.split(" ")[1];
-            String fraga = "Delete from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; "; //Tar bort raden med givet för- och efternamn.
-            idb.update(fraga); //Uppdaterar databasen.
+            
+            String lararID = idb.fetchSingle("SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; "); //Hämtar lärarID från databasen
+            idb.delete("DELETE FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.FORESTANDARE WHERE FORESTANDARE = '" + lararID + "' ");
+            //idb.delete("Delete from KURS where KURSLARARE = '" + lararID + "' "); //Tar bort raden med givet lararID
+            //idb.delete("Delete from ELEVHEM where FORESTANDARE = '" + lararID + "' "); //Tar bort raden med givet lararID
+            //idb.delete("Delete from HAR_KOMPETENS_I where LARAR_ID = '" + lararID + "' "); //Tar bort raden med givet lararID
+            System.out.println("test1");
+            //idb.delete("Delete from SOVSAL where ");
+            //idb.delete("Delete from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; "); //Tar bort raden med givet för- och efternamn.
+
+            
+            
             swag.cboxAddLarare(cboxLarare);
 
         } catch (InfException undantag) {

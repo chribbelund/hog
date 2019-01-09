@@ -229,11 +229,15 @@ public class adminElev extends javax.swing.JFrame {
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
+            String sovsal = txtFaltSovsal.getText();
 
-            String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
+            String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "' AND SOVSAL = '" + sovsal + "'; "; //Tar bort raden med givet för- och efternamn.
             System.out.println(fraga);
             idb.delete(fraga); //Uppdaterar databasen.
-            txtSvar.setText("En elev har tagits bort");
+            txtSvar.setText(fornamn + " " + efternamn + " har tagits bort");
+            txtFaltFornamn.setText(null);
+            txtFaltEfternamn.setText(null);
+            txtFaltSovsal.setText(null);
 
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
