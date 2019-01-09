@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/lararStart.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/lararElev.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/adminLarareReg.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/adminLarareInfo.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/login.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/validering.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/valElevLarare.java</file>
-            <file>file:/C:/Users/jamie/Documents/NetBeansProjects/hog/src/hog/elevBetygReg.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/updateKurs.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/lararElev.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/validering.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/elevStart.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/adminKursChange.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/adminKurs.java</file>
+            <file>file:/C:/Users/cibbe/Documents/GitHub/hog/src/hog/lararStart.java</file>
         </group>
     </open-files>
 </project-private>

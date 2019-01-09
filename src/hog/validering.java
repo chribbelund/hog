@@ -114,7 +114,7 @@ public class validering { //försöker importera databasen
     }
 
     //Metoden kollar om en det som skrivits i fältet är en String.
-    public static boolean isString(JTextField txtNamn) {
+    public boolean isString(JTextField txtNamn) {
         boolean isString = false;
         
         if (txtNamn.getText().matches("[a-zA-Z]")) {
@@ -143,7 +143,7 @@ public class validering { //försöker importera databasen
     }
 
     //Metoden kollar om värdet i fältet är positivt
-    public static boolean positivtTal(JTextField aktuelltFalt) {
+    public boolean positivtTal(JTextField aktuelltFalt) {
         boolean searching = true;
         if (aktuelltFalt.getText().substring(0).equals("-")) {
             searching = false;

@@ -15,8 +15,8 @@ import oru.inf.InfException;
  * @author Jamie
  */
 public class adminLarare extends javax.swing.JFrame {
-    
-      private InfDB idb;
+
+    private InfDB idb;
 
     /**
      * Creates new form adminLarare
@@ -189,59 +189,49 @@ public class adminLarare extends javax.swing.JFrame {
 
     private void btnGeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeAdminActionPerformed
         // REGISTRERA NY ADMIN
-       try { 
+        try {
             String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
             String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
             String efternamn = namn.split(" ")[1];
-        
+
             String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';";
             String lararID = idb.fetchSingle(fraga);
-            
+
             //Kontroll för att se om läraren redan är admin
-            
             /*String kontrollFraga = "SELECT ADMINISTRATOR FROM LARARE WHERE LARAR_ID = '" + lararID + "'; ";
             String kontroll = idb.fetchSingle(kontrollFraga);
             System.out.println(kontroll);
             
             if(kontroll.equals("T")) {
                 txtSvar.setText("Läraren är redan admin");
-            */
-            
+             */
             fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; ";
             System.out.println(fraga);
             idb.update(fraga);
-            
+
             txtSvar.setText("Läraren är nu tillagd som admin");
-            
-       } 
-       catch (InfException undantag) {
+
+        } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
-           
-           
+
+
     }//GEN-LAST:event_btnGeAdminActionPerformed
 
-    
     //DEN HÄR ÄR INTE KLAR. Lärarna har FKs till andra tabeller och kan därför inte tas bort.
     //Måste kolla hur vi ska göra? Antar exempelvis att historik om att en lärare hållt en kurs ska sparas
     private void btnTaBortLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLarareActionPerformed
         // TA BORT EN LÄRARE FRÅN DATABASEN
-        
-        try { 
+
+        try {
             String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
             String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
-            System.out.println(namn);//Internt test
-            System.out.println(fornamn);//Internt test
-            System.out.println(efternamn);//Internt test
-            
+            String efternamn = namn.split(" ")[1];
             String fraga = "Delete from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
             idb.update(fraga); //Uppdaterar databasen.
-            
-            
-        }
-        catch (InfException undantag) {
+
+        } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
@@ -256,7 +246,6 @@ public class adminLarare extends javax.swing.JFrame {
         new adminLarareEHF().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLarareForestandareActionPerformed
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
