@@ -16,6 +16,7 @@ import oru.inf.InfException;
 public class adminLarareEHF extends javax.swing.JFrame {
     
     private InfDB idb;
+    UpdateCombobox swag;
     //private validering val;
 
     /**
@@ -46,11 +47,10 @@ public class adminLarareEHF extends javax.swing.JFrame {
         ehValjare = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtFornamn = new javax.swing.JTextField();
-        txtEfternamn = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         btnSkapa = new javax.swing.JButton();
+        cboxElev = new javax.swing.JComboBox<>();
+        swag.cboxAddElev(cboxElev);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,15 +72,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
 
         jLabel2.setText("Ny elevhemsföreståndare");
 
-        txtEfternamn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEfternamnActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Förnamn");
-
-        jLabel4.setText("Efternamn");
+        jLabel3.setText("Elevnamn");
 
         btnSkapa.setText("OK");
         btnSkapa.addActionListener(new java.awt.event.ActionListener() {
@@ -109,17 +101,15 @@ public class adminLarareEHF extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ehValjare, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                .addComponent(ehValjare, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cboxElev, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(0, 33, Short.MAX_VALUE))
-                                    .addComponent(txtFornamn))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(23, 122, Short.MAX_VALUE)))
                                 .addGap(46, 46, 46))))))
         );
         layout.setVerticalGroup(
@@ -134,17 +124,14 @@ public class adminLarareEHF extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(ehValjare, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(txtFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                    .addComponent(cboxElev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addComponent(btnSkapa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -157,10 +144,6 @@ public class adminLarareEHF extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
-    private void txtEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEfternamnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEfternamnActionPerformed
-
     private void ehValjareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ehValjareActionPerformed
         //Lämnas tom
     }//GEN-LAST:event_ehValjareActionPerformed
@@ -169,19 +152,16 @@ public class adminLarareEHF extends javax.swing.JFrame {
         String itemText = (String) ehValjare.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
         
         try {
-            String fornamn = txtFornamn.getText();
-            System.out.println(fornamn); // TEST
-            String efternamn = txtEfternamn.getText();
-            System.out.println(efternamn); // TEST
+            String elev = (String) cboxElev.getSelectedItem();
+            String elevFornamn = elev.split(" ")[0];
+            String elevEfternamn = elev.split(" ")[1];
             
-            String fraga1 = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';"; //Kolla vilket ID läraren har 
+            String fraga1 = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + elevFornamn + "' AND EFTERNAMN = '" + elevEfternamn + "';"; //Kolla vilket ID läraren har 
             System.out.println(fraga1); // TEST
             String svar1 = idb.fetchSingle(fraga1);
             
-            System.out.println(svar1); // TEST
-            
             String fraga2 = "UPDATE ELEVHEM SET FORESTANDARE = '" + svar1 + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //Uppdatera nya elevhemsföreståndaren 
-            System.out.println(fraga2);
+            swag.cboxAddElev(cboxElev);
             idb.update(fraga2);
             
             
@@ -200,12 +180,10 @@ public class adminLarareEHF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSkapa;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> cboxElev;
     private javax.swing.JComboBox<String> ehValjare;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txtEfternamn;
-    private javax.swing.JTextField txtFornamn;
     // End of variables declaration//GEN-END:variables
 }

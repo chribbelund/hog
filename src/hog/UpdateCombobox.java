@@ -18,6 +18,7 @@ import oru.inf.InfException;
 public class UpdateCombobox {
 
     private static InfDB idb;
+    UpdateCombobox swag;
 
     public static void cboxAddKurs(JComboBox cboxKurs) {
         //Importerar databasen
@@ -80,11 +81,63 @@ public class UpdateCombobox {
             String efternamn = "SELECT EFTERNAMN FROM LARARE;";
             ArrayList<String> fornamnArray = idb.fetchColumn(fornamn);
             ArrayList<String> efternamnArray = idb.fetchColumn(efternamn);
-            
+
             cboxLarare.removeAllItems();
-            for (int i = 0;  i < fornamnArray.size(); i++) {
+            for (int i = 0; i < fornamnArray.size(); i++) {
                 String output = fornamnArray.get(i) + " " + efternamnArray.get(i);
                 cboxLarare.addItem(output);
+            }
+
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+    }
+
+    public static void cboxAddElev(JComboBox cboxElev) {
+        //Importerar databasen
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+
+        try {
+            String fornamn = "SELECT FORNAMN FROM ELEV;";
+            String efternamn = "SELECT EFTERNAMN FROM ELEV;";
+            ArrayList<String> fornamnArray = idb.fetchColumn(fornamn);
+            ArrayList<String> efternamnArray = idb.fetchColumn(efternamn);
+
+            cboxElev.removeAllItems();
+            for (int i = 0; i < fornamnArray.size(); i++) {
+                String output = fornamnArray.get(i) + " " + efternamnArray.get(i);
+                cboxElev.addItem(output);
+            }
+
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+    }
+
+    public static void cboxAddSovsal(JComboBox cboxSovsal) {
+        //Importerar databasen
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+
+        try {
+            String sovsal = "SELECT SOVSAL_ID FROM SOVSAL;";
+            ArrayList<String> sovsalArray = idb.fetchColumn(sovsal);
+
+            cboxSovsal.removeAllItems();
+            for (int i = 0; i < sovsalArray.size(); i++) {
+                String output = sovsalArray.get(i);
+                cboxSovsal.addItem(output);
             }
 
         } catch (InfException undantag) {

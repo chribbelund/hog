@@ -33,18 +33,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnLarareForestandare" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBetygLarare" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNyLarare" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnTaBortLarare" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnLararInfo" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnGeAdmin" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtInput" min="-2" pref="119" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cboxLarare" min="-2" pref="143" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="btnNyLarare" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="211" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
@@ -62,7 +62,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnTaBortLarare" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtInput" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
+                              <Component id="cboxLarare" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnNyLarare" min="-2" max="-2" attributes="0"/>
@@ -148,11 +151,6 @@
         <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtInput">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInputActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -168,5 +166,16 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JComboBox" name="cboxLarare">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="swag.cboxAddLarare(cboxLarare);  "/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
   </SubComponents>
 </Form>
