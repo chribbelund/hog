@@ -16,8 +16,9 @@ import oru.inf.InfException;
 public class elevBetygReg extends javax.swing.JFrame {
 
     private InfDB idb;
+    UpdateCombobox swag;
     //private validering val;
-    
+
     /**
      * Creates new form elevBetygReg
      */
@@ -52,8 +53,9 @@ public class elevBetygReg extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
         btnNyttBetyg = new javax.swing.JButton();
-        txtKursnamn = new javax.swing.JTextField();
         btnUppdateraBetyg = new javax.swing.JButton();
+        cboxKurs = new javax.swing.JComboBox<>();
+        swag.cboxAddKurs(cboxKurs);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,19 +130,14 @@ public class elevBetygReg extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnUppdateraBetyg))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(65, 65, 65))
-                                    .addComponent(txtKursnamn))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(jLabel5))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cboxBetyg, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel4)
+                                .addGap(81, 81, 81)
+                                .addComponent(jLabel5))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cboxKurs, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(cboxBetyg, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 260, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -166,7 +163,7 @@ public class elevBetygReg extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboxBetyg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtKursnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxKurs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNyttBetyg)
@@ -191,38 +188,37 @@ public class elevBetygReg extends javax.swing.JFrame {
         try {
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
-            String kursnamn = txtKursnamn.getText();
             String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
-            String betygKort = betyget.substring(0,1);
-            System.out.println(betygKort);
+            String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+            String betygKort = betyget.substring(0, 1); //Förkortar betyget till en bokstav så det fungerar i databasen
 
-           
             //Hitta elevens elev id basserat på namnet
             String elevID = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ");
-            
+
             //Hitta kursens kursID baserat på kursnamn
             String kursID = idb.fetchSingle("SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ");
-            
+
             //Kollar vad för betyg som finns för elev på viss kurs
-            String betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
-            
-            //Skapa kursbetyget om kursbetyg inte har ett värde
-            //if(betygFraga != null) {
-                
-                idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' "+elevID + "', '" +kursID+" ' , '" +betygKort + " ')");
+            String betygFraga = null;
+            System.out.println(betygFraga);
+            betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
+            System.out.println(betygFraga);
+            if (betygFraga == null) {
+                idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' " + elevID + "', '" + kursID + " ' , '" + betygKort + " ')");
+                swag.cboxAddKurs(cboxKurs);
                 txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
                 txtFornamn.setText(null);
                 txtEfternamn.setText(null);
-                txtKursnamn.setText(null);
-            //} 
-            
-            JOptionPane.showMessageDialog(null, "Eleven har redan ett betyg i den kursen.");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Eleven har redan betyg i kursen, testa uppdatera betyget istället");
+            }
 
-        } catch(InfException e) {
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
-        
+
     }//GEN-LAST:event_btnNyttBetygActionPerformed
 
     private void txtFornamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFornamnActionPerformed
@@ -232,31 +228,30 @@ public class elevBetygReg extends javax.swing.JFrame {
     private void btnUppdateraBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUppdateraBetygActionPerformed
         //Ska ändra ett gammalt betyg om det finns. OTESTAD!
         //Den här metoden behöver en kontrollfunktion för att se om tidigare betyg finns.
-        
+
         try {
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
-            String kursnamn = txtKursnamn.getText();
+            String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
-            String betygKort = betyget.substring(0,1);
+            String betygKort = betyget.substring(0, 1);
             System.out.println(betygKort);
-            
+
             //Hitta elevens elev id basserat på namnet
             String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
             String elevID = idb.fetchSingle(fraga);
-            
+
             //Hitta kursens kursID baserat på kursnamn
             String fraga2 = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ";
             String kursID = idb.fetchSingle(fraga2);
-            
+
             //Uppdatera kursbetyget
             String fraga3 = "UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ";
             idb.update(fraga3);
-            
+            swag.cboxAddKurs(cboxKurs);
             txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
-            
-        
-        } catch(InfException e) {
+
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
@@ -265,13 +260,13 @@ public class elevBetygReg extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNyttBetyg;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton btnUppdateraBetyg;
     private javax.swing.JComboBox<String> cboxBetyg;
+    private javax.swing.JComboBox<String> cboxKurs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -280,7 +275,6 @@ public class elevBetygReg extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtEfternamn;
     private javax.swing.JTextField txtFornamn;
-    private javax.swing.JTextField txtKursnamn;
     private javax.swing.JTextArea txtSvar;
     // End of variables declaration//GEN-END:variables
 }

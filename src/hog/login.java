@@ -5,6 +5,7 @@
  */
 package hog;
 
+import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 /**
  *
@@ -32,10 +33,10 @@ public class login extends javax.swing.JFrame {
     private void initComponents() {
 
         btnTillbaka = new javax.swing.JToggleButton();
-        btnLogin = new javax.swing.JButton();
+        btnLoginLarare = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnLoginAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,10 +47,10 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        btnLogin.setText("Login");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnLoginLarare.setText("Lärare");
+        btnLoginLarare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnLoginLarareActionPerformed(evt);
             }
         });
 
@@ -59,10 +60,10 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLoginAdmin.setText("Admin");
+        btnLoginAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginAdminActionPerformed(evt);
             }
         });
 
@@ -78,14 +79,13 @@ public class login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtUsername)
+                            .addComponent(txtPassword)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLoginLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLoginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(105, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 184, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,10 +95,10 @@ public class login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLogin)
-                .addGap(38, 38, 38)
-                .addComponent(jButton1)
-                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLoginLarare)
+                    .addComponent(btnLoginAdmin))
+                .addGap(111, 111, 111)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -116,12 +116,16 @@ public class login extends javax.swing.JFrame {
         //Ska vara tomt
     }//GEN-LAST:event_txtUsernameActionPerformed
     //Testknapp, ta bort ur systemet sen (används för att skippa inloggning
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        new lararStart().setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnLoginActionPerformed
+    private void btnLoginLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginLarareActionPerformed
+        if (val.isUsernameCorrect(txtUsername)) {
+            if(val.isPasswordCorrect(txtUsername, txtPassword.getPassword()) && val.isUsernameCorrect(txtUsername)) {
+                new lararStart().setVisible(true);
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_btnLoginLarareActionPerformed
     //Loggar in användaren i systemet om valideringen stämmer
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLoginAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginAdminActionPerformed
         //Kollar om användarnamnet finns i databasen
         if (val.isUsernameCorrect(txtUsername)) {
             //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
@@ -133,17 +137,17 @@ public class login extends javax.swing.JFrame {
                 } else if (val.isPasswordCorrect(txtUsername, txtPassword.getPassword()) && val.isUsernameCorrect(txtUsername)) {
                 //Om det ovanstående returnerar true betyder det att användarens lösenord stämmer överens med använarnamnet i databasen
                 //Och då körs konstruktorn i lararStart och öppnar det fönstret
-                new lararStart().setVisible(true);
+                JOptionPane.showMessageDialog(null, "Du är inte admin");
                 //Stänger ner login rutan
-                dispose();
+                
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnLoginAdminActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnLoginAdmin;
+    private javax.swing.JButton btnLoginLarare;
     private javax.swing.JToggleButton btnTillbaka;
-    private javax.swing.JButton jButton1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
