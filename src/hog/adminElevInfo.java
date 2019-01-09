@@ -16,7 +16,7 @@ import oru.inf.InfException;
 public class adminElevInfo extends javax.swing.JFrame {
     
     private InfDB idb;
-
+    UpdateCombobox swag;
     /**
      * Creates new form adminElevInfo
      */
@@ -40,22 +40,22 @@ public class adminElevInfo extends javax.swing.JFrame {
     private void initComponents() {
 
         btnTillbaka = new javax.swing.JButton();
-        txtOldFornamn = new javax.swing.JTextField();
-        txtOldEfternamn = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtNewFornamn = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtNewEfternamn = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtNewSovsal = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         btnUpdateElev = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
+        cboxElev = new javax.swing.JComboBox<>();
+        swag.cboxAddElev(cboxElev);
+        cboxSovsal = new javax.swing.JComboBox<>();
+        swag.cboxAddSovsal(cboxSovsal);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,17 +66,9 @@ public class adminElevInfo extends javax.swing.JFrame {
             }
         });
 
-        txtOldEfternamn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOldEfternamnActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Elev som ska uppdateras");
 
-        jLabel2.setText("Förnamn");
-
-        jLabel3.setText("Efternamn");
+        jLabel2.setText("Elevnamn");
 
         jLabel5.setText("Ny Elevinfo");
 
@@ -119,23 +111,18 @@ public class adminElevInfo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(txtNewSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cboxSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnUpdateElev))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(196, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtOldFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtOldEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)
+                                .addGap(116, 116, 116)
                                 .addComponent(jLabel4))
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addComponent(jLabel5)
+                            .addComponent(cboxElev, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))))
         );
@@ -149,12 +136,9 @@ public class adminElevInfo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtOldFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOldEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addComponent(cboxElev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,20 +151,16 @@ public class adminElevInfo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNewSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdateElev)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtOldEfternamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOldEfternamnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOldEfternamnActionPerformed
 
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         new adminElev().setVisible(true);
@@ -190,19 +170,19 @@ public class adminElevInfo extends javax.swing.JFrame {
     private void btnUpdateElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateElevActionPerformed
         try {
             
-            String fornamn = txtOldFornamn.getText();
-            String efternamn = txtOldEfternamn.getText();
+            String elev = (String) cboxElev.getSelectedItem();
+            String elevFornamn = elev.split(" ")[0];
+            String elevEfternamn = elev.split(" ")[1];
             
-
-            String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
+            String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + elevFornamn + "' AND EFTERNAMN = '" + elevEfternamn + "'; ";
             String elevid = idb.fetchSingle(fraga);
-            fornamn = txtNewFornamn.getText();
-            efternamn = txtNewEfternamn.getText();
-            String sovsal = txtNewSovsal.getText();
+            elevFornamn = txtNewFornamn.getText();
+            elevEfternamn = txtNewEfternamn.getText();
+            String sovsal = (String) cboxSovsal.getSelectedItem();
 
-            fraga = "UPDATE ELEV SET FORNAMN = '" + fornamn + "', EFTERNAMN = '" + efternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
-            System.out.println(fraga);
+            fraga = "UPDATE ELEV SET FORNAMN = '" + elevFornamn + "', EFTERNAMN = '" + elevEfternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
             idb.update(fraga);
+            swag.cboxAddElev(cboxElev);
             txtSvar.setText("Eleven har uppdaterats");
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
@@ -218,9 +198,10 @@ public class adminElevInfo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton btnUpdateElev;
+    private javax.swing.JComboBox<String> cboxElev;
+    private javax.swing.JComboBox<String> cboxSovsal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -229,9 +210,6 @@ public class adminElevInfo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtNewEfternamn;
     private javax.swing.JTextField txtNewFornamn;
-    private javax.swing.JTextField txtNewSovsal;
-    private javax.swing.JTextField txtOldEfternamn;
-    private javax.swing.JTextField txtOldFornamn;
     private javax.swing.JTextArea txtSvar;
     // End of variables declaration//GEN-END:variables
 }

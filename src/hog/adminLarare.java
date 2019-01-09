@@ -17,6 +17,7 @@ import oru.inf.InfException;
 public class adminLarare extends javax.swing.JFrame {
 
     private InfDB idb;
+    UpdateCombobox swag;
 
     /**
      * Creates new form adminLarare
@@ -47,9 +48,10 @@ public class adminLarare extends javax.swing.JFrame {
         btnTaBortLarare = new javax.swing.JButton();
         btnLarareForestandare = new javax.swing.JButton();
         btnBetygLarare = new javax.swing.JButton();
-        txtInput = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
+        cboxLarare = new javax.swing.JComboBox<>();
+        swag.cboxAddLarare(cboxLarare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,12 +111,6 @@ public class adminLarare extends javax.swing.JFrame {
         btnBetygLarare.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBetygLarare.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        txtInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInputActionPerformed(evt);
-            }
-        });
-
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);
@@ -132,15 +128,15 @@ public class adminLarare extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLarareForestandare)
                     .addComponent(btnBetygLarare)
+                    .addComponent(btnNyLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnTaBortLarare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnLararInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnGeAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnNyLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
                 .addGap(21, 21, 21))
         );
@@ -155,7 +151,9 @@ public class adminLarare extends javax.swing.JFrame {
                                 .addComponent(btnGeAdmin)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnTaBortLarare))
-                            .addComponent(txtInput))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(cboxLarare)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNyLarare)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -183,18 +181,14 @@ public class adminLarare extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnNyLarareActionPerformed
 
-    private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInputActionPerformed
-
     private void btnGeAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeAdminActionPerformed
         // REGISTRERA NY ADMIN
         try {
-            String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
-            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-            String efternamn = namn.split(" ")[1];
 
-            String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';";
+            String larare = (String) cboxLarare.getSelectedItem(); 
+            String larareFornamn = larare.split(" ")[0];
+            String larareEfternamn = larare.split(" ")[1];
+            String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
             String lararID = idb.fetchSingle(fraga);
 
             //Kontroll för att se om läraren redan är admin
@@ -206,9 +200,8 @@ public class adminLarare extends javax.swing.JFrame {
                 txtSvar.setText("Läraren är redan admin");
              */
             fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; ";
-            System.out.println(fraga);
             idb.update(fraga);
-
+            swag.cboxAddLarare(cboxLarare);
             txtSvar.setText("Läraren är nu tillagd som admin");
 
         } catch (InfException undantag) {
@@ -225,11 +218,12 @@ public class adminLarare extends javax.swing.JFrame {
         // TA BORT EN LÄRARE FRÅN DATABASEN
 
         try {
-            String namn = txtInput.getText(); //Hämtar det som skrivs in i textrutan.
-            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-            String efternamn = namn.split(" ")[1];
-            String fraga = "Delete from LARARE where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
+            String larare = (String) cboxLarare.getSelectedItem(); 
+            String larareFornamn = larare.split(" ")[0];
+            String larareEfternamn = larare.split(" ")[1];
+            String fraga = "Delete from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; "; //Tar bort raden med givet för- och efternamn.
             idb.update(fraga); //Uppdaterar databasen.
+            swag.cboxAddLarare(cboxLarare);
 
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
@@ -256,8 +250,8 @@ public class adminLarare extends javax.swing.JFrame {
     private javax.swing.JButton btnNyLarare;
     private javax.swing.JButton btnTaBortLarare;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> cboxLarare;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtInput;
     private javax.swing.JTextArea txtSvar;
     // End of variables declaration//GEN-END:variables
 

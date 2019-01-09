@@ -268,9 +268,7 @@ public class lararStart extends javax.swing.JFrame {
                 int poang = Integer.parseInt(txtPoang.getText());
                 String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
                 poang = (Integer.parseInt(idb.fetchSingle(fraga)) - poang);
-                System.out.println(poang);
                 fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
-                System.out.println(fraga);
                 idb.update(fraga);
                 txtOutput.setText(itemText + " har nu " + poang + " poäng.");
 
