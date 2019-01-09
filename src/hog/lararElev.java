@@ -16,6 +16,7 @@ import oru.inf.InfException;
 public class lararElev extends javax.swing.JFrame {
     
     private InfDB idb;
+    private validering val;
 
     /**
      * Creates new form lararElev
@@ -253,20 +254,17 @@ public class lararElev extends javax.swing.JFrame {
             String efternamn = txtFaltEfternamnNy.getText();
             String sovsal = txtFaltSovsalNew.getText();
             
-
-            //Combobox för att välja sovsal?
-            if (!fornamn.isEmpty() && !efternamn.isEmpty() && !sovsal.isEmpty()) {
+            if(val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltSovsalNew)) {    
                 String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
-                System.out.println(increment);
                 String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
-                System.out.println(fraga);
                 idb.insert(fraga);
 
                 txtOutput.setText("En ny elev har registrerats");
                 txtFaltFornamnNy.setText(null);
                 txtFaltEfternamnNy.setText(null);
                 txtFaltSovsalNew.setText(null);
-            }
+            } 
+            
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
@@ -282,9 +280,13 @@ public class lararElev extends javax.swing.JFrame {
         String oldSovsal = txtFaltSovsalOld.getText();
         
         try { 
+            if(val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltSovsalNew) && val.txtFieldEmpty(txtFaltFornamnOld) && val.txtFieldEmpty(txtFaltEfternamnOld) && val.txtFieldEmpty(txtFaltSovsalOld)) {
+               
         String z = idb.fetchSingle("SELECT FORNAMN FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' ");
         String x = idb.fetchSingle("SELECT EFTERNAMN FROM ELEV WHERE EFTERNAMN = '" + oldEnamn + "' ");
         String y = idb.fetchSingle("SELECT SOVSAL FROM ELEV WHERE SOVSAL = '" + oldSovsal + "' ");
+        
+            //if(val.isNameCorrect(oldFnamn, oldEnamn)) {
         
             if(!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) {
                 JOptionPane.showMessageDialog(null, "Du har angett fel värden.");
@@ -296,10 +298,12 @@ public class lararElev extends javax.swing.JFrame {
             txtFaltFornamnNy.setText(null);
             txtFaltEfternamnNy.setText(null);
             txtFaltSovsalNew.setText(null);
-             txtFaltFornamnOld.setText(null);
+            txtFaltFornamnOld.setText(null);
             txtFaltEfternamnOld.setText(null);
             txtFaltSovsalOld.setText(null);
             
+                }
+            //}   
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
         JOptionPane.showMessageDialog(null, "Något gick fel!");
         System.out.println("Internt felmeddelande" + undantag.getMessage());

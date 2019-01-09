@@ -142,14 +142,13 @@ public class validering { //försöker importera databasen
     }
 
     //Metoden kollar om värdet i fältet är positivt
-    public boolean positivtTal(JTextField aktuelltFalt) {
+    public static boolean positivtTal(JTextField aktuelltFalt) {
         boolean searching = true;
-        if (aktuelltFalt.getText().substring(0).equals("-")) {
+        if (aktuelltFalt.getText().substring(0,1).equals("-")) {
             searching = false;
-            aktuelltFalt.requestFocus();
-        } else {
             JOptionPane.showMessageDialog(null, "Endast positiva värden");
-        }
+            //aktuelltFalt.requestFocus();
+        } 
         return searching;
     }
 
