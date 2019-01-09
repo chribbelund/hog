@@ -21,6 +21,7 @@ public class adminKursAdd extends javax.swing.JFrame {
      * Creates new form adminKursAdd
      */
     private InfDB idb;
+    UpdateCombobox swag;
     public adminKursAdd() {
         initComponents();
         try {
@@ -42,17 +43,17 @@ public class adminKursAdd extends javax.swing.JFrame {
 
         btnTillbaka = new javax.swing.JButton();
         txtKursnamn = new javax.swing.JTextField();
-        txtLarare = new javax.swing.JTextField();
-        txtAmne = new javax.swing.JTextField();
         dateStart = new org.jdesktop.swingx.JXDatePicker();
         dateEnd = new org.jdesktop.swingx.JXDatePicker();
         btnAddKurs = new javax.swing.JButton();
-        txtLarareEfternamn = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtOutput = new javax.swing.JTextField();
+        cboxLarare = new javax.swing.JComboBox<>();
+        swag.cboxAddLarare(cboxLarare);
+        jLabel5 = new javax.swing.JLabel();
+        cboxAmne = new javax.swing.JComboBox<>();
+        swag.cboxAddAmne(cboxAmne);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,13 +73,11 @@ public class adminKursAdd extends javax.swing.JFrame {
 
         jLabel1.setText("Kursnamn");
 
-        jLabel2.setText("Förnamn");
-
-        jLabel3.setText("Efternamn");
-
         jLabel4.setText("Ämne");
 
         txtOutput.setEditable(false);
+
+        jLabel5.setText("Lärare");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,27 +97,21 @@ public class adminKursAdd extends javax.swing.JFrame {
                                 .addComponent(txtOutput))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtKursnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(dateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel2)))
+                                    .addComponent(txtKursnamn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel4))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(txtLarareEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtAmne, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                    .addComponent(jLabel5)
+                                    .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboxAmne, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addGap(60, 60, 60))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dateStart, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(9, 9, 9))
         );
         layout.setVerticalGroup(
@@ -127,24 +120,22 @@ public class adminKursAdd extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtKursnamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAmne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLarareEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLarare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxAmne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dateStart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddKurs)
                     .addComponent(txtOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -164,9 +155,10 @@ public class adminKursAdd extends javax.swing.JFrame {
             String startDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
             String slutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
             String kursnamn = txtKursnamn.getText();
-            String amne = txtAmne.getText();
-            String larareFornamn = txtLarare.getText();
-            String larareEfternamn = txtLarareEfternamn.getText();
+            String amne = (String) cboxAmne.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+            String larare = (String) cboxLarare.getSelectedItem();
+            String larareFornamn = larare.split(" ")[0];
+            String larareEfternamn = larare.split(" ")[1];
             String increment = idb.getAutoIncrement("KURS", "KURS_ID");
 
             String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
@@ -192,16 +184,14 @@ public class adminKursAdd extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddKurs;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> cboxAmne;
+    private javax.swing.JComboBox<String> cboxLarare;
     private org.jdesktop.swingx.JXDatePicker dateEnd;
     private org.jdesktop.swingx.JXDatePicker dateStart;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField txtAmne;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txtKursnamn;
-    private javax.swing.JTextField txtLarare;
-    private javax.swing.JTextField txtLarareEfternamn;
     private javax.swing.JTextField txtOutput;
     // End of variables declaration//GEN-END:variables
 }
