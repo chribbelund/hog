@@ -309,28 +309,22 @@ public class elevStart extends javax.swing.JFrame {
         DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd"); //Säger att jag senare vill formatera datumet till yyyy-MM-dd
         String formatStartDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
         String formatSlutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
-        System.out.println(formatStartDatum + " " + formatSlutDatum); //Internt test
         try {
+           
             //Skapar en sql fråga som hämtar alla kurser som pågår mellan två datum som användaren skrivit in
-            String fraga = "SELECT KURS.KURSNAMN FROM KURS WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
-            System.out.println(fraga); //Internt test
-            ArrayList<String> kursStart = idb.fetchColumn(fraga);
-            System.out.println(fraga);
-
-            //Kom ihåg att ändra sql fråga så att kravspecen stämmer
-            fraga = "SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
-            ArrayList<String> kursLarareFornamn = idb.fetchColumn(fraga);
-            fraga = "SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART = '" + formatStartDatum + "' AND KURSSLUT = '" + formatSlutDatum + "';";
-            ArrayList<String> kursLarareEfternamn = idb.fetchColumn(fraga);
+            ArrayList<String> kursStart = idb.fetchColumn("SELECT KURSNAMN FROM KURS WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
+            //Hämtar lärares förnamn som har kuruser mellan två inskrivna datum
+            ArrayList<String> kursLarareFornamn = idb.fetchColumn("SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
+            //Hämtar lärares efternamn som har kuruser mellan två inskrivna datum
+            ArrayList<String> kursLarareEfternamn = idb.fetchColumn("SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
+            
             String svaret = ""; //Skapar en tom String för senare utskrift
+
             //Loopar igenom antalet kurser och lägger till kursnamn och vem som har kursen i svaret
             for (int i = 0; i < kursStart.size(); i++) {
                 svaret += kursStart.get(i) + " hålls av ";
                 svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
             }
-            //for(int i = 0; i < kursLarareFornamn.size(); i++) {
-            //    svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
-            //}
 
             svar.setText(svaret); //Skriver ut svaret i textrutan
         } //Fångar upp felmeddelanden från databasen
