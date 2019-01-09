@@ -116,11 +116,10 @@ public class validering { //försöker importera databasen
     //Metoden kollar om en det som skrivits i fältet är en String.
     public boolean isString(JTextField txtNamn) {
         boolean isString = false;
-        
+
         if (txtNamn.getText().matches("[a-zA-Z]")) {
             isString = true;
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Ange endast bokstäver");
         }
         return isString;
@@ -177,18 +176,16 @@ public class validering { //försöker importera databasen
             System.out.println(id);
             if (id != null) {
                 ratt = true;
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Ange ett korrekt namn");
             }
 
-        }
-        catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
+        } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
         return ratt;
-        
+
     }
 
 }

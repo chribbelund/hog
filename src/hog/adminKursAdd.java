@@ -162,17 +162,14 @@ public class adminKursAdd extends javax.swing.JFrame {
             String increment = idb.getAutoIncrement("KURS", "KURS_ID");
 
             String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
-            System.out.println(fraga);
             String svar = idb.fetchSingle(fraga);
             
             fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
             String lararID = idb.fetchSingle(fraga);
-            System.out.println(fraga);
             
             fraga = "INSERT INTO KURS VALUES ('" + increment + "', '" + kursnamn + "', '" + startDatum + "', '" + slutDatum + "', '" + lararID + "', '" + svar + "');";
             System.out.println(fraga);
             idb.insert(fraga);
-            System.out.println(fraga);
             txtOutput.setText("Kursen " + kursnamn + " har nu lagts till");
         }
         catch (InfException undantag) {

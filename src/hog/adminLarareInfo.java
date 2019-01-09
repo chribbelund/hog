@@ -16,6 +16,7 @@ import oru.inf.InfException;
 public class adminLarareInfo extends javax.swing.JFrame {
     
     private InfDB idb;
+    UpdateCombobox swag;
     //private validering val;
 
     /**
@@ -44,9 +45,6 @@ public class adminLarareInfo extends javax.swing.JFrame {
         btnTillbaka = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtOldFornamn = new javax.swing.JTextField();
-        txtOldEfternamn = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -57,6 +55,8 @@ public class adminLarareInfo extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvarsruta = new javax.swing.JTextArea();
+        cboxLarare = new javax.swing.JComboBox<>();
+        swag.cboxAddLarare(cboxLarare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,9 +69,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
 
         jLabel1.setText("Lärare som ska uppdateras");
 
-        jLabel2.setText("Förnamn");
-
-        jLabel3.setText("Efternamn");
+        jLabel2.setText("Lärarnamn");
 
         jLabel4.setText("Ny information");
 
@@ -99,37 +97,38 @@ public class adminLarareInfo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtOldFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel5)
+                            .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(44, 44, 44)
                                 .addComponent(jLabel7)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 72, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtOldEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)
-                        .addComponent(txtNewLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(19, 19, 19)
+                                .addComponent(txtNewLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -140,15 +139,11 @@ public class adminLarareInfo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtOldFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOldEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -160,7 +155,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
                     .addComponent(txtNewLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTillbaka)
@@ -181,25 +176,20 @@ public class adminLarareInfo extends javax.swing.JFrame {
         //Sätta nya infon i variabler och gör en ny update SQL fråga.
         
         try {
-            String gammaltFornamn = txtOldFornamn.getText();
-            String gammaltEfternamn = txtOldEfternamn.getText();
+            String larare = (String) cboxLarare.getSelectedItem(); 
+            String larareFornamn = larare.split(" ")[0];
+            String larareEfternamn = larare.split(" ")[1];
             
-            System.out.println(gammaltFornamn); // TEST
-            System.out.println(gammaltEfternamn); // TEST
-            
-            String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + gammaltFornamn + "' AND EFTERNAMN = '" + gammaltEfternamn + "'; ";
-            System.out.println(fraga); // TEST
+            String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; ";
             String lararID = idb.fetchSingle(fraga);
             
             String nyttFornamn = txtNewFornamn.getText();
             String nyttEfternamn = txtNewEfternamn.getText();
             String nyttLosenord = new String(txtNewLosenord.getPassword());
-            System.out.println(nyttLosenord);
             
             fraga = "UPDATE LARARE SET FORNAMN = '" + nyttFornamn + "', EFTERNAMN = '" + nyttEfternamn + "', LOSENORD = '" + nyttLosenord + "' WHERE LARAR_ID = '" + lararID + "'; ";
-            System.out.println(fraga);
             idb.update(fraga);
-            
+            swag.cboxAddLarare(cboxLarare);
             txtSvarsruta.setText("Informationen har uppdaterats");
             
         
@@ -219,9 +209,9 @@ public class adminLarareInfo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JToggleButton btnUpdate;
+    private javax.swing.JComboBox<String> cboxLarare;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -230,8 +220,6 @@ public class adminLarareInfo extends javax.swing.JFrame {
     private javax.swing.JTextField txtNewEfternamn;
     private javax.swing.JTextField txtNewFornamn;
     private javax.swing.JPasswordField txtNewLosenord;
-    private javax.swing.JTextField txtOldEfternamn;
-    private javax.swing.JTextField txtOldFornamn;
     private javax.swing.JTextArea txtSvarsruta;
     // End of variables declaration//GEN-END:variables
 }
