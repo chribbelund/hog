@@ -369,6 +369,8 @@ public class elevStart extends javax.swing.JFrame {
 
     private void btnElevKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevKursActionPerformed
         try {
+            
+            if(validering.txtFieldEmpty(txtNamn)) {
             String namn = txtNamn.getText(); // Lagrar det som skrivs i txtRutan i variabeln "namn".
             String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
             String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
@@ -386,6 +388,7 @@ public class elevStart extends javax.swing.JFrame {
             }
 
             svar.setText(svaret); //Skriver ut kurserna för eleven i rutan.
+            }
         } catch (InfException ettUndantag) { //Fångar eventuella fel
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + ettUndantag.getMessage());

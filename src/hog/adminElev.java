@@ -205,15 +205,19 @@ public class adminElev extends javax.swing.JFrame {
             String efternamn = txtFaltEfternamn.getText();
             String sovsal = txtFaltSovsal.getText();
 
-            //Combobox för att välja sovsal?
-            if (!fornamn.isEmpty() && !efternamn.isEmpty() && !sovsal.isEmpty()) {
-                String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
-                System.out.println(increment);
-                String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
-                System.out.println(fraga);
-                idb.insert(fraga);
+            if (validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn) && validering.txtFieldEmpty(txtFaltSovsal)) {
+                if(validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn) && validering.isInt(txtFaltSovsal)) {
+                    String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
+                    System.out.println(increment);
+                    String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
+                    System.out.println(fraga);
+                    idb.insert(fraga);
 
                 txtSvar.setText("En ny elev har registrerats");
+                txtFaltFornamn.setText("null");
+                txtFaltEfternamn.setText("null");
+                txtFaltSovsal.setText("null");
+                }
             }
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
             JOptionPane.showMessageDialog(null, "Något gick fel!");
@@ -256,14 +260,26 @@ public class adminElev extends javax.swing.JFrame {
             String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
+            
+            if(validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn) && validering.txtFieldEmpty(txtFaltSovsal)) {
+                if(validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn) && validering.isInt(txtFaltSovsal)) {
+                    
+                String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
+                String elevid = idb.fetchSingle(fraga);
+                
+                //kollar att personen är med i elevhemmet den ska bli prefekt i
+                //String arMedElevhem = idb.fetchSingle("SELECT ELEV.ELEV_ID FROM ELEV JOIN SOVSAL ON SOVSAL.SOVSAL_ID = ELEV.SOVSAL JOIN ELEVHEM ON SOVSAL.ELEVHEM = ELEVHEM.ELEVHEM_ID WHERE ELEVHEMSNAMN = '" + itemText + "' ");
+                //if() {
 
-            String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
-            String elevid = idb.fetchSingle(fraga);
-
-            fraga = "UPDATE ELEVHEM SET FORESTANDARE = '" + elevid + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
-            System.out.println(fraga);
-            idb.update(fraga);
-            txtSvar.setText("En ny prefekt har registrerats");
+                fraga = "UPDATE ELEVHEM SET PREFEKT = '" + elevid + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                System.out.println(fraga);
+                idb.update(fraga);
+                txtSvar.setText("En ny prefekt har registrerats");
+                //} else {
+                
+                //}
+                }
+            }
         }
         catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");

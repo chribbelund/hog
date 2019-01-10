@@ -173,17 +173,23 @@ public class adminElevInfo extends javax.swing.JFrame {
             String elev = (String) cboxElev.getSelectedItem();
             String elevFornamn = elev.split(" ")[0];
             String elevEfternamn = elev.split(" ")[1];
-            
+           
+                
             String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + elevFornamn + "' AND EFTERNAMN = '" + elevEfternamn + "'; ";
             String elevid = idb.fetchSingle(fraga);
             elevFornamn = txtNewFornamn.getText();
             elevEfternamn = txtNewEfternamn.getText();
             String sovsal = (String) cboxSovsal.getSelectedItem();
 
-            fraga = "UPDATE ELEV SET FORNAMN = '" + elevFornamn + "', EFTERNAMN = '" + elevEfternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
-            idb.update(fraga);
-            swag.cboxAddElev(cboxElev);
-            txtSvar.setText("Eleven har uppdaterats");
+            if(validering.txtFieldEmpty(txtNewFornamn) && validering.txtFieldEmpty(txtNewEfternamn)) {
+                    if(validering.isString(txtNewFornamn) && validering.isString(txtNewEfternamn)) {
+            
+                    fraga = "UPDATE ELEV SET FORNAMN = '" + elevFornamn + "', EFTERNAMN = '" + elevEfternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
+                    idb.update(fraga);
+                    swag.cboxAddElev(cboxElev);
+                    txtSvar.setText("Eleven har uppdaterats");
+                    }
+            }
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());

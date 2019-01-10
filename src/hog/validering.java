@@ -114,10 +114,10 @@ public class validering { //försöker importera databasen
     }
 
     //Metoden kollar om en det som skrivits i fältet är en String.
-    public boolean isString(JTextField txtNamn) {
+    public static boolean isString(JTextField txtNamn) {
         boolean isString = false;
 
-        if (txtNamn.getText().matches("[a-zA-Z]")) {
+        if (txtNamn.getText().matches("[a-zA-Z]+")) {
             isString = true;
         } else {
             JOptionPane.showMessageDialog(null, "Ange endast bokstäver");
@@ -184,7 +184,7 @@ public class validering { //försöker importera databasen
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
         return ratt;
-
+        
     }
-
+    
 }

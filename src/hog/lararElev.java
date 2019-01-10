@@ -291,6 +291,7 @@ public class lararElev extends javax.swing.JFrame {
             if(!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) {
                 JOptionPane.showMessageDialog(null, "Du har angett fel värden.");
             }
+            System.out.print("Test");
             String temp = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' AND EFTERNAMN = '" + oldEnamn + "' AND SOVSAL = '" + oldSovsal + "' ");
             idb.update("UPDATE ELEV SET FORNAMN = '" + nyttFnamn + "', EFTERNAMN = '" + nyttEnamn + "', SOVSAL = '" + newSovsal + "' WHERE ELEV_ID = '" + temp + "' ");
             

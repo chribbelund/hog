@@ -5,6 +5,7 @@
  */
 package hog;
 
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -230,6 +231,7 @@ public class elevBetygReg extends javax.swing.JFrame {
         //Den här metoden behöver en kontrollfunktion för att se om tidigare betyg finns.
 
         try {
+                
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
             String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
@@ -244,13 +246,22 @@ public class elevBetygReg extends javax.swing.JFrame {
             //Hitta kursens kursID baserat på kursnamn
             String fraga2 = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ";
             String kursID = idb.fetchSingle(fraga2);
-
+            
+            //Hämtar betyg baserat på KursID och EleviD
+            HashMap <String, String> kursbetyg = new HashMap();
+            kursbetyg = null;
+            kursbetyg = idb.fetchRow("SELECT * FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ");
+            
+             if(kursbetyg != null) {
+                 
             //Uppdatera kursbetyget
             String fraga3 = "UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ";
             idb.update(fraga3);
             swag.cboxAddKurs(cboxKurs);
             txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
-
+            } else {
+                 JOptionPane.showMessageDialog(null, "Eleven har inget betyg i den kursen. Skapa ett nytt.");
+            }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
