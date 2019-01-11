@@ -282,11 +282,10 @@ public class elevStart extends javax.swing.JFrame {
                         //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
                         String svaret = "";
                         try {
-                        for (int i = 0; i < betyg.size(); i++) {
-                            svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
-                        }
-                        }
-                        catch(NullPointerException e){
+                            for (int i = 0; i < betyg.size(); i++) {
+                                svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
+                            }
+                        } catch (NullPointerException e) {
                             JOptionPane.showMessageDialog(null, "Eleven Har inga betyg");
                         }
                         svar.setText(svaret);
@@ -392,12 +391,11 @@ public class elevStart extends javax.swing.JFrame {
                     ArrayList<String> kurser = idb.fetchColumn(fraga);
 
                     String svaret = ""; //Skapar en String variabel
-                    try{
-                    for (int i = 0; i < kurser.size(); i++) { //Lagrar kurserna på alla indexpositioner i variabeln "svaret".
-                        svaret += kurser.get(i) + "\n";
-                    }
-                    }
-                    catch(NullPointerException e){
+                    try {
+                        for (int i = 0; i < kurser.size(); i++) { //Lagrar kurserna på alla indexpositioner i variabeln "svaret".
+                            svaret += kurser.get(i) + "\n";
+                        }
+                    } catch (NullPointerException e) {
                         JOptionPane.showMessageDialog(null, "Eleven läser inga kurser");
                     }
                     svar.setText(svaret); //Skriver ut kurserna för eleven i rutan.
