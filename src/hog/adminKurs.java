@@ -15,17 +15,23 @@ import oru.inf.InfException;
  * @author Jamie
  */
 public class adminKurs extends javax.swing.JFrame {
-    
+
     private InfDB idb;
     UpdateCombobox swag;
+
     /**
      * Creates new form adminKurs
      */
     public adminKurs() {
         initComponents();
-        
-        
-      
+
+        try {
+            idb = new InfDB("C:\\db\\HOGDB.FDB");
+        } catch (InfException undantag) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        }
+
     }
 
     /**
@@ -134,57 +140,53 @@ public class adminKurs extends javax.swing.JFrame {
         String valdkurs1 = (String) cboxKurs.getSelectedItem();
         String harbetygi = null;
         String registreradpa = null;
-        String kursid = "";
-        
-        try{
+        String kursid = null;
+
+        try {
             System.out.println(valdkurs1);
-            kursid = idb.fetchSingle("SELECT KURS_ID FROM KURS WHERE KURSNAMN = '"+valdkurs1+"'");
-              
-        }
-        catch(InfException e){
+            String fraga = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + valdkurs1 + "';";
+            System.out.println(fraga);
+            kursid = idb.fetchSingle(fraga);
+            System.out.println(kursid);
+
+        } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Kunde ej hitta den angivna kursens id");
         }
-            try{
-                harbetygi = idb.fetchSingle("SELECT KURS_ID FROM HAR_BETYG_I WHERE KURS_ID = "+kursid);
-            }
-            catch(InfException e){
+        try {
+            harbetygi = idb.fetchSingle("SELECT KURS_ID FROM HAR_BETYG_I WHERE KURS_ID = " + kursid);
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        try {
+            registreradpa = idb.fetchSingle("SELECT KURS_ID FROM REGISTRERAD_PA WHERE KURS_ID = " + kursid);
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Något gick fel");
+        }
+        if (validering.kollaStringVarde(harbetygi)) {
+            try {
+                idb.delete("DELETE FROM HAR_BETYG_I WHERE KURS_ID = " + kursid);
+            } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
             }
-            try{
-                registreradpa = idb.fetchSingle("SELECT KURS_ID FROM REGISTRERAD_PA WHERE KURS_ID = "+kursid);
-            }
-            catch(InfException e){
+        }
+        if (validering.kollaStringVarde(registreradpa)) {
+            try {
+                idb.delete("DELETE FROM REGISTRERAD_PA WHERE KURS_ID = " + kursid);
+            } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
             }
-         if(validering.kollaStringVarde(harbetygi)){
-             try{
-                 idb.delete("DELETE FROM HAR_BETYG_I WHERE KURS_ID = "+kursid);
-             }
-             catch(InfException e){
-                JOptionPane.showMessageDialog(null, "Något gick fel");
-            }
-         }
-         if(validering.kollaStringVarde(registreradpa)){
-             try{
-                 idb.delete("DELETE FROM REGISTRERAD_PA WHERE KURS_ID = "+kursid);
-             }
-             catch(InfException e){
-                JOptionPane.showMessageDialog(null, "Något gick fel");
-            }
-         }
-         try{
-             idb.delete("DELETE FROM KURS WHERE KURS_ID = "+kursid);
-             JOptionPane.showMessageDialog(null, "Kursen har tagits bort");
-         }
-         catch(InfException e){
-                JOptionPane.showMessageDialog(null, "Kunde ej ta bort angiven kurs");
-            }
+        }
+        try {
+            idb.delete("DELETE FROM KURS WHERE KURS_ID = " + kursid);
+            JOptionPane.showMessageDialog(null, "Kursen har tagits bort");
+        } catch (InfException e) {
+            JOptionPane.showMessageDialog(null, "Kunde ej ta bort angiven kurs");
+        }
     }//GEN-LAST:event_btnTaBortKursActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangeKurs;
