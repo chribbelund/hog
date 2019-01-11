@@ -79,6 +79,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
 
         jLabel7.setText("Lösenord");
 
+        txtSvarsruta.setEditable(false);
         txtSvarsruta.setColumns(20);
         txtSvarsruta.setRows(5);
         jScrollPane1.setViewportView(txtSvarsruta);

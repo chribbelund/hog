@@ -116,6 +116,7 @@ public class lararElev extends javax.swing.JFrame {
             }
         });
 
+        txtOutput.setEditable(false);
         txtOutput.setColumns(20);
         txtOutput.setRows(5);
         jScrollPane1.setViewportView(txtOutput);

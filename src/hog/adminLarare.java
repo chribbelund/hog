@@ -110,6 +110,7 @@ public class adminLarare extends javax.swing.JFrame {
         btnBetygLarare.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnBetygLarare.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
+        txtSvar.setEditable(false);
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);

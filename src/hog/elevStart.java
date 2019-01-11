@@ -220,7 +220,6 @@ public class elevStart extends javax.swing.JFrame {
 
             }
             svar.setText(svaret); //Skriver ut svaret i svarsrutan
-            System.out.println(svaret); //Internt test
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
@@ -254,7 +253,6 @@ public class elevStart extends javax.swing.JFrame {
 
             }
             svar.setText(svaret);
-            System.out.println(svaret);
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
@@ -352,7 +350,6 @@ public class elevStart extends javax.swing.JFrame {
 
             String antalHemString = idb.fetchSingle(antalHem); //Tar antal hem och sätter det i en String
             int antalHemInt = Integer.parseInt(antalHemString); //Omvandlar antal hem till en int
-            System.out.println(antalHemInt); //Internt test
 
             String svaret = ""; //Tom sträng som används senare
             ArrayList<String> husPoang = new ArrayList<>(); //Gör en ArrayList som ska lagra varje hus poäng

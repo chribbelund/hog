@@ -80,6 +80,7 @@ public class adminLarareReg extends javax.swing.JFrame {
             }
         });
 
+        txtSvar.setEditable(false);
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);

@@ -86,6 +86,7 @@ public class elevBetygReg extends javax.swing.JFrame {
 
         cboxBetyg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Troll", "Dreadful", "Poor", "Acceptable", "Exceeds Expectations", "Outstanding" }));
 
+        txtSvar.setEditable(false);
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);
