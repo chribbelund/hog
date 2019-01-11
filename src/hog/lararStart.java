@@ -5,8 +5,6 @@
  */
 package hog;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;

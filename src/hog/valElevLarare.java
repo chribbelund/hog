@@ -5,7 +5,6 @@
  */
 package hog;
 
-import javax.swing.JOptionPane;
 
 /**
  *

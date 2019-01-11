@@ -6,7 +6,6 @@
 package hog;
 
 import javax.swing.JOptionPane;
-import oru.inf.InfDB;
 /**
  *
  * @author Christoffer

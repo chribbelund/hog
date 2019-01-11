@@ -9,7 +9,6 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -282,11 +281,14 @@ public class elevStart extends javax.swing.JFrame {
                         ArrayList<String> betyg = idb.fetchColumn(fraga);
                         //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
                         String svaret = "";
-
+                        try {
                         for (int i = 0; i < betyg.size(); i++) {
                             svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
                         }
-
+                        }
+                        catch(NullPointerException e){
+                            JOptionPane.showMessageDialog(null, "Eleven Har inga betyg");
+                        }
                         svar.setText(svaret);
                     }
 
@@ -383,21 +385,21 @@ public class elevStart extends javax.swing.JFrame {
             if (validering.txtFieldEmpty(txtNamn)) {
                 String namn = txtNamn.getText(); // Lagrar det som skrivs i txtRutan i variabeln "namn".
                 if (val.isNameFormatCorrect(namn)) {
-                    String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-                    String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
-                    System.out.println(namn);//Internt test
-                    System.out.println(fornamn);//Internt test
-                    System.out.println(efternamn);//Internt test
+                    String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn i två strings
+                    String efternamn = namn.split(" ")[1];
 
                     String fraga = "Select KURS.KURSNAMN From ELEV Join REGISTRERAD_PA ON REGISTRERAD_PA.ELEV_ID = ELEV.ELEV_ID Join KURS ON KURS.KURS_ID = REGISTRERAD_PA.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' "; //SQL fråga som hämtar kursnamn för en elev med ett givet namn.
                     ArrayList<String> kurser = idb.fetchColumn(fraga);
 
                     String svaret = ""; //Skapar en String variabel
-
+                    try{
                     for (int i = 0; i < kurser.size(); i++) { //Lagrar kurserna på alla indexpositioner i variabeln "svaret".
                         svaret += kurser.get(i) + "\n";
                     }
-
+                    }
+                    catch(NullPointerException e){
+                        JOptionPane.showMessageDialog(null, "Eleven läser inga kurser");
+                    }
                     svar.setText(svaret); //Skriver ut kurserna för eleven i rutan.
                 }
             }

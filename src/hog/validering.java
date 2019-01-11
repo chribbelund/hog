@@ -9,9 +9,7 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import java.util.Arrays;
 import java.util.ArrayList;
-import javax.swing.JPasswordField;
 
 /**
  *
