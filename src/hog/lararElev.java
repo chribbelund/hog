@@ -17,6 +17,7 @@ public class lararElev extends javax.swing.JFrame {
 
     private InfDB idb;
     private validering val;
+    UpdateCombobox swag;
 
     /**
      * Creates new form lararElev
@@ -52,8 +53,6 @@ public class lararElev extends javax.swing.JFrame {
         txtFaltEfternamnNy = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtOutput = new javax.swing.JTextArea();
-        btnGeneratePW = new javax.swing.JButton();
-        btnListaElever = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -61,8 +60,10 @@ public class lararElev extends javax.swing.JFrame {
         txtFaltEfternamnOld = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtFaltSovsalNew = new javax.swing.JTextField();
-        txtFaltSovsalOld = new javax.swing.JTextField();
+        cboxSovsal = new javax.swing.JComboBox<>();
+        swag.cboxAddSovsal(cboxSovsal);
+        cboxSovsalOld = new javax.swing.JComboBox<>();
+        swag.cboxAddSovsal(cboxSovsalOld);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,12 +120,6 @@ public class lararElev extends javax.swing.JFrame {
         txtOutput.setRows(5);
         jScrollPane1.setViewportView(txtOutput);
 
-        btnGeneratePW.setText("Generera lösenord //LÅG");
-        btnGeneratePW.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        btnListaElever.setText("Lista elever //LÅG");
-        btnListaElever.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Nya uppg.");
 
@@ -149,20 +144,16 @@ public class lararElev extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(btnChangeElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnAddElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jLabel6))
-                                .addGap(85, 85, 85)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)))
-                            .addComponent(btnListaElever)
-                            .addComponent(btnGeneratePW))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnChangeElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAddElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel6))
+                        .addGap(85, 85, 85)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -172,13 +163,11 @@ public class lararElev extends javax.swing.JFrame {
                                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(31, 31, 31))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtFaltSovsalNew, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtFaltFornamnNy, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                                            .addComponent(txtFaltEfternamnNy))
-                                        .addComponent(jLabel4)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtFaltFornamnNy, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                    .addComponent(txtFaltEfternamnNy)
+                                    .addComponent(jLabel4)
+                                    .addComponent(cboxSovsal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -187,7 +176,7 @@ public class lararElev extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtFaltFornamnOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtFaltEfternamnOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtFaltSovsalOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(cboxSovsalOld, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(51, 51, 51))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,24 +208,17 @@ public class lararElev extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtFaltSovsalNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFaltSovsalOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(cboxSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxSovsalOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHanteraBetyg)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnGeneratePW)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListaElever)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
                 .addComponent(btnTillbaka)
                 .addGap(6, 6, 6))
         );
@@ -253,9 +235,9 @@ public class lararElev extends javax.swing.JFrame {
         try {
             String fornamn = txtFaltFornamnNy.getText();
             String efternamn = txtFaltEfternamnNy.getText();
-            String sovsal = txtFaltSovsalNew.getText();
+            String sovsal = (String) cboxSovsal.getSelectedItem();
 
-            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltSovsalNew)) {
+            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy)) {
                 String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
                 String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
                 idb.insert(fraga);
@@ -263,7 +245,6 @@ public class lararElev extends javax.swing.JFrame {
                 txtOutput.setText("En ny elev har registrerats");
                 txtFaltFornamnNy.setText(null);
                 txtFaltEfternamnNy.setText(null);
-                txtFaltSovsalNew.setText(null);
             }
 
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
@@ -275,13 +256,13 @@ public class lararElev extends javax.swing.JFrame {
     private void btnChangeElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeElevActionPerformed
         String nyttFnamn = txtFaltFornamnNy.getText();
         String nyttEnamn = txtFaltEfternamnNy.getText();
-        String newSovsal = txtFaltSovsalNew.getText();
+        String newSovsal = (String) cboxSovsal.getSelectedItem();
         String oldFnamn = txtFaltFornamnOld.getText();
         String oldEnamn = txtFaltEfternamnOld.getText();
-        String oldSovsal = txtFaltSovsalOld.getText();
+        String oldSovsal = (String) cboxSovsalOld.getSelectedItem();
 
         try {
-            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltSovsalNew) && val.txtFieldEmpty(txtFaltFornamnOld) && val.txtFieldEmpty(txtFaltEfternamnOld) && val.txtFieldEmpty(txtFaltSovsalOld)) {
+            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltFornamnOld)) {
 
                 String z = idb.fetchSingle("SELECT FORNAMN FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' ");
                 String x = idb.fetchSingle("SELECT EFTERNAMN FROM ELEV WHERE EFTERNAMN = '" + oldEnamn + "' ");
@@ -298,11 +279,9 @@ public class lararElev extends javax.swing.JFrame {
 
                     txtOutput.setText("Elevens information har uppdateras");
                     txtFaltFornamnNy.setText(null);
-                    txtFaltEfternamnNy.setText(null);
-                    txtFaltSovsalNew.setText(null);
                     txtFaltFornamnOld.setText(null);
+                    txtFaltEfternamnNy.setText(null);
                     txtFaltEfternamnOld.setText(null);
-                    txtFaltSovsalOld.setText(null);
 
                 }
             }
@@ -333,10 +312,10 @@ public class lararElev extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddElev;
     private javax.swing.JButton btnChangeElev;
-    private javax.swing.JButton btnGeneratePW;
     private javax.swing.JButton btnHanteraBetyg;
-    private javax.swing.JButton btnListaElever;
     private javax.swing.JButton btnTillbaka;
+    private javax.swing.JComboBox<String> cboxSovsal;
+    private javax.swing.JComboBox<String> cboxSovsalOld;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -350,8 +329,6 @@ public class lararElev extends javax.swing.JFrame {
     private javax.swing.JTextField txtFaltEfternamnOld;
     private javax.swing.JTextField txtFaltFornamnNy;
     private javax.swing.JTextField txtFaltFornamnOld;
-    private javax.swing.JTextField txtFaltSovsalNew;
-    private javax.swing.JTextField txtFaltSovsalOld;
     private javax.swing.JTextArea txtOutput;
     // End of variables declaration//GEN-END:variables
 }
