@@ -238,6 +238,8 @@ public class lararElev extends javax.swing.JFrame {
             String sovsal = (String) cboxSovsal.getSelectedItem();
 
             if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy)) {
+                fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                efternamn = val.formatName(efternamn);
                 String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
                 String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
                 idb.insert(fraga);
@@ -263,7 +265,8 @@ public class lararElev extends javax.swing.JFrame {
 
         try {
             if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltFornamnOld)) {
-
+                oldFnamn = val.formatName(oldFnamn); //Formaterar namnet så det fungerar i databasen
+                oldEnamn = val.formatName(oldEnamn);
                 String z = idb.fetchSingle("SELECT FORNAMN FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' ");
                 String x = idb.fetchSingle("SELECT EFTERNAMN FROM ELEV WHERE EFTERNAMN = '" + oldEnamn + "' ");
                 String y = idb.fetchSingle("SELECT SOVSAL FROM ELEV WHERE SOVSAL = '" + oldSovsal + "' ");
@@ -272,16 +275,18 @@ public class lararElev extends javax.swing.JFrame {
 
                     if (!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) {
                         JOptionPane.showMessageDialog(null, "Du har angett fel värden.");
-                    }
-                    System.out.print("Test");
-                    String temp = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' AND EFTERNAMN = '" + oldEnamn + "' AND SOVSAL = '" + oldSovsal + "' ");
-                    idb.update("UPDATE ELEV SET FORNAMN = '" + nyttFnamn + "', EFTERNAMN = '" + nyttEnamn + "', SOVSAL = '" + newSovsal + "' WHERE ELEV_ID = '" + temp + "' ");
+                    } else {
+                        nyttFnamn = val.formatName(nyttFnamn); //Formaterar namnet så det fungerar i databasen
+                        nyttEnamn = val.formatName(nyttEnamn);
+                        String temp = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' AND EFTERNAMN = '" + oldEnamn + "' AND SOVSAL = '" + oldSovsal + "' ");
+                        idb.update("UPDATE ELEV SET FORNAMN = '" + nyttFnamn + "', EFTERNAMN = '" + nyttEnamn + "', SOVSAL = '" + newSovsal + "' WHERE ELEV_ID = '" + temp + "' ");
 
-                    txtOutput.setText("Elevens information har uppdateras");
-                    txtFaltFornamnNy.setText(null);
-                    txtFaltFornamnOld.setText(null);
-                    txtFaltEfternamnNy.setText(null);
-                    txtFaltEfternamnOld.setText(null);
+                        txtOutput.setText("Elevens information har uppdateras");
+                        txtFaltFornamnNy.setText(null);
+                        txtFaltFornamnOld.setText(null);
+                        txtFaltEfternamnNy.setText(null);
+                        txtFaltEfternamnOld.setText(null);
+                    }
 
                 }
             }

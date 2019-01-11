@@ -269,7 +269,8 @@ public class elevStart extends javax.swing.JFrame {
             if (val.isNameFormatCorrect(namn)) {
                 String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
                 String efternamn = namn.split(" ")[1];
-
+                fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                efternamn = val.formatName(efternamn);
                 try {
 
                     //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka kurser som eleven läser
@@ -386,6 +387,8 @@ public class elevStart extends javax.swing.JFrame {
                 if (val.isNameFormatCorrect(namn)) {
                     String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn i två strings
                     String efternamn = namn.split(" ")[1];
+                    fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                    efternamn = val.formatName(efternamn);
 
                     String fraga = "Select KURS.KURSNAMN From ELEV Join REGISTRERAD_PA ON REGISTRERAD_PA.ELEV_ID = ELEV.ELEV_ID Join KURS ON KURS.KURS_ID = REGISTRERAD_PA.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' "; //SQL fråga som hämtar kursnamn för en elev med ett givet namn.
                     ArrayList<String> kurser = idb.fetchColumn(fraga);

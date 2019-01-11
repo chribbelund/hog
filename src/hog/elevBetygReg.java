@@ -189,6 +189,8 @@ public class elevBetygReg extends javax.swing.JFrame {
         if (val.isString(txtFornamn) && val.isString(txtEfternamn)) {
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
+            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+            efternamn = val.formatName(efternamn);
             if (!(fornamn.isEmpty()) && !(efternamn.isEmpty())) {
                 try {
 
@@ -240,6 +242,8 @@ public class elevBetygReg extends javax.swing.JFrame {
 
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
+            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+            efternamn = val.formatName(efternamn);
             String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
             String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
             String betygKort = betyget.substring(0, 1);

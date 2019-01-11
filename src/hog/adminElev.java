@@ -17,12 +17,14 @@ public class adminElev extends javax.swing.JFrame {
 
     private InfDB idb;
     UpdateCombobox swag;
+    private validering val;
 
     /**
      * Creates new form adminElev
      */
     public adminElev() {
         initComponents();
+        val = new validering();
         try {
             idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
@@ -207,6 +209,8 @@ public class adminElev extends javax.swing.JFrame {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
             String sovsal = (String) cboxSovsal.getSelectedItem();
+            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+            efternamn = val.formatName(efternamn);
 
             //Kör validering som kollar om fälten är tomma
             if (validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn)) {
@@ -241,6 +245,8 @@ public class adminElev extends javax.swing.JFrame {
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
+            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+            efternamn = val.formatName(efternamn);
 
             String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
             idb.delete(fraga); //Uppdaterar databasen.

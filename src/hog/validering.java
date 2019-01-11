@@ -182,5 +182,9 @@ public class validering { //försöker importera databasen
         }
         return searching;
     }
-
+    //Tar en String och gör om den så att första bokstaven är versal och att resten är gemener
+    public static String formatName(String input){
+        String output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase(); 
+        return output;
+    }
 }

@@ -170,13 +170,18 @@ public class adminLarareReg extends javax.swing.JFrame {
                 String fornamn = txtFaltFornamn.getText();
                 String efternamn = txtFaltEfternamn.getText();
                 String pws = new String(txtLosenord.getPassword());
+                fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                efternamn = val.formatName(efternamn);
+                
 
                 if (!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
                     String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");
                     String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'F');";
                     idb.insert(fraga);
-
                     txtSvar.setText("En ny lärare har registrerats");
+                    txtFaltFornamn.setText(null);
+                    txtFaltEfternamn.setText(null);
+                    txtLosenord.setText(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Ett fält är lämnat tomt");
                 }

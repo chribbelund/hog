@@ -177,6 +177,8 @@ public class adminLarareInfo extends javax.swing.JFrame {
                 String larare = (String) cboxLarare.getSelectedItem(); //Hämtar lärarnamn från combobox
                 String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
                 String larareEfternamn = larare.split(" ")[1];
+                larareFornamn = val.formatName(larareFornamn); //Formaterar namnet så det fungerar i databasen
+                larareEfternamn = val.formatName(larareEfternamn);
 
                 String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; ";
                 String lararID = idb.fetchSingle(fraga);
@@ -189,6 +191,9 @@ public class adminLarareInfo extends javax.swing.JFrame {
                 idb.update(fraga);
                 swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen med lärare
                 txtSvarsruta.setText("Informationen har uppdaterats");
+                txtNewEfternamn.setText(null);
+                txtNewFornamn.setText(null);
+                txtNewLosenord.setText(null);
 
             } catch (InfException undantag) { //Fångar databasfel
                 JOptionPane.showMessageDialog(null, "Något gick fel");

@@ -92,6 +92,12 @@ public class adminElevInfo extends javax.swing.JFrame {
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);
 
+        txtNamn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,6 +182,8 @@ public class adminElevInfo extends javax.swing.JFrame {
             if (val.isNameFormatCorrect(namn)) { //Kontrollerar så att det insskrivna namnet både har ett för och efternamn separerat med ett mellanslag
                 String fornamn = namn.split(" ")[0]; //Delar upp det inskrivna namnet i två strings
                 String efternamn = namn.split(" ")[1];
+                fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                efternamn = val.formatName(efternamn);
 
                 try {
                     //Hämtar elevid
@@ -189,9 +197,14 @@ public class adminElevInfo extends javax.swing.JFrame {
                         //Kontrollerar om det är strings i fälten
                         if (validering.isString(txtNewFornamn) && validering.isString(txtNewEfternamn)) {
                             //Gör en sql fråga som uppdaterar all info om en elev
+                            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                            efternamn = val.formatName(efternamn);
                             fraga = "UPDATE ELEV SET FORNAMN = '" + fornamn + "', EFTERNAMN = '" + efternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
                             idb.update(fraga);
                             txtSvar.setText("Eleven har uppdaterats");
+                            txtNamn.setText(null);
+                            txtNewFornamn.setText(null);
+                            txtNewEfternamn.setText(null);
                         }
                     }
                 } catch (InfException undantag) {
@@ -201,6 +214,10 @@ public class adminElevInfo extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnUpdateElevActionPerformed
+
+    private void txtNamnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamnActionPerformed
 
     /**
      * @param args the command line arguments
