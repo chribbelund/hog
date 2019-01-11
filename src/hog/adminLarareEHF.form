@@ -48,10 +48,10 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="cboxElev" max="32767" attributes="0"/>
+                                  <Component id="cboxLarare" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="23" pref="122" max="32767" attributes="0"/>
+                                      <EmptySpace min="23" pref="114" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
@@ -81,7 +81,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="cboxElev" min="-2" max="-2" attributes="0"/>
+                  <Component id="cboxLarare" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="btnSkapa" min="-2" max="-2" attributes="0"/>
@@ -131,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Elevnamn"/>
+        <Property name="text" type="java.lang.String" value="L&#xe4;rarnamn"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSkapa">
@@ -142,14 +142,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSkapaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cboxElev">
+    <Component class="javax.swing.JComboBox" name="cboxLarare">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="swag.cboxAddElev(cboxElev); "/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="swag.cboxAddLarare(cboxLarare); "/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>

@@ -49,8 +49,8 @@ public class adminLarareEHF extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnSkapa = new javax.swing.JButton();
-        cboxElev = new javax.swing.JComboBox<>();
-        swag.cboxAddElev(cboxElev);
+        cboxLarare = new javax.swing.JComboBox<>();
+        swag.cboxAddLarare(cboxLarare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,7 +72,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
 
         jLabel2.setText("Ny elevhemsföreståndare");
 
-        jLabel3.setText("Elevnamn");
+        jLabel3.setText("Lärarnamn");
 
         btnSkapa.setText("OK");
         btnSkapa.addActionListener(new java.awt.event.ActionListener() {
@@ -106,10 +106,10 @@ public class adminLarareEHF extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cboxElev, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboxLarare, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(23, 122, Short.MAX_VALUE)))
+                                        .addGap(23, 114, Short.MAX_VALUE)))
                                 .addGap(46, 46, 46))))))
         );
         layout.setVerticalGroup(
@@ -128,7 +128,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(cboxElev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(btnSkapa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
@@ -152,16 +152,15 @@ public class adminLarareEHF extends javax.swing.JFrame {
         String itemText = (String) ehValjare.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
         
         try {
-            String elev = (String) cboxElev.getSelectedItem();
-            String elevFornamn = elev.split(" ")[0];
-            String elevEfternamn = elev.split(" ")[1];
+            String larare = (String) cboxLarare.getSelectedItem();
+            String larareFornamn = larare.split(" ")[0];
+            String larareEfternamn = larare.split(" ")[1];
             
-            String fraga1 = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + elevFornamn + "' AND EFTERNAMN = '" + elevEfternamn + "';"; //Kolla vilket ID läraren har 
-            System.out.println(fraga1); // TEST
+            String fraga1 = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';"; //Kolla vilket ID läraren har 
             String svar1 = idb.fetchSingle(fraga1);
             
             String fraga2 = "UPDATE ELEVHEM SET FORESTANDARE = '" + svar1 + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //Uppdatera nya elevhemsföreståndaren 
-            swag.cboxAddElev(cboxElev);
+            swag.cboxAddLarare(cboxLarare);
             idb.update(fraga2);
             
             
@@ -180,7 +179,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSkapa;
     private javax.swing.JButton btnTillbaka;
-    private javax.swing.JComboBox<String> cboxElev;
+    private javax.swing.JComboBox<String> cboxLarare;
     private javax.swing.JComboBox<String> ehValjare;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

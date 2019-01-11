@@ -20,6 +20,12 @@ public class UpdateCombobox {
     private static InfDB idb;
     UpdateCombobox swag;
 
+    /*
+    Alla metoder i den här klassen fungerar på samma sätt.
+    De importerar databasen, kallar den för idb. Sen hämtar den en hel kolumn och sätter det i en arraylist.
+    Sen körs removeAllItems för att tömma comboboxen från alla tidigare inskrivna värden. Detta görs för att om databasen uppdateras så ska cboxen vara korrekt.
+    Denna arraylist loopas sedan igenom och sätter in alla värden i den valda comboboxen.
+     */
     public static void cboxAddKurs(JComboBox cboxKurs) {
         //Importerar databasen
         try {
