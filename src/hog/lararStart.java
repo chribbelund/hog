@@ -241,9 +241,10 @@ public class lararStart extends javax.swing.JFrame {
                 if (val.isPasswordCorrect(txtUsername, nuvarandeLosen)) {
                     if (!nyttLosen.equals(nyttLosenKontroll)) {
                         JOptionPane.showMessageDialog(null, "Ditt nya lösenord stämmer ej överens.");
+                    } else {
+                        idb.update("UPDATE LARARE SET LOSENORD = '" + nyttLosen + "' WHERE EFTERNAMN = '" + username + "' ");
+                        txtOutput.setText("Ditt lösenord har ändrats");
                     }
-                    idb.update("UPDATE LARARE SET LOSENORD = '" + nyttLosen + "' WHERE EFTERNAMN = '" + username + "' ");
-                    txtOutput.setText("Ditt lösenord har ändrats");
                 }
             }
         } catch (InfException undantag) {
