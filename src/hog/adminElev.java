@@ -17,7 +17,7 @@ import oru.inf.InfException;
 public class adminElev extends javax.swing.JFrame {
 
     private InfDB idb;
-
+    UpdateCombobox swag;
     /**
      * Creates new form adminElev
      */
@@ -46,7 +46,6 @@ public class adminElev extends javax.swing.JFrame {
         btnDeleteElev = new javax.swing.JButton();
         txtFaltFornamn = new javax.swing.JTextField();
         txtFaltEfternamn = new javax.swing.JTextField();
-        txtFaltSovsal = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -54,6 +53,8 @@ public class adminElev extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
         cboxElevhem = new javax.swing.JComboBox<>();
+        cboxSovsal = new javax.swing.JComboBox<>();
+        swag.cboxAddSovsal(cboxSovsal);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,11 +129,10 @@ public class adminElev extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnChangeElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnAndraPrefekt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTillbaka)
-                        .addComponent(btnAddElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeleteElev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnAndraPrefekt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAddElev, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeleteElev, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -148,8 +148,8 @@ public class adminElev extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(txtFaltSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(64, 64, 64))
+                            .addComponent(cboxSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cboxElevhem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -168,11 +168,11 @@ public class adminElev extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addGap(7, 7, 7)
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFaltFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtFaltEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFaltSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cboxSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAndraPrefekt)
@@ -203,10 +203,10 @@ public class adminElev extends javax.swing.JFrame {
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
-            String sovsal = txtFaltSovsal.getText();
+            String sovsal = (String) cboxSovsal.getSelectedItem();
 
-            if (validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn) && validering.txtFieldEmpty(txtFaltSovsal)) {
-                if(validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn) && validering.isInt(txtFaltSovsal)) {
+            if (validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn)) {
+                if(validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn)) {
                     String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
                     System.out.println(increment);
                     String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
@@ -214,9 +214,9 @@ public class adminElev extends javax.swing.JFrame {
                     idb.insert(fraga);
 
                 txtSvar.setText("En ny elev har registrerats");
-                txtFaltFornamn.setText("null");
-                txtFaltEfternamn.setText("null");
-                txtFaltSovsal.setText("null");
+                txtFaltFornamn.setText(null);
+                txtFaltEfternamn.setText(null);
+                swag.cboxAddSovsal(cboxSovsal);
                 }
             }
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
@@ -233,15 +233,12 @@ public class adminElev extends javax.swing.JFrame {
         try {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
-            String sovsal = txtFaltSovsal.getText();
 
-            String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "' AND SOVSAL = '" + sovsal + "'; "; //Tar bort raden med givet för- och efternamn.
-            System.out.println(fraga);
+            String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
             idb.delete(fraga); //Uppdaterar databasen.
             txtSvar.setText(fornamn + " " + efternamn + " har tagits bort");
             txtFaltFornamn.setText(null);
             txtFaltEfternamn.setText(null);
-            txtFaltSovsal.setText(null);
 
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
@@ -261,8 +258,8 @@ public class adminElev extends javax.swing.JFrame {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
             
-            if(validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn) && validering.txtFieldEmpty(txtFaltSovsal)) {
-                if(validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn) && validering.isInt(txtFaltSovsal)) {
+            if(validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn)) {
+                if(validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn)) {
                     
                 String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
                 String elevid = idb.fetchSingle(fraga);
@@ -298,13 +295,13 @@ public class adminElev extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteElev;
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JComboBox<String> cboxElevhem;
+    private javax.swing.JComboBox<String> cboxSovsal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtFaltEfternamn;
     private javax.swing.JTextField txtFaltFornamn;
-    private javax.swing.JTextField txtFaltSovsal;
     private javax.swing.JTextArea txtSvar;
     // End of variables declaration//GEN-END:variables
 }

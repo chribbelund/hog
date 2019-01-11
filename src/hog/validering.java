@@ -42,6 +42,20 @@ public class validering { //försöker importera databasen
         return result;
     }
 
+    public boolean isNameFormatCorrect(String namn) {
+        boolean correctFormat = true;
+        try {
+            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+            String efternamn = namn.split(" ")[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(null, "Ange ett korrekt namn");
+            System.out.println("Internt felmeddelande " + e.getMessage());
+            System.out.println("Du måste ange ett förnamnnamn och ett efternamn");
+            correctFormat = false;
+        }
+        return correctFormat;
+    }
+
     public boolean isUsernameCorrect(JTextField txtUsername) {
         boolean correctUsername = false;
         try {
@@ -144,11 +158,11 @@ public class validering { //försöker importera databasen
     //Metoden kollar om värdet i fältet är positivt
     public static boolean positivtTal(JTextField aktuelltFalt) {
         boolean searching = true;
-        if (aktuelltFalt.getText().substring(0,1).equals("-")) {
+        if (aktuelltFalt.getText().substring(0, 1).equals("-")) {
             searching = false;
             JOptionPane.showMessageDialog(null, "Endast positiva värden");
             //aktuelltFalt.requestFocus();
-        } 
+        }
         return searching;
     }
 
@@ -184,7 +198,7 @@ public class validering { //försöker importera databasen
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
         return ratt;
-        
+
     }
-    
+
 }

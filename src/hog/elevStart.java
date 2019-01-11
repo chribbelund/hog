@@ -267,33 +267,37 @@ public class elevStart extends javax.swing.JFrame {
         if (val.txtFieldEmpty(txtNamn)) {
 
             String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
-            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-            String efternamn = namn.split(" ")[1];
-            try {
+            if (val.isNameFormatCorrect(namn)) {
+                String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+                String efternamn = namn.split(" ")[1];
 
-                //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka kurser som eleven läser
-                if (val.isNameCorrect(fornamn, efternamn)) {
-                    String fraga = "SELECT KURS.KURSNAMN FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
-                    ArrayList<String> kurs = idb.fetchColumn(fraga);
-                    //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka betyg som en elev har
-                    fraga = "SELECT HAR_BETYG_I.KURSBETYG FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
-                    ArrayList<String> betyg = idb.fetchColumn(fraga);
-                    //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
-                    String svaret = "";
+                try {
 
-                    for (int i = 0; i < betyg.size(); i++) {
-                        svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
+                    //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka kurser som eleven läser
+                    if (val.isNameCorrect(fornamn, efternamn)) {
+                        String fraga = "SELECT KURS.KURSNAMN FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
+                        ArrayList<String> kurs = idb.fetchColumn(fraga);
+                        //Gör en sql fråga där programmet söker efter det inskrivna namnet i databasen för att se vilka betyg som en elev har
+                        fraga = "SELECT HAR_BETYG_I.KURSBETYG FROM ELEV JOIN HAR_BETYG_I ON HAR_BETYG_I.ELEV_ID = ELEV.ELEV_ID JOIN KURS ON KURS.KURS_ID = HAR_BETYG_I.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' ";
+                        ArrayList<String> betyg = idb.fetchColumn(fraga);
+                        //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
+                        String svaret = "";
+
+                        for (int i = 0; i < betyg.size(); i++) {
+                            svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
+                        }
+
+                        svar.setText(svaret);
                     }
 
-                    svar.setText(svaret);
+                } catch (InfException e) {
+                    JOptionPane.showMessageDialog(null, "Något gick fel");
+                    System.out.println("Internt felmeddelande" + e.getMessage());
+
                 }
-
-            } catch (InfException e) {
-                JOptionPane.showMessageDialog(null, "Något gick fel");
-                System.out.println("Internt felmeddelande" + e.getMessage());
-
             }
         }
+
     }//GEN-LAST:event_btnElevBetygActionPerformed
 
     private void dateStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateStartActionPerformed
@@ -310,14 +314,14 @@ public class elevStart extends javax.swing.JFrame {
         String formatStartDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
         String formatSlutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
         try {
-           
+
             //Skapar en sql fråga som hämtar alla kurser som pågår mellan två datum som användaren skrivit in
             ArrayList<String> kursStart = idb.fetchColumn("SELECT KURSNAMN FROM KURS WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
             //Hämtar lärares förnamn som har kuruser mellan två inskrivna datum
             ArrayList<String> kursLarareFornamn = idb.fetchColumn("SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
             //Hämtar lärares efternamn som har kuruser mellan två inskrivna datum
             ArrayList<String> kursLarareEfternamn = idb.fetchColumn("SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
-            
+
             String svaret = ""; //Skapar en tom String för senare utskrift
 
             //Loopar igenom antalet kurser och lägger till kursnamn och vem som har kursen i svaret
@@ -369,25 +373,27 @@ public class elevStart extends javax.swing.JFrame {
 
     private void btnElevKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevKursActionPerformed
         try {
-            
-            if(validering.txtFieldEmpty(txtNamn)) {
-            String namn = txtNamn.getText(); // Lagrar det som skrivs i txtRutan i variabeln "namn".
-            String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
-            String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
-            System.out.println(namn);//Internt test
-            System.out.println(fornamn);//Internt test
-            System.out.println(efternamn);//Internt test
 
-            String fraga = "Select KURS.KURSNAMN From ELEV Join REGISTRERAD_PA ON REGISTRERAD_PA.ELEV_ID = ELEV.ELEV_ID Join KURS ON KURS.KURS_ID = REGISTRERAD_PA.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' "; //SQL fråga som hämtar kursnamn för en elev med ett givet namn.
-            ArrayList<String> kurser = idb.fetchColumn(fraga);
+            if (validering.txtFieldEmpty(txtNamn)) {
+                String namn = txtNamn.getText(); // Lagrar det som skrivs i txtRutan i variabeln "namn".
+                if (val.isNameFormatCorrect(namn)) {
+                    String fornamn = namn.split(" ")[0]; //Delar upp för och efternamn
+                    String efternamn = namn.substring(namn.indexOf(" ") + 1).split(" ")[0]; //Tar bort alla mellanslag om man råkar skriva ett efter
+                    System.out.println(namn);//Internt test
+                    System.out.println(fornamn);//Internt test
+                    System.out.println(efternamn);//Internt test
 
-            String svaret = ""; //Skapar en String variabel
+                    String fraga = "Select KURS.KURSNAMN From ELEV Join REGISTRERAD_PA ON REGISTRERAD_PA.ELEV_ID = ELEV.ELEV_ID Join KURS ON KURS.KURS_ID = REGISTRERAD_PA.KURS_ID WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "' "; //SQL fråga som hämtar kursnamn för en elev med ett givet namn.
+                    ArrayList<String> kurser = idb.fetchColumn(fraga);
 
-            for (int i = 0; i < kurser.size(); i++) { //Lagrar kurserna på alla indexpositioner i variabeln "svaret".
-                svaret += kurser.get(i) + "\n";
-            }
+                    String svaret = ""; //Skapar en String variabel
 
-            svar.setText(svaret); //Skriver ut kurserna för eleven i rutan.
+                    for (int i = 0; i < kurser.size(); i++) { //Lagrar kurserna på alla indexpositioner i variabeln "svaret".
+                        svaret += kurser.get(i) + "\n";
+                    }
+
+                    svar.setText(svaret); //Skriver ut kurserna för eleven i rutan.
+                }
             }
         } catch (InfException ettUndantag) { //Fångar eventuella fel
             JOptionPane.showMessageDialog(null, "Något gick fel");
