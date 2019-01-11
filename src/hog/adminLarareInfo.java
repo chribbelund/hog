@@ -174,8 +174,8 @@ public class adminLarareInfo extends javax.swing.JFrame {
         //Sätta nya infon i variabler och gör en ny update SQL fråga.
         if (val.txtFieldEmpty(txtNewEfternamn) && val.txtFieldEmpty(txtNewFornamn) && val.txtFieldEmpty(txtNewLosenord)) {
             try {
-                String larare = (String) cboxLarare.getSelectedItem();
-                String larareFornamn = larare.split(" ")[0];
+                String larare = (String) cboxLarare.getSelectedItem(); //Hämtar lärarnamn från combobox
+                String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
                 String larareEfternamn = larare.split(" ")[1];
 
                 String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; ";
@@ -187,10 +187,10 @@ public class adminLarareInfo extends javax.swing.JFrame {
 
                 fraga = "UPDATE LARARE SET FORNAMN = '" + nyttFornamn + "', EFTERNAMN = '" + nyttEfternamn + "', LOSENORD = '" + nyttLosenord + "' WHERE LARAR_ID = '" + lararID + "'; ";
                 idb.update(fraga);
-                swag.cboxAddLarare(cboxLarare);
+                swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen med lärare
                 txtSvarsruta.setText("Informationen har uppdaterats");
 
-            } catch (InfException undantag) {
+            } catch (InfException undantag) { //Fångar databasfel
                 JOptionPane.showMessageDialog(null, "Något gick fel");
                 System.out.println("Internt felmeddelande" + undantag.getMessage());
             }

@@ -14,7 +14,7 @@ import oru.inf.InfException;
  * @author Jamie
  */
 public class adminLarareEHF extends javax.swing.JFrame {
-    
+
     private InfDB idb;
     UpdateCombobox swag;
     //private validering val;
@@ -24,7 +24,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
      */
     public adminLarareEHF() {
         initComponents();
-        
+
         try { //Importerar databasen
             idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
@@ -32,8 +32,6 @@ public class adminLarareEHF extends javax.swing.JFrame {
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,22 +149,20 @@ public class adminLarareEHF extends javax.swing.JFrame {
 
     private void btnSkapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkapaActionPerformed
         String itemText = (String) ehValjare.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
-        
+
         try {
-            String larare = (String) cboxLarare.getSelectedItem();
-            String larareFornamn = larare.split(" ")[0];
+            String larare = (String) cboxLarare.getSelectedItem(); //Hämtar lärarnamnet till en string
+            String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
             String larareEfternamn = larare.split(" ")[1];
-            
+
             String fraga1 = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';"; //Kolla vilket ID läraren har 
             String svar1 = idb.fetchSingle(fraga1);
-            
+
             String fraga2 = "UPDATE ELEVHEM SET FORESTANDARE = '" + svar1 + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //Uppdatera nya elevhemsföreståndaren 
-            swag.cboxAddLarare(cboxLarare);
             idb.update(fraga2);
-            
-            
-        
-        } catch(InfException e) {
+            swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen
+
+        } catch (InfException e) { //Fångar databasfel
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
@@ -175,7 +171,6 @@ public class adminLarareEHF extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSkapa;

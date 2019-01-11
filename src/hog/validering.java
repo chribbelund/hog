@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.util.Arrays;
 import java.util.ArrayList;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -54,7 +55,9 @@ public class validering { //försöker importera databasen
         }
         return correctFormat;
     }
-
+    /*
+    Denna metod kontrollerar om det angivna användarnamnet finns i databasen, om användarnamnet finns så returneras true, annars false
+    */
     public boolean isUsernameCorrect(JTextField txtUsername) {
         boolean correctUsername = false;
         try {
@@ -78,26 +81,21 @@ public class validering { //försöker importera databasen
         return correctUsername;
     }
 
-    public boolean isPasswordCorrect(JTextField txtUsername, char[] txtPassword) {
+    public boolean isPasswordCorrect(JTextField txtUsername, String txtPassword) {
         boolean passwordIsCorrect = true;
 
         try {
             String username = txtUsername.getText();
+            String password = txtPassword;
             String correctPassword = "SELECT LARARE.LOSENORD FROM LARARE WHERE EFTERNAMN = '" + username + "';";
-            String password = idb.fetchSingle(correctPassword);
-            char[] passwordArray = password.toCharArray();
+            correctPassword = idb.fetchSingle(correctPassword);
 
-            if (txtPassword.length != passwordArray.length) {
+            if (!(password.equals(correctPassword))) {
                 passwordIsCorrect = false;
-            } else {
-                passwordIsCorrect = Arrays.equals(txtPassword, passwordArray);
-            }
-            Arrays.fill(passwordArray, '0');
-
-            if (!passwordIsCorrect) {
                 JOptionPane.showMessageDialog(null, "Fel lösen. Försök igen");
                 txtUsername.requestFocus();
             }
+
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
@@ -110,17 +108,8 @@ public class validering { //försöker importera databasen
         try {
             String username = txtUsername.getText();
             String fraga = "SELECT LARARE.ADMINISTRATOR FROM LARARE WHERE EFTERNAMN = '" + username + "';";
-            ArrayList<String> admin = idb.fetchColumn(fraga);
-            //String admin = idb.fetchSingle(fraga);
-            //if (admin.equals("T"){
-            //  isAdmin=true;
-            //}
-            String svar = "";
-
-            for (int i = 0; i < admin.size(); i++) {
-                svar += admin.get(i);
-            }
-            if (svar.equals("T")) {
+            String admin = idb.fetchSingle(fraga);
+            if (admin.equals("T")) {
                 isAdmin = true;
             }
         } catch (InfException e) {
@@ -187,13 +176,13 @@ public class validering { //försöker importera databasen
         return ratt;
 
     }
-    
-    public static boolean kollaStringVarde(String enstring){
+
+    public static boolean kollaStringVarde(String enstring) {
         boolean searching = true;
-        if(enstring == null){
-           searching = false;
+        if (enstring == null) {
+            searching = false;
         }
         return searching;
     }
-    
+
 }

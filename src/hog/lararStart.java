@@ -232,13 +232,12 @@ public class lararStart extends javax.swing.JFrame {
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
         String username = txtUsername.getText();
         String temp = new String(txtOldPW.getPassword());
-        char[] nuvarandeLosen = temp.toCharArray();
         String nyttLosen = new String(txtNewPW1.getPassword());
         String nyttLosenKontroll = new String(txtNewPW2.getPassword());
 
         try {
             if (val.isUsernameCorrect(txtUsername)) {
-                if (val.isPasswordCorrect(txtUsername, nuvarandeLosen)) {
+                if (val.isPasswordCorrect(txtUsername, temp)) {
                     if (!nyttLosen.equals(nyttLosenKontroll)) {
                         JOptionPane.showMessageDialog(null, "Ditt nya lösenord stämmer ej överens.");
                     } else {
