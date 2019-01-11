@@ -187,4 +187,12 @@ public class validering { //försöker importera databasen
         
     }
     
+    public static boolean kollaStringVarde(String enstring){
+        boolean searching = true;
+        if(enstring == null){
+           searching = false;
+        }
+        return searching;
+    }
+    
 }
