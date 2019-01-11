@@ -21,15 +21,18 @@ public class adminKursAdd extends javax.swing.JFrame {
      * Creates new form adminKursAdd
      */
     private InfDB idb;
+    private validering val;
     UpdateCombobox swag;
+
     public adminKursAdd() {
         initComponents();
+        val = new validering();
         try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }        
+        }
     }
 
     /**
@@ -150,32 +153,38 @@ public class adminKursAdd extends javax.swing.JFrame {
 
     private void btnAddKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddKursActionPerformed
         //DateFormat används för att formattera datumet som skrivs in till ett format som kan användas i en sql fråga
-        try {
+        if (val.txtFieldEmpty(txtKursnamn)) {
             DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd"); //Säger att jag senare vill formatera datumet till yyyy-MM-dd
-            String startDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
-            String slutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
-            String kursnamn = txtKursnamn.getText();
-            String amne = (String) cboxAmne.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-            String larare = (String) cboxLarare.getSelectedItem();
-            String larareFornamn = larare.split(" ")[0];
-            String larareEfternamn = larare.split(" ")[1];
-            String increment = idb.getAutoIncrement("KURS", "KURS_ID");
+            try {
+                String startDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
+                String slutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
+                try {
+                    String kursnamn = txtKursnamn.getText();
+                    String amne = (String) cboxAmne.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+                    String larare = (String) cboxLarare.getSelectedItem();
+                    String larareFornamn = larare.split(" ")[0];
+                    String larareEfternamn = larare.split(" ")[1];
+                    String increment = idb.getAutoIncrement("KURS", "KURS_ID");
 
-            String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
-            String svar = idb.fetchSingle(fraga);
-            
-            fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
-            String lararID = idb.fetchSingle(fraga);
-            
-            fraga = "INSERT INTO KURS VALUES ('" + increment + "', '" + kursnamn + "', '" + startDatum + "', '" + slutDatum + "', '" + lararID + "', '" + svar + "');";
-            System.out.println(fraga);
-            idb.insert(fraga);
-            txtOutput.setText("Kursen " + kursnamn + " har nu lagts till");
+                    String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
+                    String svar = idb.fetchSingle(fraga);
+
+                    fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
+                    String lararID = idb.fetchSingle(fraga);
+
+                    fraga = "INSERT INTO KURS VALUES ('" + increment + "', '" + kursnamn + "', '" + startDatum + "', '" + slutDatum + "', '" + lararID + "', '" + svar + "');";
+                    System.out.println(fraga);
+                    idb.insert(fraga);
+                    txtOutput.setText("Kursen " + kursnamn + " har nu lagts till");
+                } catch (InfException undantag) {
+                    JOptionPane.showMessageDialog(null, "Något gick fel");
+                    System.out.println("Internt felmeddelande" + undantag.getMessage());
+                }
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Ange två korrekta datum");
+                System.out.println("Ange två korrekta datum" + e.getMessage());
+            }
         }
-        catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }        
     }//GEN-LAST:event_btnAddKursActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

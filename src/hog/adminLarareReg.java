@@ -14,15 +14,16 @@ import oru.inf.InfException;
  * @author Jamie
  */
 public class adminLarareReg extends javax.swing.JFrame {
-    
+
     private InfDB idb;
+    private validering val;
 
     /**
      * Creates new form adminLarareReg
      */
     public adminLarareReg() {
         initComponents();
-
+        val = new validering();
         try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
@@ -89,7 +90,6 @@ public class adminLarareReg extends javax.swing.JFrame {
             }
         });
 
-        txtLosenord.setText("jPasswordField1");
         txtLosenord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLosenordActionPerformed(evt);
@@ -163,28 +163,30 @@ public class adminLarareReg extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFaltEfternamnActionPerformed
 
     private void btnSkapaAnvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkapaAnvandareActionPerformed
-        try {
-            String fornamn = txtFaltFornamn.getText();
-            String efternamn = txtFaltEfternamn.getText();
-            String pws = new String(txtLosenord.getPassword());   //funkar detta?
-            //char pw[] = txtLosenord.getPassword();
-            //String pws = new String (pw);
-            System.out.println(pws);
-        
-        if(!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
-            String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");
-            System.out.println(increment);
-            String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'F');";
-            System.out.println(fraga);
-            idb.insert(fraga);
-            
-            txtSvar.setText("En ny lärare har registrerats");
-        }
-        }
-        
-        catch(InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
-            JOptionPane.showMessageDialog(null, "Något gick fel!");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
+        if(val.isString(txtFaltFornamn) && val.isString(txtFaltEfternamn))
+        {
+            try {
+
+                String fornamn = txtFaltFornamn.getText();
+                String efternamn = txtFaltEfternamn.getText();
+                String pws = new String(txtLosenord.getPassword());   //funkar detta?
+                //char pw[] = txtLosenord.getPassword();
+                //String pws = new String (pw);
+                System.out.println(pws);
+
+                if (!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
+                    String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");
+                    String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'F');";
+                    idb.insert(fraga);
+
+                    txtSvar.setText("En ny lärare har registrerats");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ett fält är lämnat tomt");
+                }
+            } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
+                JOptionPane.showMessageDialog(null, "Något gick fel!");
+                System.out.println("Internt felmeddelande" + undantag.getMessage());
+            }
         }
     }//GEN-LAST:event_btnSkapaAnvandareActionPerformed
 
@@ -195,7 +197,6 @@ public class adminLarareReg extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSkapaAnvandare;

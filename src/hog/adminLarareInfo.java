@@ -14,23 +14,23 @@ import oru.inf.InfException;
  * @author Jamie
  */
 public class adminLarareInfo extends javax.swing.JFrame {
-    
+
     private InfDB idb;
     UpdateCombobox swag;
-    //private validering val;
+    private validering val;
 
     /**
      * Creates new form adminLarareInfo
      */
     public adminLarareInfo() {
         initComponents();
-        
+        val = new validering();
         try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }    
+        }
     }
 
     /**
@@ -52,11 +52,11 @@ public class adminLarareInfo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtNewFornamn = new javax.swing.JTextField();
         txtNewEfternamn = new javax.swing.JTextField();
-        btnUpdate = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvarsruta = new javax.swing.JTextArea();
         cboxLarare = new javax.swing.JComboBox<>();
         swag.cboxAddLarare(cboxLarare);
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,16 +79,16 @@ public class adminLarareInfo extends javax.swing.JFrame {
 
         jLabel7.setText("Lösenord");
 
+        txtSvarsruta.setColumns(20);
+        txtSvarsruta.setRows(5);
+        jScrollPane1.setViewportView(txtSvarsruta);
+
         btnUpdate.setText("Uppdatera");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
-
-        txtSvarsruta.setColumns(20);
-        txtSvarsruta.setRows(5);
-        jScrollPane1.setViewportView(txtSvarsruta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,33 +101,31 @@ public class adminLarareInfo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(cboxLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(44, 44, 44)
-                                .addComponent(jLabel7)
-                                .addGap(0, 72, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
                             .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(19, 19, 19)
-                                .addComponent(txtNewLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnUpdate)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6))
+                                    .addGap(19, 19, 19)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(txtNewLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -155,9 +153,9 @@ public class adminLarareInfo extends javax.swing.JFrame {
                     .addComponent(txtNewLosenord, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNewEfternamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -174,41 +172,38 @@ public class adminLarareInfo extends javax.swing.JFrame {
         //Hämta information i första två textrutorna.
         //Hitta sagd lärare i SQL fråga.
         //Sätta nya infon i variabler och gör en ny update SQL fråga.
-        
-        try {
-            String larare = (String) cboxLarare.getSelectedItem(); 
-            String larareFornamn = larare.split(" ")[0];
-            String larareEfternamn = larare.split(" ")[1];
-            
-            String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; ";
-            String lararID = idb.fetchSingle(fraga);
-            
-            String nyttFornamn = txtNewFornamn.getText();
-            String nyttEfternamn = txtNewEfternamn.getText();
-            String nyttLosenord = new String(txtNewLosenord.getPassword());
-            
-            fraga = "UPDATE LARARE SET FORNAMN = '" + nyttFornamn + "', EFTERNAMN = '" + nyttEfternamn + "', LOSENORD = '" + nyttLosenord + "' WHERE LARAR_ID = '" + lararID + "'; ";
-            idb.update(fraga);
-            swag.cboxAddLarare(cboxLarare);
-            txtSvarsruta.setText("Informationen har uppdaterats");
-            
-        
-    } catch(InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-    }
-        
-        
+        if (val.txtFieldEmpty(txtNewEfternamn) && val.txtFieldEmpty(txtNewFornamn) && val.txtFieldEmpty(txtNewLosenord)) {
+            try {
+                String larare = (String) cboxLarare.getSelectedItem();
+                String larareFornamn = larare.split(" ")[0];
+                String larareEfternamn = larare.split(" ")[1];
+
+                String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; ";
+                String lararID = idb.fetchSingle(fraga);
+
+                String nyttFornamn = txtNewFornamn.getText();
+                String nyttEfternamn = txtNewEfternamn.getText();
+                String nyttLosenord = new String(txtNewLosenord.getPassword());
+
+                fraga = "UPDATE LARARE SET FORNAMN = '" + nyttFornamn + "', EFTERNAMN = '" + nyttEfternamn + "', LOSENORD = '" + nyttLosenord + "' WHERE LARAR_ID = '" + lararID + "'; ";
+                idb.update(fraga);
+                swag.cboxAddLarare(cboxLarare);
+                txtSvarsruta.setText("Informationen har uppdaterats");
+
+            } catch (InfException undantag) {
+                JOptionPane.showMessageDialog(null, "Något gick fel");
+                System.out.println("Internt felmeddelande" + undantag.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
-    private javax.swing.JToggleButton btnUpdate;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxLarare;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

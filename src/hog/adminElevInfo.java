@@ -14,20 +14,23 @@ import oru.inf.InfException;
  * @author Christoffer
  */
 public class adminElevInfo extends javax.swing.JFrame {
-    
+
     private InfDB idb;
+    private validering val;
     UpdateCombobox swag;
+
     /**
      * Creates new form adminElevInfo
      */
     public adminElevInfo() {
         initComponents();
+        val = new validering();
         try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }        
+        }
     }
 
     /**
@@ -52,10 +55,9 @@ public class adminElevInfo extends javax.swing.JFrame {
         btnUpdateElev = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
-        cboxElev = new javax.swing.JComboBox<>();
-        swag.cboxAddElev(cboxElev);
         cboxSovsal = new javax.swing.JComboBox<>();
         swag.cboxAddSovsal(cboxSovsal);
+        txtNamn = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +87,7 @@ public class adminElevInfo extends javax.swing.JFrame {
             }
         });
 
+        txtSvar.setEditable(false);
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
         jScrollPane1.setViewportView(txtSvar);
@@ -121,7 +124,7 @@ public class adminElevInfo extends javax.swing.JFrame {
                                 .addGap(116, 116, 116)
                                 .addComponent(jLabel4))
                             .addComponent(jLabel5)
-                            .addComponent(cboxElev, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15))))
@@ -137,8 +140,8 @@ public class adminElevInfo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addGap(4, 4, 4)
-                        .addComponent(cboxElev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNamn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,7 +157,7 @@ public class adminElevInfo extends javax.swing.JFrame {
                     .addComponent(cboxSovsal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdateElev)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
                 .addContainerGap())
         );
@@ -168,43 +171,43 @@ public class adminElevInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnUpdateElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateElevActionPerformed
-        try {
-            
-            String elev = (String) cboxElev.getSelectedItem();
-            String elevFornamn = elev.split(" ")[0];
-            String elevEfternamn = elev.split(" ")[1];
-           
-                
-            String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + elevFornamn + "' AND EFTERNAMN = '" + elevEfternamn + "'; ";
-            String elevid = idb.fetchSingle(fraga);
-            elevFornamn = txtNewFornamn.getText();
-            elevEfternamn = txtNewEfternamn.getText();
-            String sovsal = (String) cboxSovsal.getSelectedItem();
+        if (val.txtFieldEmpty(txtNamn)) {
+            String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
+            if (val.isNameFormatCorrect(namn)) {
+                String fornamn = namn.split(" ")[0];
+                String efternamn = namn.split(" ")[1];
 
-            if(validering.txtFieldEmpty(txtNewFornamn) && validering.txtFieldEmpty(txtNewEfternamn)) {
-                    if(validering.isString(txtNewFornamn) && validering.isString(txtNewEfternamn)) {
-            
-                    fraga = "UPDATE ELEV SET FORNAMN = '" + elevFornamn + "', EFTERNAMN = '" + elevEfternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
-                    idb.update(fraga);
-                    swag.cboxAddElev(cboxElev);
-                    txtSvar.setText("Eleven har uppdaterats");
+                try {
+
+                    String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
+                    String elevid = idb.fetchSingle(fraga);
+                    fornamn = txtNewFornamn.getText();
+                    efternamn = txtNewEfternamn.getText();
+                    String sovsal = (String) cboxSovsal.getSelectedItem();
+
+                    if (validering.txtFieldEmpty(txtNewFornamn) && validering.txtFieldEmpty(txtNewEfternamn)) {
+                        if (validering.isString(txtNewFornamn) && validering.isString(txtNewEfternamn)) {
+
+                            fraga = "UPDATE ELEV SET FORNAMN = '" + fornamn + "', EFTERNAMN = '" + efternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
+                            idb.update(fraga);
+                            txtSvar.setText("Eleven har uppdaterats");
+                        }
                     }
+                } catch (InfException undantag) {
+                    JOptionPane.showMessageDialog(null, "Något gick fel");
+                    System.out.println("Internt felmeddelande" + undantag.getMessage());
+                }
             }
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
     }//GEN-LAST:event_btnUpdateElevActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTillbaka;
     private javax.swing.JButton btnUpdateElev;
-    private javax.swing.JComboBox<String> cboxElev;
     private javax.swing.JComboBox<String> cboxSovsal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -214,6 +217,7 @@ public class adminElevInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField txtNamn;
     private javax.swing.JTextField txtNewEfternamn;
     private javax.swing.JTextField txtNewFornamn;
     private javax.swing.JTextArea txtSvar;

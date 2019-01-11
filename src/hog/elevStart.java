@@ -311,29 +311,35 @@ public class elevStart extends javax.swing.JFrame {
     private void btnLarareDatumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareDatumActionPerformed
         //DateFormat används för att formattera datumet som skrivs in till ett format som kan användas i en sql fråga
         DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd"); //Säger att jag senare vill formatera datumet till yyyy-MM-dd
-        String formatStartDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
-        String formatSlutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
         try {
+            String formatStartDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
+            String formatSlutDatum = formatDatum.format(dateEnd.getDate()); //Gör om datumet till en String med rätt format
 
-            //Skapar en sql fråga som hämtar alla kurser som pågår mellan två datum som användaren skrivit in
-            ArrayList<String> kursStart = idb.fetchColumn("SELECT KURSNAMN FROM KURS WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
-            //Hämtar lärares förnamn som har kuruser mellan två inskrivna datum
-            ArrayList<String> kursLarareFornamn = idb.fetchColumn("SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
-            //Hämtar lärares efternamn som har kuruser mellan två inskrivna datum
-            ArrayList<String> kursLarareEfternamn = idb.fetchColumn("SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
+            try {
 
-            String svaret = ""; //Skapar en tom String för senare utskrift
+                //Skapar en sql fråga som hämtar alla kurser som pågår mellan två datum som användaren skrivit in
+                ArrayList<String> kursStart = idb.fetchColumn("SELECT KURSNAMN FROM KURS WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
+                //Hämtar lärares förnamn som har kuruser mellan två inskrivna datum
+                ArrayList<String> kursLarareFornamn = idb.fetchColumn("SELECT LARARE.FORNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
+                //Hämtar lärares efternamn som har kuruser mellan två inskrivna datum
+                ArrayList<String> kursLarareEfternamn = idb.fetchColumn("SELECT LARARE.EFTERNAMN FROM KURS JOIN LARARE ON LARARE.LARAR_ID = KURS.KURSLARARE WHERE KURSSTART >= '" + formatStartDatum + "' AND KURSSLUT <= '" + formatSlutDatum + "'; ");
 
-            //Loopar igenom antalet kurser och lägger till kursnamn och vem som har kursen i svaret
-            for (int i = 0; i < kursStart.size(); i++) {
-                svaret += kursStart.get(i) + " hålls av ";
-                svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
+                String svaret = ""; //Skapar en tom String för senare utskrift
+
+                //Loopar igenom antalet kurser och lägger till kursnamn och vem som har kursen i svaret
+                for (int i = 0; i < kursStart.size(); i++) {
+                    svaret += kursStart.get(i) + " hålls av ";
+                    svaret += kursLarareFornamn.get(i) + " " + kursLarareEfternamn.get(i) + "\n";
+                }
+
+                svar.setText(svaret); //Skriver ut svaret i textrutan
+            } //Fångar upp felmeddelanden från databasen
+            catch (InfException e) {
+                JOptionPane.showMessageDialog(null, "Något gick fel");
+                System.out.println("Internt felmeddelande" + e.getMessage());
             }
-
-            svar.setText(svaret); //Skriver ut svaret i textrutan
-        } //Fångar upp felmeddelanden från databasen
-        catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Det finns inga kurser mellan de två angivna datumen");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
     }//GEN-LAST:event_btnLarareDatumActionPerformed

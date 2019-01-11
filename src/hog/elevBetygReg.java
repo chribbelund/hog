@@ -18,13 +18,14 @@ public class elevBetygReg extends javax.swing.JFrame {
 
     private InfDB idb;
     UpdateCombobox swag;
-    //private validering val;
+    private validering val;
 
     /**
      * Creates new form elevBetygReg
      */
     public elevBetygReg() {
         initComponents();
+        val = new validering();
         try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
@@ -185,39 +186,44 @@ public class elevBetygReg extends javax.swing.JFrame {
     private void btnNyttBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyttBetygActionPerformed
         //Registrerar ett nytt betyg för en elev på en kurs. OTESTAD!
         //Den här metoden behöver något som auto incrementar HAR_BETYG_I
-
-        try {
+        if (val.isString(txtFornamn) && val.isString(txtEfternamn)) {
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
-            String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
-            String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-            String betygKort = betyget.substring(0, 1); //Förkortar betyget till en bokstav så det fungerar i databasen
+            if (!(fornamn.isEmpty()) && !(efternamn.isEmpty())) {
+                try {
 
-            //Hitta elevens elev id basserat på namnet
-            String elevID = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ");
+                    String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
+                    String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
+                    String betygKort = betyget.substring(0, 1); //Förkortar betyget till en bokstav så det fungerar i databasen
 
-            //Hitta kursens kursID baserat på kursnamn
-            String kursID = idb.fetchSingle("SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ");
+                    //Hitta elevens elev id basserat på namnet
+                    String elevID = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ");
 
-            //Kollar vad för betyg som finns för elev på viss kurs
-            String betygFraga = null;
-            System.out.println(betygFraga);
-            betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
-            System.out.println(betygFraga);
-            if (betygFraga == null) {
-                idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' " + elevID + "', '" + kursID + " ' , '" + betygKort + " ')");
-                swag.cboxAddKurs(cboxKurs);
-                txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
-                txtFornamn.setText(null);
-                txtEfternamn.setText(null);
+                    //Hitta kursens kursID baserat på kursnamn
+                    String kursID = idb.fetchSingle("SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ");
+
+                    //Kollar vad för betyg som finns för elev på viss kurs
+                    String betygFraga = null;
+                    System.out.println(betygFraga);
+                    betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
+                    System.out.println(betygFraga);
+                    if (betygFraga == null) {
+                        idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' " + elevID + "', '" + kursID + " ' , '" + betygKort + " ')");
+                        swag.cboxAddKurs(cboxKurs);
+                        txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
+                        txtFornamn.setText(null);
+                        txtEfternamn.setText(null);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Eleven har redan betyg i kursen, testa uppdatera betyget istället");
+                    }
+
+                } catch (InfException e) {
+                    JOptionPane.showMessageDialog(null, "Något gick fel");
+                    System.out.println("Internt felmeddelande" + e.getMessage());
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Skriv in både för och efternamn");
             }
-            else {
-                JOptionPane.showMessageDialog(null, "Eleven har redan betyg i kursen, testa uppdatera betyget istället");
-            }
-
-        } catch (InfException e) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + e.getMessage());
         }
 
     }//GEN-LAST:event_btnNyttBetygActionPerformed
@@ -231,7 +237,7 @@ public class elevBetygReg extends javax.swing.JFrame {
         //Den här metoden behöver en kontrollfunktion för att se om tidigare betyg finns.
 
         try {
-                
+
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
             String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
@@ -246,21 +252,21 @@ public class elevBetygReg extends javax.swing.JFrame {
             //Hitta kursens kursID baserat på kursnamn
             String fraga2 = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "'; ";
             String kursID = idb.fetchSingle(fraga2);
-            
+
             //Hämtar betyg baserat på KursID och EleviD
-            HashMap <String, String> kursbetyg = new HashMap();
+            HashMap<String, String> kursbetyg = new HashMap();
             kursbetyg = null;
             kursbetyg = idb.fetchRow("SELECT * FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ");
-            
-             if(kursbetyg != null) {
-                 
-            //Uppdatera kursbetyget
-            String fraga3 = "UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ";
-            idb.update(fraga3);
-            swag.cboxAddKurs(cboxKurs);
-            txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
+
+            if (kursbetyg != null) {
+
+                //Uppdatera kursbetyget
+                String fraga3 = "UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ";
+                idb.update(fraga3);
+                swag.cboxAddKurs(cboxKurs);
+                txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
             } else {
-                 JOptionPane.showMessageDialog(null, "Eleven har inget betyg i den kursen. Skapa ett nytt.");
+                JOptionPane.showMessageDialog(null, "Eleven har inget betyg i den kursen. Skapa ett nytt.");
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");

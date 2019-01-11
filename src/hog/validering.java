@@ -166,19 +166,6 @@ public class validering { //försöker importera databasen
         return searching;
     }
 
-    //Metoden kollar om värdet i fältet är positivt
-    //Funkar ej atm
-    public static boolean negativtTal(JTextField aktuelltFalt) {
-        boolean searching = true;
-        if (!aktuelltFalt.getText().substring(0).equals("-")) {
-            searching = false;
-            aktuelltFalt.requestFocus();
-        } else {
-            JOptionPane.showMessageDialog(null, "Endast negativa värden");
-        }
-        return searching;
-    }
-
     public boolean isNameCorrect(String fornamn, String efternamn) {
         boolean ratt = false;
         System.out.println("test1");
