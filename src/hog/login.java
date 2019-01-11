@@ -6,11 +6,13 @@
 package hog;
 
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Christoffer
  */
 public class login extends javax.swing.JFrame {
+
     //Importerar validerinsklassen
     private validering val;
 
@@ -118,7 +120,7 @@ public class login extends javax.swing.JFrame {
     private void btnLoginLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginLarareActionPerformed
         if (val.isUsernameCorrect(txtUsername)) {
             String pws = new String(txtPassword.getPassword());
-            if(val.isPasswordCorrect(txtUsername, pws) && val.isUsernameCorrect(txtUsername)) {
+            if (val.isPasswordCorrect(txtUsername, pws) && val.isUsernameCorrect(txtUsername)) {
                 new lararStart().setVisible(true);
                 dispose();
             }
@@ -130,16 +132,17 @@ public class login extends javax.swing.JFrame {
         if (val.isUsernameCorrect(txtUsername)) {
             String pws = new String(txtPassword.getPassword());
             //Kollar om användarnamnet är lagrad som en admin i databasen, och om lösenordet stämmer överens med användarnamnet
-            if(val.isAdminCorrect(txtUsername) && val.isPasswordCorrect(txtUsername, pws)) {
-                //Kör konstruktorn i adminStart och öppnar det fönstret
-                new adminStart().setVisible(true);
-                //Stänger ner login rutan
-                dispose();
+            if (val.isPasswordCorrect(txtUsername, pws)) {
+                if (val.isAdminCorrect(txtUsername)) {
+                    //Kör konstruktorn i adminStart och öppnar det fönstret
+                    new adminStart().setVisible(true);
+                    //Stänger ner login rutan
+                    dispose();
                 } else if (val.isPasswordCorrect(txtUsername, pws) && val.isUsernameCorrect(txtUsername)) {
-                //Om det ovanstående returnerar true betyder det att användarens lösenord stämmer överens med använarnamnet i databasen
-                //Och då körs konstruktorn i lararStart och öppnar det fönstret
-                JOptionPane.showMessageDialog(null, "Du är inte admin, testa logga in som lärare istället");
-                
+                    //Om det ovanstående returnerar true betyder det att användarens lösenord stämmer överens med använarnamnet i databasen
+                    //Och då körs konstruktorn i lararStart och öppnar det fönstret
+                    JOptionPane.showMessageDialog(null, "Du är inte admin, testa logga in som lärare istället");
+                }
             }
         }
     }//GEN-LAST:event_btnLoginAdminActionPerformed

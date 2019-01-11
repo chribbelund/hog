@@ -40,6 +40,7 @@ public class validering { //försöker importera databasen
         return result;
     }
 
+    //Denna metod kollar om namnet är skrivet som två ord
     public boolean isNameFormatCorrect(String namn) {
         boolean correctFormat = true;
         try {
@@ -53,32 +54,32 @@ public class validering { //försöker importera databasen
         }
         return correctFormat;
     }
+
     /*
     Denna metod kontrollerar om det angivna användarnamnet finns i databasen, om användarnamnet finns så returneras true, annars false
-    */
+     */
     public boolean isUsernameCorrect(JTextField txtUsername) {
         boolean correctUsername = false;
         try {
-            String name = "SELECT LARARE.EFTERNAMN FROM LARARE";
-            ArrayList<String> nameArray = idb.fetchColumn(name);
-
-            for (String currentName : nameArray) {
-                if (currentName.equals(txtUsername.getText())) {
-                    correctUsername = true;
-                }
-            }
-
-            if (!correctUsername) {
+            String svar = null;
+            String fraga = "SELECT EFTERNAMN FROM LARARE WHERE EFTERNAMN = '" + txtUsername.getText() + "';";
+            System.out.println(fraga);
+            svar = idb.fetchSingle(fraga);
+            if (svar == null) {
                 JOptionPane.showMessageDialog(null, "Fel användarnamn!");
                 txtUsername.requestFocus();
+            } else {
+                correctUsername = true;
             }
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
         }
+
         return correctUsername;
     }
 
+    //Kontrollerar så att lösenordet matchar användarnamnet
     public boolean isPasswordCorrect(JTextField txtUsername, String txtPassword) {
         boolean passwordIsCorrect = true;
 
@@ -91,7 +92,6 @@ public class validering { //försöker importera databasen
             if (!(password.equals(correctPassword))) {
                 passwordIsCorrect = false;
                 JOptionPane.showMessageDialog(null, "Fel lösen. Försök igen");
-                txtUsername.requestFocus();
             }
 
         } catch (InfException e) {
@@ -101,6 +101,7 @@ public class validering { //försöker importera databasen
         return passwordIsCorrect;
     }
 
+    //Kontrollerar om användaren är registrerad i databasen som admin
     public boolean isAdminCorrect(JTextField txtUsername) {
         boolean isAdmin = false;
         try {
@@ -175,6 +176,7 @@ public class validering { //försöker importera databasen
 
     }
 
+    //Kollar om en string är null
     public static boolean kollaStringVarde(String enstring) {
         boolean searching = true;
         if (enstring == null) {
@@ -182,9 +184,35 @@ public class validering { //försöker importera databasen
         }
         return searching;
     }
+
     //Tar en String och gör om den så att första bokstaven är versal och att resten är gemener
-    public static String formatName(String input){
-        String output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase(); 
+    public static String formatName(String input) {
+        String output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
         return output;
     }
+    
+    //Gammal metod
+//    public boolean isUsernameCorrect2(JTextField txtUsername) {
+//        boolean correctUsername = false;
+//        try {
+//            String name = "SELECT LARARE.EFTERNAMN FROM LARARE";
+//            ArrayList<String> nameArray = idb.fetchColumn(name);
+//
+//            for (String currentName : nameArray) {
+//                if (currentName.equals(txtUsername.getText())) {
+//                    correctUsername = true;
+//                }
+//            }
+//
+//            if (!correctUsername) {
+//                JOptionPane.showMessageDialog(null, "Fel användarnamn!");
+//                txtUsername.requestFocus();
+//            }
+//        } catch (InfException e) {
+//            JOptionPane.showMessageDialog(null, "Något gick fel");
+//            System.out.println("Internt felmeddelande" + e.getMessage());
+//        }
+//        return correctUsername;
+//    }
+
 }
