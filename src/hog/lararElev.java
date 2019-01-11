@@ -23,6 +23,7 @@ public class lararElev extends javax.swing.JFrame {
      */
     public lararElev() {
         initComponents();
+        val = new validering();
         try {
             idb = new InfDB("C:\\db\\HOGDB.FDB");
         } catch (InfException undantag) {
