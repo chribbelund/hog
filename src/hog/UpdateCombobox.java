@@ -16,7 +16,6 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 
 public class UpdateCombobox {
-
     private static InfDB idb;
     UpdateCombobox swag;
 
@@ -27,9 +26,9 @@ public class UpdateCombobox {
     Denna arraylist loopas sedan igenom och sätter in alla värden i den valda comboboxen.
      */
     public static void cboxAddKurs(JComboBox cboxKurs) {
-        //Importerar databasen
         try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
+            //Importerar databasen
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
@@ -53,7 +52,7 @@ public class UpdateCombobox {
     public static void cboxAddAmne(JComboBox cboxAmne) {
         //Importerar databasen
         try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
@@ -76,7 +75,7 @@ public class UpdateCombobox {
     public static void cboxAddLarare(JComboBox cboxLarare) {
         //Importerar databasen
         try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
@@ -103,7 +102,7 @@ public class UpdateCombobox {
     public static void cboxAddElev(JComboBox cboxElev) {
         //Importerar databasen
         try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
@@ -130,7 +129,7 @@ public class UpdateCombobox {
     public static void cboxAddSovsal(JComboBox cboxSovsal) {
         //Importerar databasen
         try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());

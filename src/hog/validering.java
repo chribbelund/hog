@@ -22,7 +22,7 @@ public class validering { //försöker importera databasen
 
     public validering() {
         try { //försöker importera databasen
-            idb = new InfDB("C:\\db\\hogdb.FDB");
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + undantag.getMessage());

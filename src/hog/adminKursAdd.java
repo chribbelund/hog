@@ -28,7 +28,7 @@ public class adminKursAdd extends javax.swing.JFrame {
         initComponents();
         val = new validering();
         try {
-            idb = new InfDB("C:\\db\\HOGDB.FDB");
+            idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
