@@ -18,7 +18,6 @@ import oru.inf.InfException;
 public class UpdateCombobox {
 
     private static InfDB idb;
-    UpdateCombobox swag;
 
     /*
     Alla metoder i den här klassen fungerar på samma sätt.

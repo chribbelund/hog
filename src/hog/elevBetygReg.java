@@ -17,7 +17,7 @@ import oru.inf.InfException;
 public class elevBetygReg extends javax.swing.JFrame {
 
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
     private validering val;
 
     /**
@@ -57,7 +57,7 @@ public class elevBetygReg extends javax.swing.JFrame {
         btnNyttBetyg = new javax.swing.JButton();
         btnUppdateraBetyg = new javax.swing.JButton();
         cboxKurs = new javax.swing.JComboBox<>();
-        swag.cboxAddKurs(cboxKurs);
+        updateCBox.cboxAddKurs(cboxKurs);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -211,7 +211,7 @@ public class elevBetygReg extends javax.swing.JFrame {
                     System.out.println(betygFraga);
                     if (betygFraga == null) {
                         idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' " + elevID + "', '" + kursID + " ' , '" + betygKort + " ')");
-                        swag.cboxAddKurs(cboxKurs);
+                        updateCBox.cboxAddKurs(cboxKurs);
                         txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
                         txtFornamn.setText(null);
                         txtEfternamn.setText(null);
@@ -267,7 +267,7 @@ public class elevBetygReg extends javax.swing.JFrame {
                 //Uppdatera kursbetyget
                 String fraga3 = "UPDATE HAR_BETYG_I SET KURSBETYG = '" + betygKort + "' WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "' ";
                 idb.update(fraga3);
-                swag.cboxAddKurs(cboxKurs);
+                updateCBox.cboxAddKurs(cboxKurs);
                 txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
             } else {
                 JOptionPane.showMessageDialog(null, "Eleven har inget betyg i den kursen. Skapa ett nytt.");

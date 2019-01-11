@@ -17,7 +17,7 @@ public class lararElev extends javax.swing.JFrame {
 
     private InfDB idb;
     private validering val;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
 
     /**
      * Creates new form lararElev
@@ -61,9 +61,9 @@ public class lararElev extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cboxSovsal = new javax.swing.JComboBox<>();
-        swag.cboxAddSovsal(cboxSovsal);
+        updateCBox.cboxAddSovsal(cboxSovsal);
         cboxSovsalOld = new javax.swing.JComboBox<>();
-        swag.cboxAddSovsal(cboxSovsalOld);
+        updateCBox.cboxAddSovsal(cboxSovsalOld);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 

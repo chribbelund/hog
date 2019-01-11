@@ -63,7 +63,6 @@ public class validering { //försöker importera databasen
         try {
             String svar = null;
             String fraga = "SELECT EFTERNAMN FROM LARARE WHERE EFTERNAMN = '" + txtUsername.getText() + "';";
-            System.out.println(fraga);
             svar = idb.fetchSingle(fraga);
             if (svar == null) {
                 JOptionPane.showMessageDialog(null, "Fel användarnamn!");

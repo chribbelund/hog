@@ -21,7 +21,7 @@ public class adminKursChange extends javax.swing.JFrame {
      * Creates new form adminKursChange
      */
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
     private validering val;
 
     public adminKursChange() {
@@ -58,11 +58,11 @@ public class adminKursChange extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         txtOutput = new javax.swing.JTextField();
         cboxKurs = new javax.swing.JComboBox<>();
-        swag.cboxAddKurs(cboxKurs);
+        updateCBox.cboxAddKurs(cboxKurs);
         cboxAmne = new javax.swing.JComboBox<>();
-        swag.cboxAddAmne(cboxAmne);
+        updateCBox.cboxAddAmne(cboxAmne);
         cboxLarare = new javax.swing.JComboBox<>();
-        swag.cboxAddLarare(cboxLarare);
+        updateCBox.cboxAddLarare(cboxLarare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,8 +214,8 @@ public class adminKursChange extends javax.swing.JFrame {
                     idb.update(fraga);
                     txtOutput.setText("Kursen " + kursnamn + " har uppdaterats");
                     
-                    swag.cboxAddKurs(cboxKurs); //Uppdaterar comboboxen om kurser förändrats
-                    swag.cboxAddAmne(cboxAmne); 
+                    updateCBox.cboxAddKurs(cboxKurs); //Uppdaterar comboboxen om kurser förändrats
+                    updateCBox.cboxAddAmne(cboxAmne); 
 
                 } catch (InfException undantag) { //Fångar eventuella databasfel
                     JOptionPane.showMessageDialog(null, "Något gick fel");

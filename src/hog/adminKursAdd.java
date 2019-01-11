@@ -22,7 +22,7 @@ public class adminKursAdd extends javax.swing.JFrame {
      */
     private InfDB idb;
     private validering val;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
 
     public adminKursAdd() {
         initComponents();
@@ -53,10 +53,10 @@ public class adminKursAdd extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtOutput = new javax.swing.JTextField();
         cboxLarare = new javax.swing.JComboBox<>();
-        swag.cboxAddLarare(cboxLarare);
+        updateCBox.cboxAddLarare(cboxLarare);
         jLabel5 = new javax.swing.JLabel();
         cboxAmne = new javax.swing.JComboBox<>();
-        swag.cboxAddAmne(cboxAmne);
+        updateCBox.cboxAddAmne(cboxAmne);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 

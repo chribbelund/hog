@@ -16,7 +16,7 @@ import oru.inf.InfException;
 public class adminElev extends javax.swing.JFrame {
 
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
     private validering val;
 
     /**
@@ -56,7 +56,7 @@ public class adminElev extends javax.swing.JFrame {
         txtSvar = new javax.swing.JTextArea();
         cboxElevhem = new javax.swing.JComboBox<>();
         cboxSovsal = new javax.swing.JComboBox<>();
-        swag.cboxAddSovsal(cboxSovsal);
+        updateCBox.cboxAddSovsal(cboxSovsal);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -228,7 +228,7 @@ public class adminElev extends javax.swing.JFrame {
                     txtFaltFornamn.setText(null);
                     txtFaltEfternamn.setText(null);
                     //Uppdaterar comboboxen
-                    swag.cboxAddSovsal(cboxSovsal);
+                    updateCBox.cboxAddSovsal(cboxSovsal);
                 }
             }
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp

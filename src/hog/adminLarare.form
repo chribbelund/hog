@@ -173,7 +173,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="swag.cboxAddLarare(cboxLarare);  "/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="updateCBox.cboxAddLarare(cboxLarare);  "/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>

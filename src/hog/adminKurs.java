@@ -17,7 +17,7 @@ import oru.inf.InfException;
 public class adminKurs extends javax.swing.JFrame {
 
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
 
     /**
      * Creates new form adminKurs
@@ -48,7 +48,7 @@ public class adminKurs extends javax.swing.JFrame {
         btnChangeKurs = new javax.swing.JButton();
         btnTaBortKurs = new javax.swing.JButton();
         cboxKurs = new javax.swing.JComboBox<>();
-        swag.cboxAddKurs(cboxKurs);
+        updateCBox.cboxAddKurs(cboxKurs);
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);

@@ -17,7 +17,7 @@ public class adminElevInfo extends javax.swing.JFrame {
 
     private InfDB idb;
     private validering val;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
 
     /**
      * Creates new form adminElevInfo
@@ -56,7 +56,7 @@ public class adminElevInfo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
         cboxSovsal = new javax.swing.JComboBox<>();
-        swag.cboxAddSovsal(cboxSovsal);
+        updateCBox.cboxAddSovsal(cboxSovsal);
         txtNamn = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);

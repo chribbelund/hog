@@ -16,7 +16,7 @@ import oru.inf.InfException;
 public class adminLarareEHF extends javax.swing.JFrame {
 
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
     //private validering val;
 
     /**
@@ -49,7 +49,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnSkapa = new javax.swing.JButton();
         cboxLarare = new javax.swing.JComboBox<>();
-        swag.cboxAddLarare(cboxLarare);
+        updateCBox.cboxAddLarare(cboxLarare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,7 +160,7 @@ public class adminLarareEHF extends javax.swing.JFrame {
 
             String fraga2 = "UPDATE ELEVHEM SET FORESTANDARE = '" + svar1 + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //Uppdatera nya elevhemsföreståndaren 
             idb.update(fraga2);
-            swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen
+            updateCBox.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen
 
         } catch (InfException e) { //Fångar databasfel
             JOptionPane.showMessageDialog(null, "Något gick fel");

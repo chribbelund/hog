@@ -16,7 +16,7 @@ import oru.inf.InfException;
 public class adminLarareInfo extends javax.swing.JFrame {
 
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
     private validering val;
 
     /**
@@ -55,7 +55,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvarsruta = new javax.swing.JTextArea();
         cboxLarare = new javax.swing.JComboBox<>();
-        swag.cboxAddLarare(cboxLarare);
+        updateCBox.cboxAddLarare(cboxLarare);
         btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -110,12 +110,8 @@ public class adminLarareInfo extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnTillbaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnUpdate)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btnTillbaka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnUpdate))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(txtNewFornamn, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -189,7 +185,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
 
                 fraga = "UPDATE LARARE SET FORNAMN = '" + nyttFornamn + "', EFTERNAMN = '" + nyttEfternamn + "', LOSENORD = '" + nyttLosenord + "' WHERE LARAR_ID = '" + lararID + "'; ";
                 idb.update(fraga);
-                swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen med lärare
+                updateCBox.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen med lärare
                 txtSvarsruta.setText("Informationen har uppdaterats");
                 txtNewEfternamn.setText(null);
                 txtNewFornamn.setText(null);

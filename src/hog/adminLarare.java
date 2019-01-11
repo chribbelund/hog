@@ -16,7 +16,7 @@ import oru.inf.InfException;
 public class adminLarare extends javax.swing.JFrame {
 
     private InfDB idb;
-    UpdateCombobox swag;
+    UpdateCombobox updateCBox;
 
     /**
      * Creates new form adminLarare
@@ -50,7 +50,7 @@ public class adminLarare extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
         cboxLarare = new javax.swing.JComboBox<>();
-        swag.cboxAddLarare(cboxLarare);
+        updateCBox.cboxAddLarare(cboxLarare);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,7 +192,7 @@ public class adminLarare extends javax.swing.JFrame {
 
             fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; "; //Sql fråga som ändrar en lärare till admin
             idb.update(fraga);
-            swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen, kanske är lite onödigt
+            updateCBox.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen, kanske är lite onödigt
             txtSvar.setText("Läraren är nu tillagd som admin");
 
         } catch (InfException undantag) { //Fångar upp databasfel
@@ -271,7 +271,7 @@ public class adminLarare extends javax.swing.JFrame {
             }
             System.out.println("Test7");
 
-            swag.cboxAddLarare(cboxLarare);
+            updateCBox.cboxAddLarare(cboxLarare);
 
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
