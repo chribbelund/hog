@@ -16,6 +16,7 @@ import oru.inf.InfDB;
 import oru.inf.InfException;
 
 public class UpdateCombobox {
+
     private static InfDB idb;
     UpdateCombobox swag;
 
@@ -34,7 +35,7 @@ public class UpdateCombobox {
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
         try {
-            //Hämtar alla kursnamn
+            //Hämtar alla kursnamn och lägger dem i en arraylist
             String fraga = "SELECT KURSNAMN FROM KURS;";
             ArrayList<String> kurser = idb.fetchColumn(fraga);
             cboxKurs.removeAllItems();

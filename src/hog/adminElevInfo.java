@@ -171,23 +171,24 @@ public class adminElevInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnUpdateElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateElevActionPerformed
-        if (val.txtFieldEmpty(txtNamn)) {
+        if (val.txtFieldEmpty(txtNamn)) { //Kontrollerar så att textrutan ej är tom
             String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
-            if (val.isNameFormatCorrect(namn)) {
-                String fornamn = namn.split(" ")[0];
+            if (val.isNameFormatCorrect(namn)) { //Kontrollerar så att det insskrivna namnet både har ett för och efternamn separerat med ett mellanslag
+                String fornamn = namn.split(" ")[0]; //Delar upp det inskrivna namnet i två strings
                 String efternamn = namn.split(" ")[1];
 
                 try {
-
+                    //Hämtar elevid
                     String fraga = "SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; ";
                     String elevid = idb.fetchSingle(fraga);
                     fornamn = txtNewFornamn.getText();
                     efternamn = txtNewEfternamn.getText();
                     String sovsal = (String) cboxSovsal.getSelectedItem();
-
+                    //Kontrollerar om fälten är tomma
                     if (validering.txtFieldEmpty(txtNewFornamn) && validering.txtFieldEmpty(txtNewEfternamn)) {
+                        //Kontrollerar om det är strings i fälten
                         if (validering.isString(txtNewFornamn) && validering.isString(txtNewEfternamn)) {
-
+                            //Gör en sql fråga som uppdaterar all info om en elev
                             fraga = "UPDATE ELEV SET FORNAMN = '" + fornamn + "', EFTERNAMN = '" + efternamn + "', SOVSAL = '" + sovsal + "' WHERE ELEV_ID = '" + elevid + "';";
                             idb.update(fraga);
                             txtSvar.setText("Eleven har uppdaterats");

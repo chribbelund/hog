@@ -162,9 +162,9 @@ public class adminKursAdd extends javax.swing.JFrame {
                     String kursnamn = txtKursnamn.getText();
                     String amne = (String) cboxAmne.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
                     String larare = (String) cboxLarare.getSelectedItem();
-                    String larareFornamn = larare.split(" ")[0];
+                    String larareFornamn = larare.split(" ")[0]; //Delar upp lärarnamnet i två strings
                     String larareEfternamn = larare.split(" ")[1];
-                    String increment = idb.getAutoIncrement("KURS", "KURS_ID");
+                    String increment = idb.getAutoIncrement("KURS", "KURS_ID"); //Hämtar vad som ska bli nästa kursid i databasen med hjälp av getAutoIncrement
 
                     String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
                     String svar = idb.fetchSingle(fraga);
@@ -176,11 +176,12 @@ public class adminKursAdd extends javax.swing.JFrame {
                     System.out.println(fraga);
                     idb.insert(fraga);
                     txtOutput.setText("Kursen " + kursnamn + " har nu lagts till");
-                } catch (InfException undantag) {
+
+                } catch (InfException undantag) { //Fångar upp databasfel
                     JOptionPane.showMessageDialog(null, "Något gick fel");
                     System.out.println("Internt felmeddelande" + undantag.getMessage());
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException e) { //Fångar upp fel om man ej anger två korrekta datum
                 JOptionPane.showMessageDialog(null, "Ange två korrekta datum");
                 System.out.println("Ange två korrekta datum" + e.getMessage());
             }

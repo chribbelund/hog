@@ -185,26 +185,18 @@ public class adminLarare extends javax.swing.JFrame {
         // REGISTRERA NY ADMIN
         try {
 
-            String larare = (String) cboxLarare.getSelectedItem(); 
-            String larareFornamn = larare.split(" ")[0];
+            String larare = (String) cboxLarare.getSelectedItem(); //Hämtar lärarnamn från comboboxen
+            String larareFornamn = larare.split(" ")[0]; //Delar upp lärarnamnet i två strings
             String larareEfternamn = larare.split(" ")[1];
             String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
             String lararID = idb.fetchSingle(fraga);
 
-            //Kontroll för att se om läraren redan är admin
-            /*String kontrollFraga = "SELECT ADMINISTRATOR FROM LARARE WHERE LARAR_ID = '" + lararID + "'; ";
-            String kontroll = idb.fetchSingle(kontrollFraga);
-            System.out.println(kontroll);
-            
-            if(kontroll.equals("T")) {
-                txtSvar.setText("Läraren är redan admin");
-             */
-            fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; ";
+            fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; "; //Sql fråga som ändrar en lärare till admin
             idb.update(fraga);
-            swag.cboxAddLarare(cboxLarare);
+            swag.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen, kanske är lite onödigt
             txtSvar.setText("Läraren är nu tillagd som admin");
 
-        } catch (InfException undantag) {
+        } catch (InfException undantag) { //Fångar upp databasfel
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
@@ -217,8 +209,8 @@ public class adminLarare extends javax.swing.JFrame {
     private void btnTaBortLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLarareActionPerformed
 
         try {
-            String larare = (String) cboxLarare.getSelectedItem(); 
-            String larareFornamn = larare.split(" ")[0];
+            String larare = (String) cboxLarare.getSelectedItem(); //Tar lärarnamnet från comboboxen
+            String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
             String larareEfternamn = larare.split(" ")[1];
             
             String harKompetensI = null;

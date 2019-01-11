@@ -27,10 +27,9 @@ public class validering { //försöker importera databasen
             JOptionPane.showMessageDialog(null, "Något gick fel!");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
         }
-        //Validera textfält så det inte är tomt.
     }
 
-    public static boolean txtFieldEmpty(JTextField aktuelltFalt) {
+    public static boolean txtFieldEmpty(JTextField aktuelltFalt) { //Validera textfält så det inte är tomt.
         boolean result = true;
 
         if (aktuelltFalt.getText().isEmpty()) {
@@ -112,6 +111,10 @@ public class validering { //försöker importera databasen
             String username = txtUsername.getText();
             String fraga = "SELECT LARARE.ADMINISTRATOR FROM LARARE WHERE EFTERNAMN = '" + username + "';";
             ArrayList<String> admin = idb.fetchColumn(fraga);
+            //String admin = idb.fetchSingle(fraga);
+            //if (admin.equals("T"){
+            //  isAdmin=true;
+            //}
             String svar = "";
 
             for (int i = 0; i < admin.size(); i++) {
@@ -168,12 +171,9 @@ public class validering { //försöker importera databasen
 
     public boolean isNameCorrect(String fornamn, String efternamn) {
         boolean ratt = false;
-        System.out.println("test1");
         try {
             String elevidFraga = "SELECT ELEV_ID FROM ELEV WHERE ELEV.FORNAMN = '" + fornamn + "' AND ELEV.EFTERNAMN = '" + efternamn + "';";
-            System.out.println(elevidFraga);
             String id = idb.fetchSingle(elevidFraga);
-            System.out.println(id);
             if (id != null) {
                 ratt = true;
             } else {

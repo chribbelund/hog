@@ -27,7 +27,8 @@ public class adminKursChange extends javax.swing.JFrame {
     public adminKursChange() {
         initComponents();
         val = new validering();
-        try {
+
+        try { //Försöker importera databasen
             idb = new InfDB(Hog.userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
@@ -187,7 +188,7 @@ public class adminKursChange extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnUppdateraKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUppdateraKursActionPerformed
-        if (val.txtFieldEmpty(txtNyKurs)) {
+        if (val.txtFieldEmpty(txtNyKurs)) { //Kontrollerar om fältet är tomt
             DateFormat formatDatum = new SimpleDateFormat("yyyy-MM-dd"); //Säger att jag senare vill formatera datumet till yyyy-MM-dd
             try {
                 String startDatum = formatDatum.format(dateStart.getDate()); //Gör om datumet till en String med rätt format
@@ -195,36 +196,32 @@ public class adminKursChange extends javax.swing.JFrame {
                 try {
                     String kursnamn = (String) cboxKurs.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng   
                     String amne = (String) cboxAmne.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-                    String larare = (String) cboxLarare.getSelectedItem();
-                    String larareFornamn = larare.split(" ")[0];
+                    String larare = (String) cboxLarare.getSelectedItem(); //Tar den valda läraren och sätter namnet i en string
+                    String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
                     String larareEfternamn = larare.split(" ")[1];
-                    String nyKursnamn = txtNyKurs.getText();
+                    String nyKursnamn = txtNyKurs.getText(); 
 
                     String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
-                    System.out.println(fraga);
                     String svar = idb.fetchSingle(fraga);
-                    System.out.println(svar);
 
                     fraga = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "';";
-                    System.out.println(fraga);
                     String kursid = idb.fetchSingle(fraga);
 
                     fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
-                    System.out.println(fraga);
                     String lararID = idb.fetchSingle(fraga);
-                    System.out.println(fraga);
 
                     fraga = "UPDATE KURS SET KURS_ID = '" + kursid + "', KURSNAMN = '" + nyKursnamn + "', KURSSTART = '" + startDatum + "', KURSSLUT ='" + slutDatum + "', KURSLARARE = '" + lararID + "', AMNESTILLHORIGHET = '" + svar + "' WHERE KURSNAMN = '" + kursnamn + "';";
                     idb.update(fraga);
                     txtOutput.setText("Kursen " + kursnamn + " har uppdaterats");
-                    swag.cboxAddKurs(cboxKurs);
-                    swag.cboxAddAmne(cboxAmne);
+                    
+                    swag.cboxAddKurs(cboxKurs); //Uppdaterar comboboxen om kurser förändrats
+                    swag.cboxAddAmne(cboxAmne); 
 
-                } catch (InfException undantag) {
+                } catch (InfException undantag) { //Fångar eventuella databasfel
                     JOptionPane.showMessageDialog(null, "Något gick fel");
                     System.out.println(" Internt felmeddelande" + undantag.getMessage());
                 }
-            } catch (NullPointerException e) {
+            } catch (NullPointerException e) { //Fångar fel om man anger icke korrekta datum
                 JOptionPane.showMessageDialog(null, "Ange två korrekta datum");
                 System.out.println("Ange två korrekta datum" + e.getMessage());
             }
