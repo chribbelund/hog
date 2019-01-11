@@ -200,5 +200,13 @@ public class validering { //försöker importera databasen
         return ratt;
 
     }
-
+    
+    public static boolean kollaStringVarde(String enstring){
+        boolean searching = true;
+        if(enstring == null){
+           searching = false;
+        }
+        return searching;
+    }
+    
 }
