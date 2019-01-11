@@ -225,9 +225,13 @@ public class adminLarare extends javax.swing.JFrame {
             String elevhem = null;
             String kurs = null;
             
-            String lararID = idb.fetchSingle("SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND = '" + larareEfternamn + "'; ");
+            System.out.println("Test1");
+            System.out.println(larareFornamn);
+            System.out.println(larareEfternamn);
+            String lararID = idb.fetchSingle("SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "' ");
             
             try {
+                System.out.println("Test2");
                 harKompetensI = idb.fetchSingle("SELECT LARAR_ID FROM HAR_KOMPETENS_I WHERE LARAR_ID = '" + lararID + "'; ");
                 
             } catch (InfException e) {
@@ -235,6 +239,7 @@ public class adminLarare extends javax.swing.JFrame {
             }
             
             try {
+                System.out.println("Test3");
                 elevhem = idb.fetchSingle("SELECT FORESTANDARE FROM ELEVHEM WHERE FORESTANDARE = '" + lararID + "'; ");
                 
             } catch (InfException e) {
@@ -242,12 +247,13 @@ public class adminLarare extends javax.swing.JFrame {
             }
             
             try {
+                
                 kurs = idb.fetchSingle("SELECT KURSLARARE FROM KURS WHERE KURSLARARE = '" + lararID + "'; ");
                 
             } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             }
-            
+            System.out.println("Test4");
             if(validering.kollaStringVarde(harKompetensI)) {
                 try {
                     idb.delete("DELETE FROM HAR_KOMPETENS_I WHERE LARAR_ID = '" + lararID + "'; ");
@@ -255,15 +261,16 @@ public class adminLarare extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
                 }
             }
+            System.out.println("Test5");
             
             if(validering.kollaStringVarde(elevhem)) {
                 try {
-                    idb.delete("DELETE FROM ELEVHEM WHERE LARAR_ID = '" + lararID + "'; ");
+                    idb.delete("DELETE FROM ELEVHEM WHERE FORESTANDARE = '" + lararID + "'; ");
                 } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
                 }
             }
-            
+            System.out.println("Test6");
             if(validering.kollaStringVarde(kurs)) {
                 try {
                     idb.delete("DELETE FROM KURS WHERE KURSLARARE = '" + lararID + "'; ");
@@ -271,7 +278,7 @@ public class adminLarare extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
                 }
             }
-            
+            System.out.println("Test7");
 
             swag.cboxAddLarare(cboxLarare);
 
