@@ -286,7 +286,7 @@ public class lararElev extends javax.swing.JFrame {
         String x = idb.fetchSingle("SELECT EFTERNAMN FROM ELEV WHERE EFTERNAMN = '" + oldEnamn + "' ");
         String y = idb.fetchSingle("SELECT SOVSAL FROM ELEV WHERE SOVSAL = '" + oldSovsal + "' ");
         
-            //if(val.isNameCorrect(oldFnamn, oldEnamn)) {
+            if(val.isNameCorrect(oldFnamn, oldEnamn)) {
         
             if(!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) {
                 JOptionPane.showMessageDialog(null, "Du har angett fel värden.");
@@ -304,7 +304,7 @@ public class lararElev extends javax.swing.JFrame {
             txtFaltSovsalOld.setText(null);
             
                 }
-            //}   
+            }   
         } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
         JOptionPane.showMessageDialog(null, "Något gick fel!");
         System.out.println("Internt felmeddelande" + undantag.getMessage());
