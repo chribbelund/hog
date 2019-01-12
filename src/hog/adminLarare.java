@@ -255,6 +255,7 @@ public class adminLarare extends javax.swing.JFrame {
             try {
                 idb.delete("DELETE FROM LARARE WHERE LARAR_ID =" + lararid);
                 JOptionPane.showMessageDialog(null, "Läraren har tagits bort");
+                updateCBox.cboxAddLarare(cboxLarare);
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Kunde ej ta bort lärare med ID: " + lararid + e.getMessage());
             }

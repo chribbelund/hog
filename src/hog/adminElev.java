@@ -205,15 +205,15 @@ public class adminElev extends javax.swing.JFrame {
 
     private void btnAddElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddElevActionPerformed
         try {
-            //Hämtar förnamn, efternamn och sovsal. De deklareras som strings
-            String fornamn = txtFaltFornamn.getText();
-            String efternamn = txtFaltEfternamn.getText();
-            String sovsal = (String) cboxSovsal.getSelectedItem();
-            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
-            efternamn = val.formatName(efternamn);
-
-            //Kör validering som kollar om fälten är tomma
             if (validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn)) {
+                //Hämtar förnamn, efternamn och sovsal. De deklareras som strings
+                String fornamn = txtFaltFornamn.getText();
+                String efternamn = txtFaltEfternamn.getText();
+                String sovsal = (String) cboxSovsal.getSelectedItem();
+                fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+                efternamn = val.formatName(efternamn);
+
+                //Kör validering som kollar om fälten är tomma
                 //Kör validering som kollar om fälten är strings
                 if (validering.isString(txtFaltFornamn) && validering.isString(txtFaltEfternamn)) {
                     //Kör metoden autoincrement som automatiskt hämtar vad som ska bli nästa elevid i databasen
@@ -242,24 +242,84 @@ public class adminElev extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFaltFornamnActionPerformed
 
     private void btnDeleteElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteElevActionPerformed
-        try {
+        if (validering.txtFieldEmpty(txtFaltFornamn) && validering.txtFieldEmpty(txtFaltEfternamn)) {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
             fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
             efternamn = val.formatName(efternamn);
 
-            String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
-            idb.delete(fraga); //Uppdaterar databasen.
-            //Gör en utskrift i programmet
-            txtSvar.setText(fornamn + " " + efternamn + " har tagits bort");
-            //Tömmer textrutorna
-            txtFaltFornamn.setText(null);
-            txtFaltEfternamn.setText(null);
+            String elevid = null;
+            String harBetygI = null;
+            String prefekt = null;
+            String registrerad = null;
+            try {
+                elevid = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';");
+            } catch (InfException e) {
+                JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
+            }
+            try {
+                harBetygI = idb.fetchSingle("SELECT ELEV_ID FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevid + "';");
+            } catch (InfException e) {
+                JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
+            }
+            try {
+                prefekt = idb.fetchSingle("SELECT PREFEKT FROM ELEVHEM WHERE PREFEKT = '" + elevid + "';");
+            } catch (InfException e) {
+                JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
+            }
+            try {
+                registrerad = idb.fetchSingle("SELECT ELEV_ID FROM REGISTRERAD_PA WHERE ELEV_ID = '" + elevid + "';");
+            } catch (InfException e) {
+                JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
+            }
 
-        } catch (InfException undantag) { //Fångar databasfel
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
+            if ((validering.kollaStringVarde(prefekt))) {
+                JOptionPane.showMessageDialog(null, "Du kan inte ta bort en elev som är prefekt");
+            } else {
+                if (validering.kollaStringVarde(harBetygI)) {
+                    try {
+                        idb.delete("DELETE FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevid + "';");
+                    } catch (InfException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                }
+                if (validering.kollaStringVarde(registrerad)) {
+                    try {
+                        idb.delete("DELETE FROM REGISTRERAD_PA WHERE ELEV_ID = '" + elevid + "';");
+                    } catch (InfException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                }
+
+                if (validering.kollaStringVarde(elevid)) {
+                    try {
+                        idb.delete("DELETE FROM ELEV WHERE ELEV_ID = '" + elevid + "';");
+                        JOptionPane.showMessageDialog(null, "Eleven " + fornamn + " " + efternamn + " har tagits bort");
+                    } catch (InfException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage());
+                    }
+                }
+            }
         }
+
+//        try {
+//            String fornamn = txtFaltFornamn.getText();
+//            String efternamn = txtFaltEfternamn.getText();
+//            fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
+//            efternamn = val.formatName(efternamn);
+//
+//            String fraga = "Delete from ELEV where FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "'; "; //Tar bort raden med givet för- och efternamn.
+//            idb.delete(fraga); //Uppdaterar databasen.
+//            //Gör en utskrift i programmet
+//            txtSvar.setText(fornamn + " " + efternamn + " har tagits bort");
+//            //Tömmer textrutorna
+//            txtFaltFornamn.setText(null);
+//            txtFaltEfternamn.setText(null);
+//
+//        } catch (InfException undantag) { //Fångar databasfel
+//            JOptionPane.showMessageDialog(null, "Något gick fel");
+//            System.out.println("Internt felmeddelande" + undantag.getMessage());
+//        }
     }//GEN-LAST:event_btnDeleteElevActionPerformed
 
     private void cboxElevhemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxElevhemActionPerformed
