@@ -41,7 +41,6 @@ public class adminLarare extends javax.swing.JFrame {
         btnLararInfo = new javax.swing.JButton();
         btnTaBortLarare = new javax.swing.JButton();
         btnLarareForestandare = new javax.swing.JButton();
-        btnBetygLarare = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtSvar = new javax.swing.JTextArea();
         cboxLarare = new javax.swing.JComboBox<>();
@@ -101,10 +100,6 @@ public class adminLarare extends javax.swing.JFrame {
             }
         });
 
-        btnBetygLarare.setText("Visa betyg från lärare (LÅG)");
-        btnBetygLarare.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnBetygLarare.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
         txtSvar.setEditable(false);
         txtSvar.setColumns(20);
         txtSvar.setRows(5);
@@ -122,7 +117,6 @@ public class adminLarare extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLarareForestandare)
-                    .addComponent(btnBetygLarare)
                     .addComponent(btnNyLarare, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -154,9 +148,7 @@ public class adminLarare extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLararInfo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnLarareForestandare)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBetygLarare))
+                        .addComponent(btnLarareForestandare))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btnTillbaka)
@@ -271,7 +263,6 @@ public class adminLarare extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBetygLarare;
     private javax.swing.JButton btnGeAdmin;
     private javax.swing.JButton btnLararInfo;
     private javax.swing.JButton btnLarareForestandare;
