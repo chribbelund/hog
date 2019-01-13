@@ -25,12 +25,7 @@ public class lararStart extends javax.swing.JFrame {
     public lararStart() {
         initComponents();
         val = new validering();
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb; //Importerar databasen
     }
 
     /**

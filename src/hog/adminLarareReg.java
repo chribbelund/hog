@@ -24,13 +24,7 @@ public class adminLarareReg extends javax.swing.JFrame {
     public adminLarareReg() {
         initComponents();
         val = new validering();
-        
-        try { //Importerar databasen
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb; //Importerar databasen
     }
 
     /**
@@ -165,7 +159,7 @@ public class adminLarareReg extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFaltEfternamnActionPerformed
 
     private void btnSkapaAnvandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSkapaAnvandareActionPerformed
-        if(val.isString(txtFaltFornamn) && val.isString(txtFaltEfternamn)) //Kontrollerar om fälten är tomma
+        if (val.isString(txtFaltFornamn) && val.isString(txtFaltEfternamn)) //Kontrollerar om fälten är tomma
         {
             try {
                 String fornamn = txtFaltFornamn.getText();
@@ -173,7 +167,6 @@ public class adminLarareReg extends javax.swing.JFrame {
                 String pws = new String(txtLosenord.getPassword());
                 fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
                 efternamn = val.formatName(efternamn);
-                
 
                 if (!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
                     String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");

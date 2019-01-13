@@ -20,16 +20,17 @@ public class Hog {
      */
     public static String userDir;
     public static InfDB idb;
-    //Startar programmet genom att köra valElevLarare.java
+
     public static void main(String[] args) {
-        new valElevLarare().setVisible(true);
+        
         userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
         userDir += "\\lib\\HOGDB.FDB"; //Pekar på vart databasen ligger lagrad
         try {
             //Importerar databasen
             idb = new InfDB(Hog.userDir);
+            new valElevLarare().setVisible(true);//Startar programmet genom att köra valElevLarare.java
         } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
+            JOptionPane.showMessageDialog(null, "Programmet kan ej ansluta till databasen");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
             System.out.println(userDir);
         }

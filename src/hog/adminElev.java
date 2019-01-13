@@ -25,12 +25,7 @@ public class adminElev extends javax.swing.JFrame {
     public adminElev() {
         initComponents();
         val = new validering();
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb; //Importerar databasen
     }
 
     /**

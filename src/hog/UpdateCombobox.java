@@ -26,13 +26,8 @@ public class UpdateCombobox {
     Denna arraylist loopas sedan igenom och sätter in alla värden i den valda comboboxen.
      */
     public static void cboxAddKurs(JComboBox cboxKurs) {
-        try {
-            //Importerar databasen
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        //Importerar databasen
+        idb = Hog.idb;
         try {
             //Hämtar alla kursnamn och lägger dem i en arraylist
             String fraga = "SELECT KURSNAMN FROM KURS;";
@@ -51,12 +46,7 @@ public class UpdateCombobox {
 
     public static void cboxAddAmne(JComboBox cboxAmne) {
         //Importerar databasen
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb;
 
         try {
             String fraga = "SELECT AMNESNAMN FROM AMNE;";
@@ -74,12 +64,7 @@ public class UpdateCombobox {
 
     public static void cboxAddLarare(JComboBox cboxLarare) {
         //Importerar databasen
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb;
 
         try {
             String fornamn = "SELECT FORNAMN FROM LARARE;";
@@ -101,12 +86,7 @@ public class UpdateCombobox {
 
     public static void cboxAddElev(JComboBox cboxElev) {
         //Importerar databasen
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb;
 
         try {
             String fornamn = "SELECT FORNAMN FROM ELEV;";
@@ -128,12 +108,7 @@ public class UpdateCombobox {
 
     public static void cboxAddSovsal(JComboBox cboxSovsal) {
         //Importerar databasen
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb;
 
         try {
             String sovsal = "SELECT SOVSAL_ID FROM SOVSAL;";

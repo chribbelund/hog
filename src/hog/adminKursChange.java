@@ -27,13 +27,7 @@ public class adminKursChange extends javax.swing.JFrame {
     public adminKursChange() {
         initComponents();
         val = new validering();
-
-        try { //Försöker importera databasen
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb; //Importerar databasen
     }
 
     /**
@@ -199,7 +193,7 @@ public class adminKursChange extends javax.swing.JFrame {
                     String larare = (String) cboxLarare.getSelectedItem(); //Tar den valda läraren och sätter namnet i en string
                     String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
                     String larareEfternamn = larare.split(" ")[1];
-                    String nyKursnamn = txtNyKurs.getText(); 
+                    String nyKursnamn = txtNyKurs.getText();
 
                     String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
                     String svar = idb.fetchSingle(fraga);
@@ -213,9 +207,9 @@ public class adminKursChange extends javax.swing.JFrame {
                     fraga = "UPDATE KURS SET KURS_ID = '" + kursid + "', KURSNAMN = '" + nyKursnamn + "', KURSSTART = '" + startDatum + "', KURSSLUT ='" + slutDatum + "', KURSLARARE = '" + lararID + "', AMNESTILLHORIGHET = '" + svar + "' WHERE KURSNAMN = '" + kursnamn + "';";
                     idb.update(fraga);
                     txtOutput.setText("Kursen " + kursnamn + " har uppdaterats");
-                    
+
                     updateCBox.cboxAddKurs(cboxKurs); //Uppdaterar comboboxen om kurser förändrats
-                    updateCBox.cboxAddAmne(cboxAmne); 
+                    updateCBox.cboxAddAmne(cboxAmne);
 
                 } catch (InfException undantag) { //Fångar eventuella databasfel
                     JOptionPane.showMessageDialog(null, "Något gick fel");

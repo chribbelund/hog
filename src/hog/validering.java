@@ -20,12 +20,7 @@ public class validering { //försöker importera databasen
     private InfDB idb;
 
     public validering() {
-        try { //försöker importera databasen
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) { //om databasen inte hittas så kommer ett felmeddelande upp
-            JOptionPane.showMessageDialog(null, "Något gick fel!");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb; //Importerar databasen
     }
 
     public static boolean txtFieldEmpty(JTextField aktuelltFalt) { //Validera textfält så det inte är tomt.
@@ -189,7 +184,7 @@ public class validering { //försöker importera databasen
         String output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
         return output;
     }
-    
+
     //Gammal metod
 //    public boolean isUsernameCorrect2(JTextField txtUsername) {
 //        boolean correctUsername = false;
@@ -213,5 +208,4 @@ public class validering { //försöker importera databasen
 //        }
 //        return correctUsername;
 //    }
-
 }

@@ -5,7 +5,6 @@
  */
 package hog;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import oru.inf.InfDB;
 import oru.inf.InfException;
@@ -24,13 +23,7 @@ public class adminKurs extends javax.swing.JFrame {
      */
     public adminKurs() {
         initComponents();
-
-        try {
-            idb = new InfDB(Hog.userDir);
-        } catch (InfException undantag) {
-            JOptionPane.showMessageDialog(null, "Något gick fel");
-            System.out.println("Internt felmeddelande" + undantag.getMessage());
-        }
+        idb = Hog.idb; //Importerar databasen
 
     }
 
