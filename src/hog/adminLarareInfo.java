@@ -172,6 +172,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
                 larareFornamn = val.formatName(larareFornamn); //Formaterar namnet så det fungerar i databasen
                 larareEfternamn = val.formatName(larareEfternamn);
 
+                //SQL fråga som hämtar ut lärarID från databasen
                 String fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "'; ";
                 String lararID = idb.fetchSingle(fraga);
 
@@ -179,6 +180,7 @@ public class adminLarareInfo extends javax.swing.JFrame {
                 String nyttEfternamn = txtNewEfternamn.getText();
                 String nyttLosenord = new String(txtNewLosenord.getPassword());
 
+                //Uppdaterar data i databasen med givna värden
                 fraga = "UPDATE LARARE SET FORNAMN = '" + nyttFornamn + "', EFTERNAMN = '" + nyttEfternamn + "', LOSENORD = '" + nyttLosenord + "' WHERE LARAR_ID = '" + lararID + "'; ";
                 idb.update(fraga);
                 updateCBox.cboxAddLarare(cboxLarare); //Uppdaterar comboboxen med lärare

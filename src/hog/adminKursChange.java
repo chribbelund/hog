@@ -195,15 +195,19 @@ public class adminKursChange extends javax.swing.JFrame {
                     String larareEfternamn = larare.split(" ")[1];
                     String nyKursnamn = txtNyKurs.getText();
 
+                    //SQL fråga som hämtar ämnesID från databasen
                     String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
                     String svar = idb.fetchSingle(fraga);
 
+                    //SQL fråga som hämtar ämnesID från databasen
                     fraga = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + kursnamn + "';";
                     String kursid = idb.fetchSingle(fraga);
 
+                    //SQL fråga som hämtar ämnesID från databasen
                     fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
                     String lararID = idb.fetchSingle(fraga);
 
+                    //SQL fråga uppdaterar kurstabellen med givna värden
                     fraga = "UPDATE KURS SET KURS_ID = '" + kursid + "', KURSNAMN = '" + nyKursnamn + "', KURSSTART = '" + startDatum + "', KURSSLUT ='" + slutDatum + "', KURSLARARE = '" + lararID + "', AMNESTILLHORIGHET = '" + svar + "' WHERE KURSNAMN = '" + kursnamn + "';";
                     idb.update(fraga);
                     txtOutput.setText("Kursen " + kursnamn + " har uppdaterats");

@@ -168,9 +168,9 @@ public class adminLarareReg extends javax.swing.JFrame {
                 fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
                 efternamn = val.formatName(efternamn);
 
-                if (!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) {
-                    String increment = idb.getAutoIncrement("LARARE", "LARAR_ID");
-                    String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'F');";
+                if (!fornamn.isEmpty() && !efternamn.isEmpty() && !pws.isEmpty()) { //Kollat att fälten ej är tomma
+                    String increment = idb.getAutoIncrement("LARARE", "LARAR_ID"); //Incrementar lararID i databasen
+                    String fraga = "INSERT INTO LARARE VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + pws + "', 'F');"; //Lägger in givna värden i databasen
                     idb.insert(fraga);
                     txtSvar.setText("En ny lärare har registrerats");
                     txtFaltFornamn.setText(null);

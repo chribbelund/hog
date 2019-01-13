@@ -180,14 +180,13 @@ public class elevBetygReg extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
     private void btnNyttBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyttBetygActionPerformed
-        //Registrerar ett nytt betyg för en elev på en kurs. OTESTAD!
-        //Den här metoden behöver något som auto incrementar HAR_BETYG_I
-        if (val.isString(txtFornamn) && val.isString(txtEfternamn)) {
+
+        if (val.isString(txtFornamn) && val.isString(txtEfternamn)) { //Kollat att fält innehåller text av typ String
             String fornamn = txtFornamn.getText();
             String efternamn = txtEfternamn.getText();
             fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
             efternamn = val.formatName(efternamn);
-            if (!(fornamn.isEmpty()) && !(efternamn.isEmpty())) {
+            if (!(fornamn.isEmpty()) && !(efternamn.isEmpty())) { //Kollat att fält ej är tomma
                 try {
 
                     String betyget = (String) cboxBetyg.getSelectedItem(); //Hämtar valet och sätter det i en sträng.
@@ -205,13 +204,13 @@ public class elevBetygReg extends javax.swing.JFrame {
                     System.out.println(betygFraga);
                     betygFraga = idb.fetchSingle("SELECT KURSBETYG FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevID + "' AND KURS_ID = '" + kursID + "'; ");
                     System.out.println(betygFraga);
-                    if (betygFraga == null) {
+                    if (betygFraga == null) { //Om eleven ej har betyg lägger den in nya värden i databasen
                         idb.insert("INSERT INTO HAR_BETYG_I (ELEV_ID, KURS_ID, KURSBETYG) VALUES (' " + elevID + "', '" + kursID + " ' , '" + betygKort + " ')");
                         updateCBox.cboxAddKurs(cboxKurs);
                         txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
                         txtFornamn.setText(null);
                         txtEfternamn.setText(null);
-                    } else {
+                    } else { //Ifall eleven redan hade ett betyg visas detta
                         JOptionPane.showMessageDialog(null, "Eleven har redan betyg i kursen, testa uppdatera betyget istället");
                     }
 
@@ -231,8 +230,6 @@ public class elevBetygReg extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFornamnActionPerformed
 
     private void btnUppdateraBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUppdateraBetygActionPerformed
-        //Ska ändra ett gammalt betyg om det finns. OTESTAD!
-        //Den här metoden behöver en kontrollfunktion för att se om tidigare betyg finns.
 
         try {
 
@@ -265,7 +262,7 @@ public class elevBetygReg extends javax.swing.JFrame {
                 idb.update(fraga3);
                 updateCBox.cboxAddKurs(cboxKurs);
                 txtSvar.setText("Betyget " + betyget + " har registrerats på " + kursnamn + " för " + fornamn);
-            } else {
+            } else { //Om eleven inte har något betyg i databasen visas detta
                 JOptionPane.showMessageDialog(null, "Eleven har inget betyg i den kursen. Skapa ett nytt.");
             }
         } catch (InfException e) {

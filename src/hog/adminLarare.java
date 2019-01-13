@@ -175,7 +175,7 @@ public class adminLarare extends javax.swing.JFrame {
             String larare = (String) cboxLarare.getSelectedItem(); //Hämtar lärarnamn från comboboxen
             String larareFornamn = larare.split(" ")[0]; //Delar upp lärarnamnet i två strings
             String larareEfternamn = larare.split(" ")[1];
-            String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
+            String fraga = "Select LARAR_ID from LARARE where FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';"; //SQL fråga som hämtar lärarID från databasen
             String lararID = idb.fetchSingle(fraga);
 
             fraga = "Update LARARE set ADMINISTRATOR = 'T' WHERE LARAR_ID = '" + lararID + "'; "; //Sql fråga som ändrar en lärare till admin
@@ -191,71 +191,72 @@ public class adminLarare extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGeAdminActionPerformed
 
-    //DEN HÄR ÄR INTE KLAR. Lärarna har FKs till andra tabeller och kan därför inte tas bort.
-    //Måste kolla hur vi ska göra? Antar exempelvis att historik om att en lärare hållt en kurs ska sparas
     private void btnTaBortLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortLarareActionPerformed
 
         String larare = (String) cboxLarare.getSelectedItem(); //Tar lärarnamnet från comboboxen
         String larareFornamn = larare.split(" ")[0]; //Delar upp namnet i två strings
         String larareEfternamn = larare.split(" ")[1];
 
+        //Deklarerar variabler
         String lararid = null;
         String arforestandare = null;
         String kompetens = null;
         String kurslarare = null;
 
-        try {
+        try { //SQL fråga som hämtar lärarID från databasen
             lararid = idb.fetchSingle("SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "' ");
         } catch (InfException e) {
             JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna lärarens id");
         }
-        try {
+        try { //SQL fråga som hämtar elevhemsnamn från databasen
             arforestandare = idb.fetchSingle("SELECT ELEVHEMSNAMN FROM ELEVHEM WHERE FORESTANDARE = " + lararid);
         } catch (InfException e) {
         }
-        try {
+        try { //SQL fråga som hämtar lärarID från databasen
             kompetens = idb.fetchSingle("SELECT LARAR_ID FROM HAR_KOMPETENS_I WHERE LARAR_ID = " + lararid);
 
         } catch (InfException e) {
         }
-        try {
+        try { //SQL fråga som hämtar kurslarare från databasen
             kurslarare = idb.fetchSingle("SELECT KURSLARARE FROM KURS WHERE KURSLARARE = " + lararid);
         } catch (InfException e) {
         }
 
-        if (validering.kollaStringVarde(kompetens)) {
-            try {
+        if (validering.kollaStringVarde(kompetens)) { //Kollar om kompetens har värde eller är null
+            try { //SQL fråga som försöker ta bort ta bort rad i databas med givet värde
                 idb.delete("DELETE FROM HAR_KOMPETENS_I WHERE LARAR_ID = " + lararid);
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
-        if (validering.kollaStringVarde(kurslarare)) {
-            try {
+        if (validering.kollaStringVarde(kurslarare)) { //Kollar att kurslarare har ett värde
+            try { //Sätter kurslarare till null för de kurser lararen varit larare för. 
                 idb.update("UPDATE KURS SET KURSLARARE = null WHERE KURSLARARE = " + lararid);
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         }
 
-        if (!(validering.kollaStringVarde(arforestandare))) {
-            try {
+        if (!(validering.kollaStringVarde(arforestandare))) { //Kollar att läraren inte är föreståndare
+            try { //SQL fråga som försöker ta bort ta bort rad i databas med givet värde
                 idb.delete("DELETE FROM LARARE WHERE LARAR_ID =" + lararid);
                 JOptionPane.showMessageDialog(null, "Läraren har tagits bort");
                 updateCBox.cboxAddLarare(cboxLarare);
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Kunde ej ta bort lärare med ID: " + lararid + e.getMessage());
             }
-        } else {
+        } else { //Om läraren är föreståndare kan läraren ej tas bort.
             JOptionPane.showMessageDialog(null, "Läraren du försöker ta bort är föreståndare för " + arforestandare + ".  Ange ny föreståndare innan du tar bort den aktuella läraren.");
         }
     }//GEN-LAST:event_btnTaBortLarareActionPerformed
 
+    //Knapp för att öppna ny ruta och stänga föregående ruta
     private void btnLararInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLararInfoActionPerformed
         new adminLarareInfo().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnLararInfoActionPerformed
 
+    //Knapp för att öppna ny ruta och stänga föregående ruta
     private void btnLarareForestandareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLarareForestandareActionPerformed
         new adminLarareEHF().setVisible(true);
         dispose();

@@ -202,14 +202,14 @@ public class elevStart extends javax.swing.JFrame {
         try {
 
             String fraga = "SELECT ELEV.FORNAMN FROM SOVSAL JOIN ELEV ON ELEV.SOVSAL = SOVSAL.SOVSAL_ID JOIN ELEVHEM ON ELEVHEM.ELEVHEM_ID = SOVSAL.ELEVHEM WHERE ELEVHEMSNAMN= '" + itemText + "'";
-            ArrayList<String> fornamn = idb.fetchColumn(fraga);
+            ArrayList<String> fornamn = idb.fetchColumn(fraga); //SQL fråga som hämtar förnamn på elever och lägger i en arraylist
 
             fraga = "SELECT ELEV.EFTERNAMN FROM SOVSAL JOIN ELEV ON ELEV.SOVSAL = SOVSAL.SOVSAL_ID JOIN ELEVHEM ON ELEVHEM.ELEVHEM_ID = SOVSAL.ELEVHEM WHERE ELEVHEMSNAMN= '" + itemText + "'";
-            ArrayList<String> efternamn = idb.fetchColumn(fraga);
+            ArrayList<String> efternamn = idb.fetchColumn(fraga); //SQL fråga som hämtar efternamn på elever och lägger i en arraylist
 
             String svaret = "";
 
-            for (int i = 0; i < fornamn.size(); i++) {
+            for (int i = 0; i < fornamn.size(); i++) { //Lagrar fornamn och efternamn på varje indexpos i 'svaret' och skriver ut dessa i svarsrutan
                 svaret += fornamn.get(i) + " " + efternamn.get(i) + "\n";
 
             }
@@ -235,18 +235,18 @@ public class elevStart extends javax.swing.JFrame {
         try {
 
             String fraga = "SELECT ELEV.FORNAMN FROM ELEVHEM JOIN ELEV ON ELEV.ELEV_ID = ELEVHEM.PREFEKT WHERE ELEVHEM.ELEVHEMSNAMN= '" + itemText + "'";
-            ArrayList<String> fornamn = idb.fetchColumn(fraga);
+            ArrayList<String> fornamn = idb.fetchColumn(fraga); //SQL fråga som hämtar elevs förnamn och lagrar i en arraylist
 
             fraga = "SELECT ELEV.EFTERNAMN FROM ELEVHEM JOIN ELEV ON ELEV.ELEV_ID = ELEVHEM.PREFEKT WHERE ELEVHEM.ELEVHEMSNAMN= '" + itemText + "'";
-            ArrayList<String> efternamn = idb.fetchColumn(fraga);
+            ArrayList<String> efternamn = idb.fetchColumn(fraga); //SQL fråga som hämtar elevs efternamn och lagrar i en arraylist
 
             String svaret = "";
 
-            for (int i = 0; i < fornamn.size(); i++) {
+            for (int i = 0; i < fornamn.size(); i++) { //Loopar igenom arraylistan och lagrar for/efternamn i 'svaret'.
                 svaret += fornamn.get(i) + " " + efternamn.get(i) + "\n";
 
             }
-            svar.setText(svaret);
+            svar.setText(svaret); //printar ut i svarsrutan
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
             System.out.println("Internt felmeddelande" + e.getMessage());
@@ -255,7 +255,7 @@ public class elevStart extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrefektActionPerformed
 
     private void btnElevBetygActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElevBetygActionPerformed
-        if (val.txtFieldEmpty(txtNamn)) {
+        if (val.txtFieldEmpty(txtNamn)) { //Kollar att fält ej är tomt
 
             String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
             if (val.isNameFormatCorrect(namn)) {
@@ -275,13 +275,13 @@ public class elevStart extends javax.swing.JFrame {
                         //Implementera översättning av betyg från en bokstav till ett ord med hjälp av BETYG tabellen
                         String svaret = "";
                         try {
-                            for (int i = 0; i < betyg.size(); i++) {
+                            for (int i = 0; i < betyg.size(); i++) { //Hämtar vilka betyg eleven har i kurs
                                 svaret += betyg.get(i) + " i kursen " + kurs.get(i) + "\n";
                             }
                         } catch (NullPointerException e) {
                             JOptionPane.showMessageDialog(null, "Eleven Har inga betyg");
                         }
-                        svar.setText(svaret);
+                        svar.setText(svaret); //Skriver ut i svarsrutan
                     }
 
                 } catch (InfException e) {

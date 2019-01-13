@@ -146,21 +146,25 @@ public class adminStart extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Öppnar ny ruta, stänger den gamla
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         new valElevLarare().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    //Öppnar ny ruta, stänger den gamla
     private void btnHanteraLarareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHanteraLarareActionPerformed
         new adminLarare().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHanteraLarareActionPerformed
 
+    //Öppnar ny ruta, stänger den gamla
     private void btnHanteraElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHanteraElevActionPerformed
         new adminElev().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHanteraElevActionPerformed
 
+    //Öppnar ny ruta, stänger den gamla
     private void btnKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKursActionPerformed
         new adminKurs().setVisible(true);
         dispose();
@@ -171,13 +175,13 @@ public class adminStart extends javax.swing.JFrame {
     }//GEN-LAST:event_cboxElevhemActionPerformed
 
     private void btnRemovePointsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePointsActionPerformed
-        if (validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang) && validering.positivtTal(txtPoang)) {
+        if (validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang) && validering.positivtTal(txtPoang)) { //Validering för tomma fält
             try {
                 String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-                int poang = Integer.parseInt(txtPoang.getText());
-                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
-                poang = (Integer.parseInt(idb.fetchSingle(fraga)) - poang);
-                fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                int poang = Integer.parseInt(txtPoang.getText()); //gör om String till datatyp Integer
+                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';"; //SQL fråga som hämtar huspoäng från databasen
+                poang = (Integer.parseInt(idb.fetchSingle(fraga)) - poang); //Gör en integer av resultatet från SQL frågan och tar det minus antal poäng givet i textfältet.
+                fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //Uppdaterar databasen med givna värden
                 idb.update(fraga);
                 txtOutput.setText(itemText + " har nu " + poang + " poäng.");
 
@@ -192,10 +196,10 @@ public class adminStart extends javax.swing.JFrame {
         if (validering.txtFieldEmpty(txtPoang) && validering.isInt(txtPoang) && validering.positivtTal(txtPoang)) {
             try {
                 String itemText = (String) cboxElevhem.getSelectedItem(); //Tar det valda värdet ur comboxboxen och sätter det i en sträng
-                int poang = Integer.parseInt(txtPoang.getText());
-                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';";
-                poang = (Integer.parseInt(idb.fetchSingle(fraga)) + poang);
-                fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';";
+                int poang = Integer.parseInt(txtPoang.getText()); //gör om String till datatyp Integer
+                String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';"; //SQL fråga som hämtar huspoäng från databasen
+                poang = (Integer.parseInt(idb.fetchSingle(fraga)) + poang);  //Gör en integer av resultatet från SQL frågan och tar det minus antal poäng givet i textfältet.
+                fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //Uppdaterar databasen med givna värden
                 idb.update(fraga);
                 txtOutput.setText(itemText + " har nu " + poang + " poäng.");
 

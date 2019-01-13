@@ -151,6 +151,7 @@ public class validering { //försöker importera databasen
         return searching;
     }
 
+    //Kollar om namnet som skrivs in stämmer överrens med namnet i databasen
     public boolean isNameCorrect(String fornamn, String efternamn) {
         boolean ratt = false;
         try {

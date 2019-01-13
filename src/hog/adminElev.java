@@ -241,45 +241,48 @@ public class adminElev extends javax.swing.JFrame {
             String fornamn = txtFaltFornamn.getText();
             String efternamn = txtFaltEfternamn.getText();
             fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
-            efternamn = val.formatName(efternamn);
+            efternamn = val.formatName(efternamn); //Formaterar namnet så det fungerar i databasen
 
+            //Deklarerar variabler
             String elevid = null;
             String harBetygI = null;
             String prefekt = null;
             String registrerad = null;
-            try {
+            
+            
+            try { //Försöker hämta elevID från databasen
                 elevid = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + fornamn + "' AND EFTERNAMN = '" + efternamn + "';");
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
             }
-            try {
+            try { //Försöker hämta elevID från databasen 
                 harBetygI = idb.fetchSingle("SELECT ELEV_ID FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevid + "';");
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
             }
-            try {
+            try { //Försöker hämta Prefekt från databasen
                 prefekt = idb.fetchSingle("SELECT PREFEKT FROM ELEVHEM WHERE PREFEKT = '" + elevid + "';");
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
             }
-            try {
+            try { //Försöker hämta elevID från databasen
                 registrerad = idb.fetchSingle("SELECT ELEV_ID FROM REGISTRERAD_PA WHERE ELEV_ID = '" + elevid + "';");
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(rootPane, "Kunde ej hitta angivna elevens id");
             }
 
-            if ((validering.kollaStringVarde(prefekt))) {
+            if ((validering.kollaStringVarde(prefekt))) { //Kollar om eleven är prefekt
                 JOptionPane.showMessageDialog(null, "Du kan inte ta bort en elev som är prefekt");
             } else {
                 if (validering.kollaStringVarde(harBetygI)) {
-                    try {
+                    try { //Tar bort raden med givet elevID ifall värde finns
                         idb.delete("DELETE FROM HAR_BETYG_I WHERE ELEV_ID = '" + elevid + "';");
                     } catch (InfException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
                     }
                 }
                 if (validering.kollaStringVarde(registrerad)) {
-                    try {
+                    try { //Tar bort raden med givet elevID ifall värde finns
                         idb.delete("DELETE FROM REGISTRERAD_PA WHERE ELEV_ID = '" + elevid + "';");
                     } catch (InfException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage());
@@ -287,7 +290,7 @@ public class adminElev extends javax.swing.JFrame {
                 }
 
                 if (validering.kollaStringVarde(elevid)) {
-                    try {
+                    try { //Tar bort raden med givet elevID ifall värde finns
                         idb.delete("DELETE FROM ELEV WHERE ELEV_ID = '" + elevid + "';");
                         JOptionPane.showMessageDialog(null, "Eleven " + fornamn + " " + efternamn + " har tagits bort");
                     } catch (InfException e) {

@@ -233,15 +233,15 @@ public class lararElev extends javax.swing.JFrame {
             String efternamn = txtFaltEfternamnNy.getText();
             String sovsal = (String) cboxSovsal.getSelectedItem();
 
-            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy)) {
+            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy)) { //Kollaratt fält ej är tomma
                 fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
                 efternamn = val.formatName(efternamn);
-                String increment = idb.getAutoIncrement("ELEV", "ELEV_ID");
-                String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');";
+                String increment = idb.getAutoIncrement("ELEV", "ELEV_ID"); //Incrementar nytt lärarID från databasen
+                String fraga = "INSERT INTO ELEV VALUES (" + "" + increment + " " + ", '" + fornamn + "', '" + efternamn + "', '" + sovsal + "');"; //SQL fråga som lägger in givna värden i databasen
                 idb.insert(fraga);
 
-                txtOutput.setText("En ny elev har registrerats");
-                txtFaltFornamnNy.setText(null);
+                txtOutput.setText("En ny elev har registrerats"); //Skriver ut text
+                txtFaltFornamnNy.setText(null); //Sätter värdet null på fältet
                 txtFaltEfternamnNy.setText(null);
             }
 
@@ -260,24 +260,25 @@ public class lararElev extends javax.swing.JFrame {
         String oldSovsal = (String) cboxSovsalOld.getSelectedItem();
 
         try {
-            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltFornamnOld)) {
+            if (val.txtFieldEmpty(txtFaltFornamnNy) && val.txtFieldEmpty(txtFaltEfternamnNy) && val.txtFieldEmpty(txtFaltFornamnOld)) { //Kollar att fält ej är tomma
                 oldFnamn = val.formatName(oldFnamn); //Formaterar namnet så det fungerar i databasen
                 oldEnamn = val.formatName(oldEnamn);
+                //SQL frågor som hämtar fnamn, enamn och sovsal från databasen
                 String z = idb.fetchSingle("SELECT FORNAMN FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' ");
                 String x = idb.fetchSingle("SELECT EFTERNAMN FROM ELEV WHERE EFTERNAMN = '" + oldEnamn + "' ");
                 String y = idb.fetchSingle("SELECT SOVSAL FROM ELEV WHERE SOVSAL = '" + oldSovsal + "' ");
 
-                if (val.isNameCorrect(oldFnamn, oldEnamn)) {
+                if (val.isNameCorrect(oldFnamn, oldEnamn)) { //Kontrollerar att namnen finns i databasen
 
-                    if (!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) {
+                    if (!oldFnamn.equals(z) && !oldEnamn.equals(x) && !oldSovsal.equals(y)) { //Kollar att inmatning stämmer överens med det som finns i databasen
                         JOptionPane.showMessageDialog(null, "Du har angett fel värden.");
                     } else {
                         nyttFnamn = val.formatName(nyttFnamn); //Formaterar namnet så det fungerar i databasen
                         nyttEnamn = val.formatName(nyttEnamn);
-                        String temp = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' AND EFTERNAMN = '" + oldEnamn + "' AND SOVSAL = '" + oldSovsal + "' ");
-                        idb.update("UPDATE ELEV SET FORNAMN = '" + nyttFnamn + "', EFTERNAMN = '" + nyttEnamn + "', SOVSAL = '" + newSovsal + "' WHERE ELEV_ID = '" + temp + "' ");
+                        String temp = idb.fetchSingle("SELECT ELEV_ID FROM ELEV WHERE FORNAMN = '" + oldFnamn + "' AND EFTERNAMN = '" + oldEnamn + "' AND SOVSAL = '" + oldSovsal + "' "); //SQL fråga som hämtar eleviD
+                        idb.update("UPDATE ELEV SET FORNAMN = '" + nyttFnamn + "', EFTERNAMN = '" + nyttEnamn + "', SOVSAL = '" + newSovsal + "' WHERE ELEV_ID = '" + temp + "' "); //Uppdaterar databasen med givna värden
 
-                        txtOutput.setText("Elevens information har uppdateras");
+                        txtOutput.setText("Elevens information har uppdateras"); //Skriver ut text i svarsrutan
                         txtFaltFornamnNy.setText(null);
                         txtFaltFornamnOld.setText(null);
                         txtFaltEfternamnNy.setText(null);

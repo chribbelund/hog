@@ -20,8 +20,8 @@ public class adminKursAdd extends javax.swing.JFrame {
     /**
      * Creates new form adminKursAdd
      */
-    private InfDB idb;
-    private validering val;
+    private InfDB idb; //Importerar databasen
+    private validering val; //Importerar valideringsklassen
     UpdateCombobox updateCBox;
 
     public adminKursAdd() {
@@ -141,6 +141,7 @@ public class adminKursAdd extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Öppnar ny ruta och stänger den gamla
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         new adminKurs().setVisible(true);
         dispose();
@@ -160,13 +161,16 @@ public class adminKursAdd extends javax.swing.JFrame {
                     String larareFornamn = larare.split(" ")[0]; //Delar upp lärarnamnet i två strings
                     String larareEfternamn = larare.split(" ")[1];
                     String increment = idb.getAutoIncrement("KURS", "KURS_ID"); //Hämtar vad som ska bli nästa kursid i databasen med hjälp av getAutoIncrement
-
+                    
+                    //SQL fråga som hämtar ämnesID från databasen
                     String fraga = "SELECT AMNE_ID FROM AMNE WHERE AMNESNAMN = '" + amne + "';";
                     String svar = idb.fetchSingle(fraga);
 
+                    //SQL fråga som hämtar lärarID från databasen
                     fraga = "SELECT LARAR_ID FROM LARARE WHERE FORNAMN = '" + larareFornamn + "' AND EFTERNAMN = '" + larareEfternamn + "';";
                     String lararID = idb.fetchSingle(fraga);
 
+                    //SQL fråga som lägger in värden för kursen i databasen.
                     fraga = "INSERT INTO KURS VALUES ('" + increment + "', '" + kursnamn + "', '" + startDatum + "', '" + slutDatum + "', '" + lararID + "', '" + svar + "');";
                     System.out.println(fraga);
                     idb.insert(fraga);

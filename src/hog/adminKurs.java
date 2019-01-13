@@ -114,28 +114,32 @@ public class adminKurs extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Öppnar upp en ny ruta och stänger den gamla
     private void btnTillbakaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTillbakaActionPerformed
         new adminStart().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnTillbakaActionPerformed
 
+    //Öppnar upp en ny ruta och stänger den gamla
     private void btnNyKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNyKursActionPerformed
         new adminKursAdd().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnNyKursActionPerformed
 
+    //Öppnar upp en ny ruta och stänger den gamla
     private void btnChangeKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeKursActionPerformed
         new adminKursChange().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnChangeKursActionPerformed
 
     private void btnTaBortKursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTaBortKursActionPerformed
+        //Deklarerar variabler
         String valdkurs1 = (String) cboxKurs.getSelectedItem();
         String harbetygi = null;
         String registreradpa = null;
         String kursid = null;
 
-        try {
+        try { //Skapar SQL fråga som hämtar kursID från databasen
             System.out.println(valdkurs1);
             String fraga = "SELECT KURS_ID FROM KURS WHERE KURSNAMN = '" + valdkurs1 + "';";
             System.out.println(fraga);
@@ -145,31 +149,31 @@ public class adminKurs extends javax.swing.JFrame {
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Kunde ej hitta den angivna kursens id");
         }
-        try {
+        try { //Skapar SQL fråga som hämtar kursID från databasen
             harbetygi = idb.fetchSingle("SELECT KURS_ID FROM HAR_BETYG_I WHERE KURS_ID = " + kursid);
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-        try {
+        try { //Skapar SQL  fråga som hämtar kursID från databasen
             registreradpa = idb.fetchSingle("SELECT KURS_ID FROM REGISTRERAD_PA WHERE KURS_ID = " + kursid);
         } catch (InfException e) {
             JOptionPane.showMessageDialog(null, "Något gick fel");
         }
-        if (validering.kollaStringVarde(harbetygi)) {
-            try {
+        if (validering.kollaStringVarde(harbetygi)) { //Kollar om harbetygi innehåller ett värde
+            try { //Försöker ta bort raden med givet kursID
                 idb.delete("DELETE FROM HAR_BETYG_I WHERE KURS_ID = " + kursid);
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
             }
         }
-        if (validering.kollaStringVarde(registreradpa)) {
-            try {
+        if (validering.kollaStringVarde(registreradpa)) { //Kollar om harbetygi innehåller ett värde
+            try {  //Försöker ta bort raden med givet kursID
                 idb.delete("DELETE FROM REGISTRERAD_PA WHERE KURS_ID = " + kursid);
             } catch (InfException e) {
                 JOptionPane.showMessageDialog(null, "Något gick fel");
             }
         }
-        try {
+        try {  //Försöker ta bort raden med givet kursID
             idb.delete("DELETE FROM KURS WHERE KURS_ID = " + kursid);
             JOptionPane.showMessageDialog(null, "Kursen har tagits bort");
         } catch (InfException e) {
