@@ -24,11 +24,12 @@ public class Hog {
     public static void main(String[] args) {
         
         userDir = System.getProperty("user.dir"); //Hämtar vart programmet körs ifrån
-        userDir += "\\lib\\HOGDB.FDB"; //Pekar på vart databasen ligger lagrad
+        userDir += "/lib/HOGDB.FDB"; //Pekar på vart databasen ligger lagrad
         try {
             //Importerar databasen
             idb = new InfDB(Hog.userDir);
             new valElevLarare().setVisible(true);//Startar programmet genom att köra valElevLarare.java
+            System.out.println(userDir);
         } catch (InfException undantag) {
             JOptionPane.showMessageDialog(null, "Programmet kan ej ansluta till databasen");
             System.out.println("Internt felmeddelande" + undantag.getMessage());
