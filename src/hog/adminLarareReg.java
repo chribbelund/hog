@@ -86,6 +86,8 @@ public class adminLarareReg extends javax.swing.JFrame {
             }
         });
 
+        txtSvar.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
