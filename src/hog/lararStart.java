@@ -280,9 +280,7 @@ public class lararStart extends javax.swing.JFrame {
                 int poang = Integer.parseInt(txtPoang.getText()); //Gör om värdet i textrutan till Integer
                 String fraga = "SELECT HUSPOANG FROM ELEVHEM WHERE ELEVHEMSNAMN = '" + itemText + "';"; //SQL fråga som hämtar huspoäng från databasen
                 poang = (Integer.parseInt(idb.fetchSingle(fraga)) + poang); //Gör om 'fraga' till int och tar det minus det som skrivits in i textfältet.
-                System.out.println(poang);
                 fraga = "UPDATE ELEVHEM SET HUSPOANG = '" + poang + "' WHERE ELEVHEMSNAMN = '" + itemText + "';"; //SQL fråga som uppdaterar databasen med givna värden
-                System.out.println(fraga);
                 idb.update(fraga);
                 txtOutput.setText(itemText + " har nu " + poang + " poäng.");
 
