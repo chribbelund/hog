@@ -167,8 +167,9 @@ public class adminElevInfo extends javax.swing.JFrame {
 
     private void btnUpdateElevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateElevActionPerformed
         if (val.txtFieldEmpty(txtNamn)) { //Kontrollerar så att textrutan ej är tom
-            String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
-            if (val.isNameFormatCorrect(namn)) { //Kontrollerar så att det insskrivna namnet både har ett för och efternamn separerat med ett mellanslag
+            try {
+                String namn = txtNamn.getText(); //Tar indatan och sätter det till en string
+                //if (val.isNameFormatCorrect(namn)) { //Kontrollerar så att det insskrivna namnet både har ett för och efternamn separerat med ett mellanslag
                 String fornamn = namn.split(" ")[0]; //Delar upp det inskrivna namnet i två strings
                 String efternamn = namn.split(" ")[1];
                 fornamn = val.formatName(fornamn); //Formaterar namnet så det fungerar i databasen
@@ -200,6 +201,8 @@ public class adminElevInfo extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Något gick fel");
                     System.out.println("Internt felmeddelande" + undantag.getMessage());
                 }
+            } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+
             }
         }
     }//GEN-LAST:event_btnUpdateElevActionPerformed
